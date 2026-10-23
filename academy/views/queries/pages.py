@@ -2,11 +2,16 @@ from django.views.generic import TemplateView
 from django.http import Http404
 from django.utils.decorators import method_decorator
 from django.views.decorators.clickjacking import xframe_options_sameorigin
-from academy.catalog import LESSONS, UNITS, get_lesson
+from academy.catalog import LESSONS, UNITS, get_lesson, JOURNEY, get_stage, stage_for_lesson, ACCEPTANCE
 from academy.mixins import CourseContextMixin
 
 class HomeView(CourseContextMixin, TemplateView):
     template_name = 'academy/home.html'
+    def get_template_names(self):
+        # Mantener enlaces guardados /?q= y /?unit= del catálogo anterior.
+        if 'q' in self.request.GET or 'unit' in self.request.GET:
+            return ['academy/catalog.html']
+        return [self.template_name]
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         query = self.request.GET.get('q', '').strip()[:200]
@@ -17,6 +22,22 @@ class HomeView(CourseContextMixin, TemplateView):
         context.update(lessons=lessons, q=query, units=UNITS, selected_unit=selected)
         return context
 
+class CatalogView(HomeView):
+    template_name = 'academy/catalog.html'
+
+class StageView(CourseContextMixin, TemplateView):
+    template_name = 'academy/stage.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        stage = get_stage(kwargs['slug'])
+        if stage is None:
+            raise Http404
+        index = JOURNEY.index(stage)
+        context.update(stage=stage, acceptance=ACCEPTANCE if index == 0 else [],
+            previous_stage=JOURNEY[index - 1] if index else None,
+            next_stage=JOURNEY[index + 1] if index + 1 < len(JOURNEY) else None)
+        return context
+
 class LessonView(CourseContextMixin, TemplateView):
     template_name = 'academy/lesson.html'
     def get_context_data(self, **kwargs):
@@ -24,10 +45,14 @@ class LessonView(CourseContextMixin, TemplateView):
         lesson = get_lesson(kwargs['pk'])
         if lesson is None:
             raise Http404
-        context.update(lesson=lesson, unit=UNITS[lesson['unit'] - 1],
-            previous=LESSONS[lesson['position'] - 2]['id'] if lesson['position'] > 1 else None,
-            next=LESSONS[lesson['position']]['id'] if lesson['position'] < len(LESSONS) else None,
-            chapter_lessons=[item for item in LESSONS if item['unit'] == lesson['unit']])
+        stage = stage_for_lesson(lesson['id'])
+        extension = lesson['id'] in stage['electives']
+        index = stage['lessons'].index(lesson['id']) if not extension else None
+        context.update(lesson=lesson, unit=UNITS[lesson['unit'] - 1], stage=stage,
+            is_extension=extension,
+            previous=stage['lessons'][index - 1] if index is not None and index > 0 else None,
+            next=stage['lessons'][index + 1] if index is not None and index + 1 < len(stage['lessons']) else None,
+            chapter_lessons=stage['topics'])
         return context
 
 

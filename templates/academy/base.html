@@ -1,10 +1,12 @@
 {% load static %}<!doctype html>
 <html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Aprende a construir proyectos Django profesionales: arquitectura, CQS, mixins, APIs, frontend y plataformas IoT.">
+<meta name="description" content="De la propuesta a la entrega: aprende a construir y publicar Django en Azure con requisitos, seguridad y evidencias para clientes industriales.">
 <title>{% block title %}Django con criterio · Academia de desarrollo{% endblock %}</title>
-<link rel="stylesheet" href="{% static 'academy.css' %}"></head>
-<body data-total="{{ total }}"><header><a href="/" class="brand"><span class="brand-mark">D/</span> DJANGO CON CRITERIO</a><nav><a href="/">Ruta de aprendizaje</a><a href="{% url 'story' %}">La historia</a><a href="/#proyecto">Proyecto guía</a><span class="badge">ABIERTO A TODOS</span></nav></header>
-<main>{% block content %}{% endblock %}</main>
+<link rel="stylesheet" href="{% static 'academy.css' %}"><link rel="stylesheet" href="{% static 'journey.css' %}"></head>
+<body data-total="{{ total }}"><a class="skip-link" href="#contenido">Saltar al contenido</a><header><a href="/" class="brand"><span class="brand-mark">D/</span> DJANGO CON CRITERIO</a><nav><a href="/">Ruta de aprendizaje</a><a href="{% url 'story' %}">La historia</a><a href="{% url 'catalog' %}">Biblioteca técnica</a><span class="badge">ABIERTO A TODOS</span></nav></header>
+<main id="contenido">{% block content %}{% endblock %}</main>
 <footer><span>Django con criterio · Aprende construyendo.</span><span>Sin registro. Tu cuaderno permanece en este navegador.</span></footer>
 {{ course_order|json_script:"course-order" }}
-<script src="{% static 'academy.js' %}" defer></script></body></html>
+{{ journey_progress|json_script:"journey-stages" }}
+<script src="{% static 'academy.js' %}" defer></script>
+<script src="{% static 'journey.js' %}" defer></script></body></html>

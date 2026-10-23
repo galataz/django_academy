@@ -1,0 +1,188 @@
+[
+  {
+    "id": "alcance",
+    "title": "Alcance, arquitectura y datos",
+    "question": "¿Qué estamos comprando y dónde viven los datos?",
+    "request": "Ficha del servicio, diagrama de arquitectura, clasificación, flujos, región, terceros y reparto de responsabilidades. Incluye el inventario IT/OT y los datos personales de usuarios, archivos y exportaciones.",
+    "proof": "Diagrama versionado y matriz de responsables con alcance de aplicación, nube y red del cliente.",
+    "test": "Sigue una medición y un usuario por cada componente; explica quién lo opera, qué transmite y qué ocurre si falla.",
+    "trap": "Decir que está en la nube no identifica región, administradores ni límites de confianza.",
+    "lessons": [
+      1,
+      64,
+      77,
+      24,
+      52
+    ]
+  },
+  {
+    "id": "identidad",
+    "title": "Contraseñas, directorio y MFA",
+    "question": "¿Qué política aplica de verdad a cada persona?",
+    "request": "Un perfil contractual puede pedir mínimo 10 caracteres, cambio máximo cada 90 días, historial de 6, edad mínima de 1 día, complejidad y bloqueo tras un máximo de 3 intentos. Otro pide desactivar cuentas después de 60 días sin actividad. Son exigencias de ejemplo, no valores universales ni una recomendación automática.",
+    "proof": "Política efectiva del directorio por tipo de usuario, evidencia de MFA y registro de diferencias aceptadas. En federación identifica quién autentica y quién puede imponer cada condición.",
+    "test": "Ensaya una cuenta interna, una invitada y una administrativa; verifica MFA y revocación con una sesión ya abierta.",
+    "trap": "Usar MSAL o invitar desde Entra no acredita por sí solo todos los parámetros de contraseñas. El cambio de contraseña no sustituye un bloqueo por inactividad.",
+    "lessons": [
+      20,
+      34,
+      36,
+      41,
+      39
+    ]
+  },
+  {
+    "id": "permisos",
+    "title": "Roles, cuentas nominales y endpoints",
+    "question": "¿Quién puede hacer qué y cómo se le retira el permiso?",
+    "request": "Matriz usuario–rol–acción, exportación de permisos cuando se solicite, cuentas individuales y ciclo de altas, cambios y bajas. Define qué ocurre con sesiones y cachés después de revocar.",
+    "proof": "Matriz de segregación de funciones y resultados de pruebas API con identidades de prueba.",
+    "test": "Invoca directamente un endpoint protegido con usuario sin permiso; revoca un rol sin cerrar la sesión y repite.",
+    "trap": "Administrador es un rol; compartir una cuenta de administrador impide atribuir responsabilidades. Ocultar un botón no protege su URL.",
+    "lessons": [
+      17,
+      18,
+      13,
+      53
+    ]
+  },
+  {
+    "id": "auditoria",
+    "title": "Auditoría y monitoreo de seguridad",
+    "question": "¿Puedes reconstruir quién hizo cada operación?",
+    "request": "Eventos de login y logout, altas y bajas, cambios de permisos, exportaciones y administración, con actor, fecha y resultado. Acuerda acceso del revisor, protección de logs y envío al SIEM si se exige. Algunos anexos piden al menos 6 meses de registros.",
+    "proof": "Catálogo de eventos, muestras anonimizadas, configuración de retención y prueba de recepción de una alerta.",
+    "test": "Ejecuta y busca una acción permitida, una denegada y una administrativa. Comprueba logout por separado. Declara los campos que una web no puede obtener de forma fiable, como la MAC del visitante.",
+    "trap": "Registrar login no demuestra logout. Conservar logs sin acceso controlado, revisión ni alertas deja parte del requisito sin resolver.",
+    "lessons": [
+      21,
+      32,
+      46
+    ]
+  },
+  {
+    "id": "perimetro",
+    "title": "WAF, red y endurecimiento",
+    "question": "¿Qué controla la entrada y quién puede administrar?",
+    "request": "WAF con política vinculada, controles de red, ruta de administración autorizada, TLS y línea base de endurecimiento. Identifica responsabilidades de Azure y del equipo y revisa si el origen permite eludir el perímetro.",
+    "proof": "Diagrama de entrada, reglas efectivas, inventario de exposición y registro de bloqueo de una prueba autorizada.",
+    "test": "Comprueba la ruta real hasta Django y una denegación acordada; documenta modo detección o prevención del WAF.",
+    "trap": "ALLOWED_HOSTS y el firewall de PostgreSQL no acreditan un WAF. Un modo que solo detecta no demuestra bloqueo.",
+    "lessons": [
+      64,
+      42,
+      45,
+      74,
+      75
+    ]
+  },
+  {
+    "id": "ambientes",
+    "title": "Separación DEV, pruebas y PROD",
+    "question": "¿Las pruebas pueden afectar los datos del cliente?",
+    "request": "Entornos, credenciales, accesos y datos separados; pruebas con información sintética o anonimizada. Aclara la separación lógica y qué infraestructura se comparte.",
+    "proof": "Inventario de recursos y bases, matriz de acceso, settings efectivos y muestra de datos de prueba.",
+    "test": "Intenta acceder desde la identidad DEV a los recursos PROD y comprueba la denegación. Evalúa recursos y fallos compartidos.",
+    "trap": "Tres archivos de settings no demuestran aislamiento de recursos. Dos bases en un mismo servidor comparten capacidad y administración del servidor.",
+    "lessons": [
+      3,
+      34,
+      54,
+      65
+    ]
+  },
+  {
+    "id": "pruebas",
+    "title": "SAST, SCA, DAST y remediación",
+    "question": "¿Qué análisis hiciste sobre esta versión?",
+    "request": "SAST para código, SCA para componentes y DAST sobre la aplicación ejecutándose. Si se requieren pruebas externas, acuerda autorización y alcance. Registra severidad, aplicabilidad, corrección y repetición de la prueba.",
+    "proof": "Informes con herramienta, configuración, fecha, commit, entorno, hallazgos y resultado después de corregir.",
+    "test": "Relaciona un hallazgo con su cambio y nueva prueba. Mantén visibles los críticos, altos o medios que el contrato exija resolver antes de producción.",
+    "trap": "pip-audit no sustituye SAST ni DAST. Las pruebas unitarias y TLS tampoco sustituyen un análisis de vulnerabilidades.",
+    "lessons": [
+      31,
+      50,
+      51
+    ]
+  },
+  {
+    "id": "cifrado",
+    "title": "Datos, cifrado, retención y salida",
+    "question": "¿Qué proteges y qué pasa cuando termina el contrato?",
+    "request": "Clasificación, propietario, retención, cifrado en tránsito y reposo, custodia de claves, aislamiento entre clientes, exportación y borrado seguro. Incluye archivos, logs y respaldos.",
+    "proof": "Inventario de datos, configuración de cifrado y claves, prueba de aislamiento y procedimiento de salida.",
+    "test": "Traza una exportación y un respaldo; verifica quién puede leerlos y cómo se retira el acceso. Acuerda borrado y retenciones legales con responsables.",
+    "trap": "Un hash no es cifrado reversible de archivos. Indicar SHA sin función ni propósito no demuestra protección de datos almacenados.",
+    "lessons": [
+      5,
+      6,
+      18,
+      30,
+      52,
+      57,
+      73
+    ]
+  },
+  {
+    "id": "recuperacion",
+    "title": "Backups, continuidad, RTO y RPO",
+    "question": "¿Puedes recuperar el servicio y demostrarlo?",
+    "request": "Frecuencia, destino, cifrado, acceso y retención de copias; runbook de recuperación y responsables. Acuerda RTO (tiempo de recuperación) y RPO (pérdida de datos tolerable). Hay perfiles con objetivos de 24 horas o menos y otros con RPO de 12 horas; no los mezcles.",
+    "proof": "Registro de backup y acta de restauración con tiempos medidos, datos comprobados y controles de seguridad activos.",
+    "test": "Restaura una copia en pruebas, valida integridad y acceso y compara lo medido con el objetivo. Define la periodicidad del ensayo.",
+    "trap": "Un manual y un backup exitoso no prueban una restauración. Una frecuencia de copias aislada no demuestra el RPO de extremo a extremo.",
+    "lessons": [
+      73,
+      71,
+      32,
+      60
+    ]
+  },
+  {
+    "id": "operacion",
+    "title": "Disponibilidad, incidentes y soporte",
+    "question": "¿Quién responde cuando el servicio falla?",
+    "request": "Ventana y método de medición, escalamiento, contactos y capacidad de respuesta. Un anexo puede pedir disponibilidad anual del 99,96 %, aviso de ciertos incidentes confirmados de malware en 24 horas y de violaciones de datos en 48 horas. Valida cada supuesto antes de aceptarlo.",
+    "proof": "Plan de incidentes, runbooks, cobertura de soporte, ensayo de notificación y presupuesto de la arquitectura necesaria.",
+    "test": "Simula un incidente, mide escalamiento y recuperación y comprueba quién recibe la notificación. Contrasta los compromisos con el plan contratado.",
+    "trap": "Elegir un plan económico o un SLA de un componente no demuestra la disponibilidad del servicio completo.",
+    "lessons": [
+      46,
+      60,
+      61,
+      71,
+      77
+    ]
+  },
+  {
+    "id": "proveedor",
+    "title": "Equipos, personas y mantenimiento",
+    "question": "¿Tu equipo también cumple los controles?",
+    "request": "Endpoints protegidos, parches, restricciones de administración, capacitación, confidencialidad, control de USB cuando corresponda y retiro de accesos. Revisión de dependencias basada en aplicabilidad y riesgo.",
+    "proof": "Inventario del personal y equipos con acceso, procedimiento de altas/bajas, revisión de soporte de versiones y registro de cambios.",
+    "test": "Verifica qué accesos conserva una persona al salir y cómo se aplica y prueba una actualización.",
+    "trap": "No copies una exclusión de un sistema aislado a una aplicación web. Revisar diariamente no significa borrar o actualizar librerías automáticamente sin probar.",
+    "lessons": [
+      35,
+      42,
+      50,
+      51,
+      62
+    ]
+  },
+  {
+    "id": "aceptacion",
+    "title": "Brechas, excepciones y acta",
+    "question": "¿Qué queda pendiente y quién puede aceptarlo?",
+    "request": "Matriz completa con requisito, obligatoriedad, implementación, evidencia, prueba, responsable, brecha y fecha. Adjunta acta de compromiso y decisiones de responsables autorizados; distingue propuesta, compromiso y aceptación.",
+    "proof": "Expediente versionado con anexos, hallazgos abiertos, responsables, fechas, controles compensatorios y decisión formal.",
+    "test": "Toma una fila y demuestra el recorrido desde la solicitud hasta el resultado. Comprueba que un bloqueante sin resolver siga impidiendo declarar la aceptación.",
+    "trap": "Una casilla marcada, una puntuación alta o firmar una promesa no demuestran cumplimiento verificado.",
+    "lessons": [
+      78,
+      33,
+      51,
+      71
+    ]
+  }
+]
