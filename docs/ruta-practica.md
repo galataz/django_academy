@@ -12,7 +12,7 @@ La portada presenta siete entregas. El catálogo de 78 lecciones queda disponibl
 | 6. Publicación | ¿El paquete ejecuta lo que probé? | ZIP, configuración, arranque y verificación de App Service |
 | 7. Entrega y operación | ¿Puedo recuperar y sostener lo prometido? | Restauración ensayada, expediente y acta para revisión |
 
-Cada etapa contiene contexto, dos acciones sobre el proyecto, nombres sugeridos de entregables, temas ordenados, ampliaciones según alcance y una autoevaluación. Las ampliaciones no se cuentan como prerrequisitos para seguir el camino principal. El flujo principal enseña MSAL propio y despliegue manual ZIP; Easy Auth, CI/CD, dominios y escenarios adicionales quedan explícitamente diferenciados.
+Cada etapa contiene contexto, dos acciones sobre el proyecto, nombres sugeridos de entregables, todos sus temas ordenados y una autoevaluación. Las 78 lecciones participan en la navegación y en el progreso: no hay un subconjunto reducido ni temas plegados en una lista separada de ampliaciones. MSAL propio, Easy Auth, despliegue manual ZIP, CI/CD, dominios y otros escenarios se explican dentro de la etapa correspondiente, diferenciando su aplicabilidad.
 
 ## Taller de aceptación
 
@@ -24,12 +24,12 @@ Los parámetros de contraseñas, retención, notificación, disponibilidad y rec
 
 ## Datos y navegación
 
-- `academy/journey.json`: etapas, temas principales, ampliaciones, entregas y acciones.
+- `academy/journey.json`: etapas, todos los temas, entregas y acciones.
 - `academy/acceptance.json`: taller anónimo de requisitos y evidencias.
 - `/`: portada de siete etapas.
 - `/ruta/<slug>/`: trabajo de una etapa.
 - `/biblioteca/`: catálogo y búsqueda; siguen funcionando los enlaces previos `/?q=` y `/?unit=`.
-- `/tema/<id>/`: conserva la URL y el ID; la navegación anterior/siguiente se limita a los temas principales de su etapa. Las ampliaciones devuelven a la etapa.
+- `/tema/<id>/`: conserva la URL y el ID; la navegación anterior/siguiente incluye todas las lecciones de su etapa; al finalizar devuelve a la revisión de su entrega.
 - `/historia/`: conserva escenas y cronología originales.
 - El juego permanece en `/laboratorio/`; ya no ocupa la entrada del recorrido ni interrumpe la lección CQS.
 
@@ -44,6 +44,6 @@ python manage.py test academy
 python manage.py check
 ```
 
-Las pruebas cubren las 78 lecciones públicas, los siete recorridos, cobertura sin duplicados, ampliaciones, navegación, biblioteca, anonimización, seguridad y reutilización de paginación. La revisión en navegador comprueba escritorio/móvil, matriz guardada y descargada, autoevaluación, preservación del cuaderno anterior y comportamiento al bloquear almacenamiento.
+Las pruebas cubren las 78 lecciones públicas, los siete recorridos, cobertura completa sin duplicados, navegación, biblioteca, anonimización, seguridad y reutilización de paginación. La revisión en navegador comprueba escritorio/móvil, matriz guardada y descargada, autoevaluación, preservación del cuaderno anterior y comportamiento al bloquear almacenamiento.
 
 Esta reorganización no configura recursos en Azure, WAF, directorio, scanners ni workflows de revisión diaria. Esos controles se enseñan; sus evidencias deben obtenerse sobre cada proyecto y entorno que se entregue.

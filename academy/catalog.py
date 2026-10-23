@@ -28,14 +28,13 @@ JOURNEY = json.loads((ROOT / 'journey.json').read_text(encoding='utf-8'))
 JOURNEY_ORDER = [pk for stage in JOURNEY for pk in stage['lessons']]
 for stage in JOURNEY:
     stage['topics'] = [get_lesson(pk) for pk in stage['lessons']]
-    stage['extensions'] = [get_lesson(pk) for pk in stage['electives']]
     stage['first_lesson'] = stage['lessons'][0]
 
 def get_stage(slug):
     return next((stage for stage in JOURNEY if stage['slug'] == slug), None)
 
 def stage_for_lesson(pk):
-    return next((stage for stage in JOURNEY if pk in stage['lessons'] + stage['electives']), None)
+    return next((stage for stage in JOURNEY if pk in stage['lessons']), None)
 
 ACCEPTANCE = json.loads((ROOT / 'acceptance.json').read_text(encoding='utf-8'))
 for control in ACCEPTANCE:

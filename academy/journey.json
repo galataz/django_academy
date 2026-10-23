@@ -10,7 +10,6 @@
       78,
       1
     ],
-    "electives": [],
     "checklist": [
       "Describe el problema, los usuarios, los datos y el resultado que vas a vender.",
       "Solicita las matrices, el anexo de seguridad y los criterios de aceptación vigentes.",
@@ -45,12 +44,10 @@
       35,
       34,
       36,
+      40,
       42,
       52,
       54
-    ],
-    "electives": [
-      40
     ],
     "checklist": [
       "Dibuja el recorrido del usuario y del dato desde su origen hasta PostgreSQL.",
@@ -92,7 +89,6 @@
       19,
       74
     ],
-    "electives": [],
     "checklist": [
       "Crea el entorno virtual, instala requirements.txt y arranca con manage.py.",
       "Haz un commit de la base y practica trabajar en dev con revisión de cambios.",
@@ -136,13 +132,11 @@
       22,
       24,
       25,
-      29,
-      30
-    ],
-    "electives": [
       26,
       27,
       28,
+      29,
+      30,
       49
     ],
     "checklist": [
@@ -178,19 +172,17 @@
       18,
       20,
       41,
+      37,
+      38,
       39,
       21,
       53,
       55,
+      56,
       57,
       31,
       50,
       51
-    ],
-    "electives": [
-      37,
-      38,
-      56
     ],
     "checklist": [
       "Prueba una URL directa con usuario sin permiso y una sesión después de revocar acceso.",
@@ -227,14 +219,12 @@
       68,
       70,
       69,
+      43,
+      44,
       45,
       75,
       32,
       71
-    ],
-    "electives": [
-      43,
-      44
     ],
     "checklist": [
       "Define SECRET_KEY, hosts, conexiones y módulo de settings en el entorno correcto.",
@@ -267,15 +257,13 @@
     "lessons": [
       73,
       46,
+      47,
+      48,
       58,
       59,
       60,
       61,
       33
-    ],
-    "electives": [
-      47,
-      48
     ],
     "checklist": [
       "Restaura en un entorno de prueba y mide RTO y RPO con controles activos.",

@@ -28,7 +28,7 @@
             const count = stage.lessons.filter(id => done.has(id)).length;
             document.querySelectorAll('[data-stage-progress]').forEach(element => {
                 if (element.dataset.stageProgress === stage.slug) {
-                    element.textContent = count ? `${count}/${stage.lessons.length} temas leídos · abrir etapa →` : 'Abrir etapa →';
+                    element.textContent = count ? `${count}/${stage.lessons.length} temas leídos · abrir etapa →` : `0/${stage.lessons.length} temas leídos · abrir etapa →`;
                 }
             });
         }
@@ -42,7 +42,7 @@
             const next = stages.find(stage => stage.lessons.some(id => !done.has(id)));
             resume.hidden = false;
             resume.href = next ? `/ruta/${next.slug}/#temas` : '/ruta/entregar/#entrega';
-            resume.textContent = next ? `Continuar: ${next.title} →` : 'Temas principales leídos: revisar mi entrega →';
+            resume.textContent = next ? `Continuar: ${next.title} →` : 'Todos los temas leídos: revisar mi entrega →';
         }
     }
     refreshProgress();

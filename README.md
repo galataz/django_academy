@@ -6,7 +6,7 @@ Academia pública para aprender a desarrollar proyectos Django profesionales. No
 
 La portada organiza el aprendizaje en **siete etapas con resultados revisables**: propuesta y aceptación industrial, solución en Azure, base Django, implementación reutilizable, protección y pruebas, publicación y operación/entrega.
 
-Empieza en `/ruta/vender/` con la primera reunión y una matriz editable de requisitos y evidencias. Cada etapa incluye dos acciones sobre tu proyecto, temas en orden, ampliaciones y comprobación de su entrega. El catálogo de 78 lecciones está en `/biblioteca/`; la historia sigue en `/historia/`.
+Empieza en `/ruta/vender/` con la primera reunión y una matriz editable de requisitos y evidencias. Cada etapa incluye dos acciones sobre tu proyecto, todos sus temas en orden y comprobación de su entrega. El catálogo de 78 lecciones está en `/biblioteca/`; la historia sigue en `/historia/`.
 
 Las notas y el progreso anteriores se conservan. La matriz y las autoevaluaciones permanecen en el navegador y no certifican cumplimiento. Consulta [la organización y el alcance de la ruta](docs/ruta-practica.md).
 

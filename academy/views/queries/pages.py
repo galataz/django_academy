@@ -46,10 +46,8 @@ class LessonView(CourseContextMixin, TemplateView):
         if lesson is None:
             raise Http404
         stage = stage_for_lesson(lesson['id'])
-        extension = lesson['id'] in stage['electives']
-        index = stage['lessons'].index(lesson['id']) if not extension else None
+        index = stage['lessons'].index(lesson['id'])
         context.update(lesson=lesson, unit=UNITS[lesson['unit'] - 1], stage=stage,
-            is_extension=extension,
             previous=stage['lessons'][index - 1] if index is not None and index > 0 else None,
             next=stage['lessons'][index + 1] if index is not None and index + 1 < len(stage['lessons']) else None,
             chapter_lessons=stage['topics'])
