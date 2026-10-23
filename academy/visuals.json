@@ -1,0 +1,2342 @@
+{
+  "1": {
+    "title": "Del plano al taller",
+    "color": "#437e69",
+    "kind": "flow",
+    "nodes": [
+      {
+        "icon": "brief",
+        "label": "Requisitos",
+        "detail": "Define problema y restricciones"
+      },
+      {
+        "icon": "map",
+        "label": "Módulos",
+        "detail": "Separa responsabilidades"
+      },
+      {
+        "icon": "db",
+        "label": "Modelo",
+        "detail": "Representa reglas del dominio"
+      },
+      {
+        "icon": "check",
+        "label": "Criterios",
+        "detail": "Comprueba el comportamiento"
+      }
+    ],
+    "caption": "Las flechas resumen el recorrido conceptual. Los controles y dependencias se detallan debajo.",
+    "illustration": "visuals/lesson-01-scene.svg",
+    "diagram": "visuals/lesson-01-map.svg"
+  },
+  "2": {
+    "title": "Una mesa de trabajo reproducible",
+    "color": "#437e69",
+    "kind": "flow",
+    "nodes": [
+      {
+        "icon": "tool",
+        "label": "Entorno",
+        "detail": "Aísla dependencias"
+      },
+      {
+        "icon": "folder",
+        "label": "Proyecto",
+        "detail": "Crea estructura y configuración"
+      },
+      {
+        "icon": "code",
+        "label": "Dependencias",
+        "detail": "Declara el stack"
+      },
+      {
+        "icon": "check",
+        "label": "Arranque",
+        "detail": "Verifica instalación limpia"
+      }
+    ],
+    "caption": "Las flechas resumen el recorrido conceptual. Los controles y dependencias se detallan debajo.",
+    "illustration": "visuals/lesson-02-scene.svg",
+    "diagram": "visuals/lesson-02-map.svg"
+  },
+  "62": {
+    "title": "El taller compartido",
+    "color": "#437e69",
+    "kind": "flow",
+    "nodes": [
+      {
+        "icon": "folder",
+        "label": "Clonar",
+        "detail": "Copia el proyecto versionado"
+      },
+      {
+        "icon": "route",
+        "label": "Rama",
+        "detail": "Aísla una propuesta"
+      },
+      {
+        "icon": "check",
+        "label": "Verificar",
+        "detail": "Prueba y revisa cambios"
+      },
+      {
+        "icon": "packet",
+        "label": "Entregar",
+        "detail": "Publica para revisión"
+      }
+    ],
+    "caption": "Las flechas resumen el recorrido conceptual. Los controles y dependencias se detallan debajo.",
+    "illustration": "visuals/lesson-62-scene.svg",
+    "diagram": "visuals/lesson-62-map.svg"
+  },
+  "4": {
+    "title": "Módulos con conexiones claras",
+    "color": "#437e69",
+    "kind": "branch",
+    "nodes": [
+      {
+        "icon": "folder",
+        "label": "Apps",
+        "detail": "Delimita responsabilidades"
+      },
+      {
+        "icon": "db",
+        "label": "Modelos",
+        "detail": "Gestionan persistencia"
+      },
+      {
+        "icon": "code",
+        "label": "Servicios",
+        "detail": "Coordinan casos de uso"
+      },
+      {
+        "icon": "screen",
+        "label": "Vistas",
+        "detail": "Adaptan HTTP al dominio"
+      }
+    ],
+    "caption": "Las flechas muestran responsabilidades relacionadas; no representan un orden obligatorio de ejecución.",
+    "illustration": "visuals/lesson-04-scene.svg",
+    "diagram": "visuals/lesson-04-map.svg"
+  },
+  "3": {
+    "title": "Un proyecto, tres configuraciones",
+    "color": "#437e69",
+    "kind": "branch",
+    "nodes": [
+      {
+        "icon": "gear",
+        "label": "Base",
+        "detail": "Comparte ajustes comunes"
+      },
+      {
+        "icon": "tool",
+        "label": "DEV",
+        "detail": "Facilita desarrollo local"
+      },
+      {
+        "icon": "check",
+        "label": "TEST",
+        "detail": "Controla pruebas aisladas"
+      },
+      {
+        "icon": "cloud",
+        "label": "PROD",
+        "detail": "Exige secretos y hosts"
+      }
+    ],
+    "caption": "Las flechas muestran responsabilidades relacionadas; no representan un orden obligatorio de ejecución.",
+    "illustration": "visuals/lesson-03-scene.svg",
+    "diagram": "visuals/lesson-03-map.svg"
+  },
+  "63": {
+    "title": "El panel de configuración",
+    "color": "#437e69",
+    "kind": "flow",
+    "nodes": [
+      {
+        "icon": "folder",
+        "label": "Archivo local",
+        "detail": "Define valores de práctica"
+      },
+      {
+        "icon": "gear",
+        "label": "Cargador",
+        "detail": "Lee antes de importar base"
+      },
+      {
+        "icon": "rule",
+        "label": "Tipos",
+        "detail": "Convierte y valida entradas"
+      },
+      {
+        "icon": "code",
+        "label": "Django",
+        "detail": "Usa configuración efectiva"
+      }
+    ],
+    "caption": "Las flechas resumen el recorrido conceptual. Los controles y dependencias se detallan debajo.",
+    "illustration": "visuals/lesson-63-scene.svg",
+    "diagram": "visuals/lesson-63-map.svg"
+  },
+  "19": {
+    "title": "Controles en el recorrido HTTP",
+    "color": "#a177a0",
+    "kind": "flow",
+    "nodes": [
+      {
+        "icon": "screen",
+        "label": "Navegador",
+        "detail": "Envía cookie y petición"
+      },
+      {
+        "icon": "shield",
+        "label": "CSRF",
+        "detail": "Verifica escritura del navegador"
+      },
+      {
+        "icon": "route",
+        "label": "Middleware",
+        "detail": "Prepara contexto y controles"
+      },
+      {
+        "icon": "code",
+        "label": "Vista",
+        "detail": "Ejecuta tras las verificaciones"
+      }
+    ],
+    "caption": "Las flechas resumen el recorrido conceptual. Los controles y dependencias se detallan debajo.",
+    "illustration": "visuals/lesson-19-scene.svg",
+    "diagram": "visuals/lesson-19-map.svg"
+  },
+  "74": {
+    "title": "Las defensas de cada petición",
+    "color": "#a177a0",
+    "kind": "flow",
+    "nodes": [
+      {
+        "icon": "screen",
+        "label": "Petición",
+        "detail": "Entrada y contexto de confianza"
+      },
+      {
+        "icon": "shield",
+        "label": "Middleware",
+        "detail": "Aplica los controles comunes"
+      },
+      {
+        "icon": "key",
+        "label": "Cookies",
+        "detail": "Define acceso y envío"
+      },
+      {
+        "icon": "check",
+        "label": "Respuesta",
+        "detail": "Comprueba cabeceras y contrato"
+      }
+    ],
+    "caption": "Las flechas resumen el recorrido conceptual. Los controles y dependencias se detallan debajo.",
+    "illustration": "visuals/lesson-74-scene.svg",
+    "diagram": "visuals/lesson-74-map.svg"
+  },
+  "72": {
+    "title": "Una base para practicar",
+    "color": "#437e69",
+    "kind": "flow",
+    "nodes": [
+      {
+        "icon": "blocks",
+        "label": "Contenedor",
+        "detail": "Aísla el laboratorio"
+      },
+      {
+        "icon": "db",
+        "label": "Volumen",
+        "detail": "Conserva datos locales"
+      },
+      {
+        "icon": "key",
+        "label": "Roles",
+        "detail": "Separa tareas y permisos"
+      },
+      {
+        "icon": "code",
+        "label": "Django",
+        "detail": "Conecta con usuario limitado"
+      }
+    ],
+    "caption": "Las flechas resumen el recorrido conceptual. Los controles y dependencias se detallan debajo.",
+    "illustration": "visuals/lesson-72-scene.svg",
+    "diagram": "visuals/lesson-72-map.svg"
+  },
+  "5": {
+    "title": "Un molde para identidades únicas",
+    "color": "#437e69",
+    "kind": "branch",
+    "nodes": [
+      {
+        "icon": "blocks",
+        "label": "Base abstracta",
+        "detail": "Comparte campos comunes"
+      },
+      {
+        "icon": "key",
+        "label": "UUID",
+        "detail": "Identidad estable"
+      },
+      {
+        "icon": "db",
+        "label": "Sensor",
+        "detail": "Hereda la base"
+      },
+      {
+        "icon": "db",
+        "label": "Estación",
+        "detail": "Hereda la base"
+      }
+    ],
+    "caption": "Las flechas muestran responsabilidades relacionadas; no representan un orden obligatorio de ejecución.",
+    "illustration": "visuals/lesson-05-scene.svg",
+    "diagram": "visuals/lesson-05-map.svg"
+  },
+  "6": {
+    "title": "Piezas que encajan con reglas",
+    "color": "#437e69",
+    "kind": "flow",
+    "nodes": [
+      {
+        "icon": "db",
+        "label": "Estación",
+        "detail": "Agrupa sensores"
+      },
+      {
+        "icon": "sensor",
+        "label": "Sensor",
+        "detail": "Pertenece a una estación"
+      },
+      {
+        "icon": "rule",
+        "label": "Restricción",
+        "detail": "Protege integridad"
+      },
+      {
+        "icon": "check",
+        "label": "Base de datos",
+        "detail": "Hace cumplir la regla"
+      }
+    ],
+    "caption": "Las flechas resumen el recorrido conceptual. Los controles y dependencias se detallan debajo.",
+    "illustration": "visuals/lesson-06-scene.svg",
+    "diagram": "visuals/lesson-06-map.svg"
+  },
+  "7": {
+    "title": "Una aduana para los datos",
+    "color": "#d48554",
+    "kind": "flow",
+    "nodes": [
+      {
+        "icon": "packet",
+        "label": "Entrada",
+        "detail": "Datos sin confiar"
+      },
+      {
+        "icon": "filter",
+        "label": "Serializer",
+        "detail": "Valida forma y valores"
+      },
+      {
+        "icon": "code",
+        "label": "Datos válidos",
+        "detail": "Llegan al caso de uso"
+      },
+      {
+        "icon": "packet",
+        "label": "Salida",
+        "detail": "Contrato explícito de respuesta"
+      }
+    ],
+    "caption": "Las flechas resumen el recorrido conceptual. Los controles y dependencias se detallan debajo.",
+    "illustration": "visuals/lesson-07-scene.svg",
+    "diagram": "visuals/lesson-07-map.svg"
+  },
+  "8": {
+    "title": "Dos carriles para dos intenciones",
+    "color": "#d48554",
+    "kind": "cqs",
+    "nodes": [
+      {
+        "icon": "packet",
+        "label": "Petición",
+        "detail": "Expresa una intención"
+      },
+      {
+        "icon": "search",
+        "label": "Query",
+        "detail": "Consulta sin cambiar estado"
+      },
+      {
+        "icon": "code",
+        "label": "Command",
+        "detail": "Ejecuta una operación"
+      },
+      {
+        "icon": "db",
+        "label": "Estado",
+        "detail": "Se consulta o modifica según carril"
+      }
+    ],
+    "caption": "La intención separa consulta y comando. El comando cambia estado; la consulta lo lee.",
+    "illustration": "visuals/lesson-08-scene.svg",
+    "diagram": "visuals/lesson-08-map.svg"
+  },
+  "12": {
+    "title": "El coordinador del caso de uso",
+    "color": "#d48554",
+    "kind": "flow",
+    "nodes": [
+      {
+        "icon": "screen",
+        "label": "Vista",
+        "detail": "Adapta la petición"
+      },
+      {
+        "icon": "filter",
+        "label": "Validación",
+        "detail": "Comprueba entrada"
+      },
+      {
+        "icon": "tool",
+        "label": "Servicio",
+        "detail": "Coordina reglas y persistencia"
+      },
+      {
+        "icon": "db",
+        "label": "Repositorio",
+        "detail": "Accede al estado"
+      }
+    ],
+    "caption": "Las flechas resumen el recorrido conceptual. Los controles y dependencias se detallan debajo.",
+    "illustration": "visuals/lesson-12-scene.svg",
+    "diagram": "visuals/lesson-12-map.svg"
+  },
+  "9": {
+    "title": "Un molde con puntos de extensión",
+    "color": "#d48554",
+    "kind": "branch",
+    "nodes": [
+      {
+        "icon": "blocks",
+        "label": "Vista genérica",
+        "detail": "Define el flujo común"
+      },
+      {
+        "icon": "db",
+        "label": "Queryset",
+        "detail": "Selecciona los datos"
+      },
+      {
+        "icon": "filter",
+        "label": "Serializer",
+        "detail": "Define la representación"
+      },
+      {
+        "icon": "packet",
+        "label": "Respuesta",
+        "detail": "Conserva el contrato compartido"
+      }
+    ],
+    "caption": "Las flechas muestran responsabilidades relacionadas; no representan un orden obligatorio de ejecución.",
+    "illustration": "visuals/lesson-09-scene.svg",
+    "diagram": "visuals/lesson-09-map.svg"
+  },
+  "10": {
+    "title": "Una ventana sobre un catálogo",
+    "color": "#d48554",
+    "kind": "flow",
+    "nodes": [
+      {
+        "icon": "search",
+        "label": "Parámetros",
+        "detail": "Busqueda, página y orden"
+      },
+      {
+        "icon": "shield",
+        "label": "Validación",
+        "detail": "Limita rango y campos"
+      },
+      {
+        "icon": "db",
+        "label": "Consulta",
+        "detail": "Filtra antes de paginar"
+      },
+      {
+        "icon": "screen",
+        "label": "Página",
+        "detail": "Muestra un subconjunto ordenado"
+      }
+    ],
+    "caption": "Las flechas resumen el recorrido conceptual. Los controles y dependencias se detallan debajo.",
+    "illustration": "visuals/lesson-10-scene.svg",
+    "diagram": "visuals/lesson-10-map.svg"
+  },
+  "11": {
+    "title": "Traer las piezas en pocos viajes",
+    "color": "#d48554",
+    "kind": "flow",
+    "nodes": [
+      {
+        "icon": "screen",
+        "label": "Lista",
+        "detail": "Necesita objetos relacionados"
+      },
+      {
+        "icon": "db",
+        "label": "ORM",
+        "detail": "Planifica consulta y relaciones"
+      },
+      {
+        "icon": "blocks",
+        "label": "Precarga",
+        "detail": "Evita viajes por cada fila"
+      },
+      {
+        "icon": "meter",
+        "label": "Medición",
+        "detail": "Comprueba cantidad de consultas"
+      }
+    ],
+    "caption": "Las flechas resumen el recorrido conceptual. Los controles y dependencias se detallan debajo.",
+    "illustration": "visuals/lesson-11-scene.svg",
+    "diagram": "visuals/lesson-11-map.svg"
+  },
+  "76": {
+    "title": "Conexiones con un presupuesto",
+    "color": "#d48554",
+    "kind": "flow",
+    "nodes": [
+      {
+        "icon": "screen",
+        "label": "Procesos",
+        "detail": "Cada worker usa su pool"
+      },
+      {
+        "icon": "blocks",
+        "label": "Pool",
+        "detail": "Presta conexiones con límite"
+      },
+      {
+        "icon": "db",
+        "label": "PostgreSQL",
+        "detail": "Recibe consultas y transacciones"
+      },
+      {
+        "icon": "meter",
+        "label": "Medición",
+        "detail": "Observa espera y conexiones"
+      }
+    ],
+    "caption": "Las flechas resumen el recorrido conceptual. Los controles y dependencias se detallan debajo.",
+    "illustration": "visuals/lesson-76-scene.svg",
+    "diagram": "visuals/lesson-76-map.svg"
+  },
+  "23": {
+    "title": "Una herramienta con entrada y salida",
+    "color": "#a177a0",
+    "kind": "flow",
+    "nodes": [
+      {
+        "icon": "meter",
+        "label": "Valor",
+        "detail": "Incluye unidad de entrada"
+      },
+      {
+        "icon": "filter",
+        "label": "Validación",
+        "detail": "Comprueba rango y tipo"
+      },
+      {
+        "icon": "tool",
+        "label": "Función pura",
+        "detail": "Transforma sin efectos externos"
+      },
+      {
+        "icon": "meter",
+        "label": "Resultado",
+        "detail": "Expresa la unidad destino"
+      }
+    ],
+    "caption": "Las flechas resumen el recorrido conceptual. Los controles y dependencias se detallan debajo.",
+    "illustration": "visuals/lesson-23-scene.svg",
+    "diagram": "visuals/lesson-23-map.svg"
+  },
+  "13": {
+    "title": "Una cadena cooperativa de trabajo",
+    "color": "#4b7d9c",
+    "kind": "flow",
+    "nodes": [
+      {
+        "icon": "blocks",
+        "label": "Vista compuesta",
+        "detail": "Combina comportamiento"
+      },
+      {
+        "icon": "tool",
+        "label": "Mixin",
+        "detail": "Añade una responsabilidad"
+      },
+      {
+        "icon": "route",
+        "label": "super()",
+        "detail": "Continúa según MRO"
+      },
+      {
+        "icon": "screen",
+        "label": "Contexto",
+        "detail": "Conserva lo aportado por las bases"
+      }
+    ],
+    "caption": "Las flechas resumen el recorrido conceptual. Los controles y dependencias se detallan debajo.",
+    "illustration": "visuals/lesson-13-scene.svg",
+    "diagram": "visuals/lesson-13-map.svg"
+  },
+  "14": {
+    "title": "Una página construida con piezas",
+    "color": "#4b7d9c",
+    "kind": "branch",
+    "nodes": [
+      {
+        "icon": "screen",
+        "label": "Template base",
+        "detail": "Define estructura compartida"
+      },
+      {
+        "icon": "blocks",
+        "label": "Includes",
+        "detail": "Reutilizan fragmentos"
+      },
+      {
+        "icon": "packet",
+        "label": "Contexto",
+        "detail": "Entrega datos de la vista"
+      },
+      {
+        "icon": "screen",
+        "label": "Página",
+        "detail": "Renderiza la composición"
+      }
+    ],
+    "caption": "Las flechas muestran responsabilidades relacionadas; no representan un orden obligatorio de ejecución.",
+    "illustration": "visuals/lesson-14-scene.svg",
+    "diagram": "visuals/lesson-14-map.svg"
+  },
+  "15": {
+    "title": "Un panel con estado visible",
+    "color": "#4b7d9c",
+    "kind": "cycle",
+    "nodes": [
+      {
+        "icon": "screen",
+        "label": "Interacción",
+        "detail": "Usuario ejecuta acción"
+      },
+      {
+        "icon": "gear",
+        "label": "Estado",
+        "detail": "Representa situación actual"
+      },
+      {
+        "icon": "code",
+        "label": "Módulo",
+        "detail": "Aplica transición explícita"
+      },
+      {
+        "icon": "screen",
+        "label": "Render",
+        "detail": "Actualiza interfaz desde estado"
+      }
+    ],
+    "caption": "Las flechas muestran transiciones del modelo. Los eventos y guardas determinan cuáles están permitidas.",
+    "illustration": "visuals/lesson-15-scene.svg",
+    "diagram": "visuals/lesson-15-map.svg"
+  },
+  "16": {
+    "title": "Un mensajero para todas las llamadas",
+    "color": "#4b7d9c",
+    "kind": "flow",
+    "nodes": [
+      {
+        "icon": "screen",
+        "label": "Frontend",
+        "detail": "Solicita una operación"
+      },
+      {
+        "icon": "route",
+        "label": "Cliente API",
+        "detail": "Centraliza transporte"
+      },
+      {
+        "icon": "packet",
+        "label": "Respuesta",
+        "detail": "Éxito o error estructurado"
+      },
+      {
+        "icon": "shield",
+        "label": "Manejo",
+        "detail": "Presenta el resultado coherentemente"
+      }
+    ],
+    "caption": "Las flechas resumen el recorrido conceptual. Los controles y dependencias se detallan debajo.",
+    "illustration": "visuals/lesson-16-scene.svg",
+    "diagram": "visuals/lesson-16-map.svg"
+  },
+  "17": {
+    "title": "Una llave por capacidad",
+    "color": "#4b7d9c",
+    "kind": "branch",
+    "nodes": [
+      {
+        "icon": "person",
+        "label": "Actor",
+        "detail": "Identidad del ejemplo"
+      },
+      {
+        "icon": "rule",
+        "label": "Política",
+        "detail": "Relaciona roles y capacidades"
+      },
+      {
+        "icon": "key",
+        "label": "Capacidad",
+        "detail": "Permite una acción específica"
+      },
+      {
+        "icon": "shield",
+        "label": "Decisión",
+        "detail": "Autoriza o deniega con alcance"
+      }
+    ],
+    "caption": "Las flechas muestran responsabilidades relacionadas; no representan un orden obligatorio de ejecución.",
+    "illustration": "visuals/lesson-17-scene.svg",
+    "diagram": "visuals/lesson-17-map.svg"
+  },
+  "18": {
+    "title": "La puerta real está en el servidor",
+    "color": "#a177a0",
+    "kind": "flow",
+    "nodes": [
+      {
+        "icon": "screen",
+        "label": "Interfaz",
+        "detail": "Muestra acciones permitidas"
+      },
+      {
+        "icon": "packet",
+        "label": "Petición",
+        "detail": "Puede fabricarse fuera de la UI"
+      },
+      {
+        "icon": "shield",
+        "label": "API",
+        "detail": "Verifica identidad y permiso"
+      },
+      {
+        "icon": "db",
+        "label": "Objeto",
+        "detail": "Comprueba alcance de negocio"
+      }
+    ],
+    "caption": "Las flechas resumen el recorrido conceptual. Los controles y dependencias se detallan debajo.",
+    "illustration": "visuals/lesson-18-scene.svg",
+    "diagram": "visuals/lesson-18-map.svg"
+  },
+  "20": {
+    "title": "Identidad externa, permisos propios",
+    "color": "#a177a0",
+    "kind": "flow",
+    "nodes": [
+      {
+        "icon": "person",
+        "label": "Usuario",
+        "detail": "Inicia flujo de identidad"
+      },
+      {
+        "icon": "key",
+        "label": "Entra / MSAL",
+        "detail": "Adquiere contexto autenticado"
+      },
+      {
+        "icon": "filter",
+        "label": "Adaptador",
+        "detail": "Resuelve identidad verificada"
+      },
+      {
+        "icon": "rule",
+        "label": "Política local",
+        "detail": "Evalúa capacidades y objetos"
+      }
+    ],
+    "caption": "Las flechas resumen el recorrido conceptual. Los controles y dependencias se detallan debajo.",
+    "illustration": "visuals/lesson-20-scene.svg",
+    "diagram": "visuals/lesson-20-map.svg"
+  },
+  "21": {
+    "title": "Un registro de cambios con contexto",
+    "color": "#a177a0",
+    "kind": "flow",
+    "nodes": [
+      {
+        "icon": "person",
+        "label": "Actor",
+        "detail": "Ejecuta una acción"
+      },
+      {
+        "icon": "tool",
+        "label": "Servicio",
+        "detail": "Aplica el cambio autorizado"
+      },
+      {
+        "icon": "db",
+        "label": "Estado",
+        "detail": "Guarda el resultado"
+      },
+      {
+        "icon": "brief",
+        "label": "Auditoría",
+        "detail": "Conserva quién, qué y cuándo"
+      }
+    ],
+    "caption": "Las flechas resumen el recorrido conceptual. Los controles y dependencias se detallan debajo.",
+    "illustration": "visuals/lesson-21-scene.svg",
+    "diagram": "visuals/lesson-21-map.svg"
+  },
+  "22": {
+    "title": "Una operación que confirma una vez",
+    "color": "#a177a0",
+    "kind": "flow",
+    "nodes": [
+      {
+        "icon": "packet",
+        "label": "Solicitud",
+        "detail": "Incluye identidad de operación"
+      },
+      {
+        "icon": "key",
+        "label": "Idempotencia",
+        "detail": "Detecta intentos repetidos"
+      },
+      {
+        "icon": "db",
+        "label": "Transacción",
+        "detail": "Coordina cambios atómicos"
+      },
+      {
+        "icon": "check",
+        "label": "Resultado",
+        "detail": "Confirma o revierte el conjunto"
+      }
+    ],
+    "caption": "Las flechas resumen el recorrido conceptual. Los controles y dependencias se detallan debajo.",
+    "illustration": "visuals/lesson-22-scene.svg",
+    "diagram": "visuals/lesson-22-map.svg"
+  },
+  "24": {
+    "title": "Del dispositivo al dato validado",
+    "color": "#76894c",
+    "kind": "flow",
+    "nodes": [
+      {
+        "icon": "sensor",
+        "label": "Dispositivo",
+        "detail": "Produce una medición"
+      },
+      {
+        "icon": "key",
+        "label": "Credencial técnica",
+        "detail": "Identifica al emisor"
+      },
+      {
+        "icon": "filter",
+        "label": "Ingesta",
+        "detail": "Valida contrato y duplicados"
+      },
+      {
+        "icon": "db",
+        "label": "Medición",
+        "detail": "Persiste el dato aceptado"
+      }
+    ],
+    "caption": "Las flechas resumen el recorrido conceptual. Los controles y dependencias se detallan debajo.",
+    "illustration": "visuals/lesson-24-scene.svg",
+    "diagram": "visuals/lesson-24-map.svg"
+  },
+  "25": {
+    "title": "Una medición conserva su contexto",
+    "color": "#76894c",
+    "kind": "branch",
+    "nodes": [
+      {
+        "icon": "meter",
+        "label": "Medición",
+        "detail": "Valor original observado"
+      },
+      {
+        "icon": "clock",
+        "label": "Tiempo",
+        "detail": "Identifica instante y zona"
+      },
+      {
+        "icon": "gear",
+        "label": "Calibración",
+        "detail": "Versión aplicada al valor"
+      },
+      {
+        "icon": "db",
+        "label": "Snapshot",
+        "detail": "Permite interpretar el histórico"
+      }
+    ],
+    "caption": "Las flechas muestran responsabilidades relacionadas; no representan un orden obligatorio de ejecución.",
+    "illustration": "visuals/lesson-25-scene.svg",
+    "diagram": "visuals/lesson-25-map.svg"
+  },
+  "26": {
+    "title": "Una conexión viva con permisos",
+    "color": "#76894c",
+    "kind": "flow",
+    "nodes": [
+      {
+        "icon": "screen",
+        "label": "Cliente",
+        "detail": "Abre conexión persistente"
+      },
+      {
+        "icon": "route",
+        "label": "ASGI",
+        "detail": "Gestiona conexión y eventos"
+      },
+      {
+        "icon": "shield",
+        "label": "Consumer",
+        "detail": "Verifica acceso y alcance"
+      },
+      {
+        "icon": "packet",
+        "label": "Canal",
+        "detail": "Distribuye eventos autorizados"
+      }
+    ],
+    "caption": "Las flechas resumen el recorrido conceptual. Los controles y dependencias se detallan debajo.",
+    "illustration": "visuals/lesson-26-scene.svg",
+    "diagram": "visuals/lesson-26-map.svg"
+  },
+  "27": {
+    "title": "La alarma cambia por eventos",
+    "color": "#76894c",
+    "kind": "cycle",
+    "nodes": [
+      {
+        "icon": "check",
+        "label": "Normal",
+        "detail": "Condición dentro de umbral"
+      },
+      {
+        "icon": "alert",
+        "label": "Activa",
+        "detail": "Evento activa la alarma"
+      },
+      {
+        "icon": "person",
+        "label": "Reconocida",
+        "detail": "Operador acusa recibo"
+      },
+      {
+        "icon": "check",
+        "label": "Resuelta",
+        "detail": "Condición vuelve a normalidad"
+      }
+    ],
+    "caption": "Los eventos pueden activar, reconocer y resolver una alarma; el flujo concreto define retornos y transiciones adicionales. Este mapa es un modelo didáctico.",
+    "illustration": "visuals/lesson-27-scene.svg",
+    "diagram": "visuals/lesson-27-map.svg"
+  },
+  "28": {
+    "title": "Dos trabajos unidos por un evento",
+    "color": "#76894c",
+    "kind": "flow",
+    "nodes": [
+      {
+        "icon": "tool",
+        "label": "Servicio",
+        "detail": "Decide cambio de negocio"
+      },
+      {
+        "icon": "db",
+        "label": "Commit + outbox",
+        "detail": "Persiste estado y trabajo"
+      },
+      {
+        "icon": "gear",
+        "label": "Worker",
+        "detail": "Procesa trabajo pendiente"
+      },
+      {
+        "icon": "mail",
+        "label": "Efecto",
+        "detail": "Notifica con control de reintento"
+      }
+    ],
+    "caption": "Las flechas resumen el recorrido conceptual. Los controles y dependencias se detallan debajo.",
+    "illustration": "visuals/lesson-28-scene.svg",
+    "diagram": "visuals/lesson-28-map.svg"
+  },
+  "29": {
+    "title": "Muchos puntos, una vista legible",
+    "color": "#76894c",
+    "kind": "flow",
+    "nodes": [
+      {
+        "icon": "db",
+        "label": "Histórico",
+        "detail": "Conserva muestras completas"
+      },
+      {
+        "icon": "filter",
+        "label": "Filtros",
+        "detail": "Elige intervalo y sensores"
+      },
+      {
+        "icon": "chart",
+        "label": "Decimación",
+        "detail": "Reduce puntos para presentar"
+      },
+      {
+        "icon": "screen",
+        "label": "Gráfico",
+        "detail": "Expone tendencia y detalle"
+      }
+    ],
+    "caption": "Las flechas resumen el recorrido conceptual. Los controles y dependencias se detallan debajo.",
+    "illustration": "visuals/lesson-29-scene.svg",
+    "diagram": "visuals/lesson-29-map.svg"
+  },
+  "30": {
+    "title": "Una salida con un contrato seguro",
+    "color": "#4c9290",
+    "kind": "flow",
+    "nodes": [
+      {
+        "icon": "person",
+        "label": "Solicitante",
+        "detail": "Define reporte requerido"
+      },
+      {
+        "icon": "shield",
+        "label": "Alcance",
+        "detail": "Restringe datos autorizados"
+      },
+      {
+        "icon": "db",
+        "label": "Consulta",
+        "detail": "Obtiene valores exportables"
+      },
+      {
+        "icon": "brief",
+        "label": "CSV / reporte",
+        "detail": "Entrega formato controlado"
+      }
+    ],
+    "caption": "Las flechas resumen el recorrido conceptual. Los controles y dependencias se detallan debajo.",
+    "illustration": "visuals/lesson-30-scene.svg",
+    "diagram": "visuals/lesson-30-map.svg"
+  },
+  "49": {
+    "title": "El correo sale después de confirmar",
+    "color": "#719466",
+    "kind": "flow",
+    "nodes": [
+      {
+        "icon": "tool",
+        "label": "Evento de negocio",
+        "detail": "Cambio dentro de transacción"
+      },
+      {
+        "icon": "db",
+        "label": "Commit",
+        "detail": "Confirma o descarta callback"
+      },
+      {
+        "icon": "mail",
+        "label": "on_commit",
+        "detail": "Envía sin garantía de reintento"
+      },
+      {
+        "icon": "gear",
+        "label": "Outbox opcional",
+        "detail": "Entrega durable si es necesaria"
+      }
+    ],
+    "caption": "on_commit se usa después del commit. Outbox es una alternativa para entrega durable, no un paso automático que siga a cada correo.",
+    "illustration": "visuals/lesson-49-scene.svg",
+    "diagram": "visuals/lesson-49-map.svg"
+  },
+  "31": {
+    "title": "Una prueba observa comportamiento",
+    "color": "#4c9290",
+    "kind": "flow",
+    "nodes": [
+      {
+        "icon": "brief",
+        "label": "Escenario",
+        "detail": "Define estado y objetivo"
+      },
+      {
+        "icon": "packet",
+        "label": "Acción",
+        "detail": "Ejecuta comportamiento real"
+      },
+      {
+        "icon": "check",
+        "label": "Resultado",
+        "detail": "Comprueba efecto esperado"
+      },
+      {
+        "icon": "shield",
+        "label": "Caso negativo",
+        "detail": "Verifica que lo inválido falle"
+      }
+    ],
+    "caption": "Las flechas resumen el recorrido conceptual. Los controles y dependencias se detallan debajo.",
+    "illustration": "visuals/lesson-31-scene.svg",
+    "diagram": "visuals/lesson-31-map.svg"
+  },
+  "34": {
+    "title": "Dos entornos, dos juegos de llaves",
+    "color": "#587ba0",
+    "kind": "compare",
+    "nodes": [
+      {
+        "icon": "tool",
+        "label": "DEV",
+        "detail": "Identidad de laboratorio"
+      },
+      {
+        "icon": "key",
+        "label": "Client ID DEV",
+        "detail": "Credenciales y callbacks propios"
+      },
+      {
+        "icon": "cloud",
+        "label": "PROD",
+        "detail": "Identidad productiva"
+      },
+      {
+        "icon": "key",
+        "label": "Client ID PROD",
+        "detail": "Permisos y secretos separados"
+      }
+    ],
+    "caption": "Cada carril muestra un ámbito distinto. Compara sus responsabilidades antes de unir sus configuraciones.",
+    "illustration": "visuals/lesson-34-scene.svg",
+    "diagram": "visuals/lesson-34-map.svg"
+  },
+  "35": {
+    "title": "Un nombre legible, un ID estable",
+    "color": "#587ba0",
+    "kind": "flow",
+    "nodes": [
+      {
+        "icon": "brief",
+        "label": "Convención",
+        "detail": "Tipo, entorno y servicio"
+      },
+      {
+        "icon": "key",
+        "label": "Identificador",
+        "detail": "Vincula el objeto real"
+      },
+      {
+        "icon": "person",
+        "label": "Propietario",
+        "detail": "Responde por el ciclo de vida"
+      },
+      {
+        "icon": "clock",
+        "label": "Revisión",
+        "detail": "Renueva, verifica o retira"
+      }
+    ],
+    "caption": "Las flechas resumen el recorrido conceptual. Los controles y dependencias se detallan debajo.",
+    "illustration": "visuals/lesson-35-scene.svg",
+    "diagram": "visuals/lesson-35-map.svg"
+  },
+  "36": {
+    "title": "Verificar en cada límite de confianza",
+    "color": "#587ba0",
+    "kind": "flow",
+    "nodes": [
+      {
+        "icon": "key",
+        "label": "Identidad",
+        "detail": "Verifica quién solicita"
+      },
+      {
+        "icon": "shield",
+        "label": "Asignación",
+        "detail": "Controla ingreso corporativo"
+      },
+      {
+        "icon": "rule",
+        "label": "Permiso",
+        "detail": "Autoriza acción y objeto"
+      },
+      {
+        "icon": "brief",
+        "label": "Evidencia",
+        "detail": "Registra decisiones sensibles"
+      }
+    ],
+    "caption": "Las flechas resumen el recorrido conceptual. Los controles y dependencias se detallan debajo.",
+    "illustration": "visuals/lesson-36-scene.svg",
+    "diagram": "visuals/lesson-36-map.svg"
+  },
+  "41": {
+    "title": "Un adaptador entre identidad y dominio",
+    "color": "#587ba0",
+    "kind": "flow",
+    "nodes": [
+      {
+        "icon": "key",
+        "label": "Claims verificadas",
+        "detail": "No son JSON sin validar"
+      },
+      {
+        "icon": "filter",
+        "label": "Adaptador",
+        "detail": "Construye actor estable"
+      },
+      {
+        "icon": "rule",
+        "label": "Capacidades",
+        "detail": "Mapea roles conocidos"
+      },
+      {
+        "icon": "shield",
+        "label": "Objeto",
+        "detail": "Evalúa pertenencia y alcance"
+      }
+    ],
+    "caption": "Las flechas resumen el recorrido conceptual. Los controles y dependencias se detallan debajo.",
+    "illustration": "visuals/lesson-41-scene.svg",
+    "diagram": "visuals/lesson-41-map.svg"
+  },
+  "37": {
+    "title": "Autenticar antes de llegar a Django",
+    "color": "#587ba0",
+    "kind": "flow",
+    "nodes": [
+      {
+        "icon": "person",
+        "label": "Cliente",
+        "detail": "Solicita acceso"
+      },
+      {
+        "icon": "shield",
+        "label": "Easy Auth",
+        "detail": "Controla autenticación en plataforma"
+      },
+      {
+        "icon": "key",
+        "label": "Entra ID",
+        "detail": "Autentica al usuario"
+      },
+      {
+        "icon": "code",
+        "label": "Django",
+        "detail": "Recibe contexto y evalúa negocio"
+      }
+    ],
+    "caption": "El flujo de autenticación sale a Entra y vuelve a la plataforma antes de Django. El mapa resume responsabilidades, no el detalle de redirecciones HTTP.",
+    "illustration": "visuals/lesson-37-scene.svg",
+    "diagram": "visuals/lesson-37-map.svg"
+  },
+  "38": {
+    "title": "Conectar proveedor y destino correcto",
+    "color": "#587ba0",
+    "kind": "flow",
+    "nodes": [
+      {
+        "icon": "cloud",
+        "label": "App Service",
+        "detail": "Selecciona recurso y entorno"
+      },
+      {
+        "icon": "key",
+        "label": "Registro",
+        "detail": "Configura tenant y Client ID"
+      },
+      {
+        "icon": "route",
+        "label": "Callback",
+        "detail": "Coincide con URI registrada"
+      },
+      {
+        "icon": "check",
+        "label": "Pruebas",
+        "detail": "Acceso válido y denegaciones"
+      }
+    ],
+    "caption": "Las flechas resumen el recorrido conceptual. Los controles y dependencias se detallan debajo.",
+    "illustration": "visuals/lesson-38-scene.svg",
+    "diagram": "visuals/lesson-38-map.svg"
+  },
+  "39": {
+    "title": "Delegar facultades por separado",
+    "color": "#587ba0",
+    "kind": "branch",
+    "nodes": [
+      {
+        "icon": "person",
+        "label": "Delegado",
+        "detail": "Responsabilidad acordada"
+      },
+      {
+        "icon": "key",
+        "label": "Invitación B2B",
+        "detail": "Facultad de directorio"
+      },
+      {
+        "icon": "rule",
+        "label": "Acceso a app",
+        "detail": "Membresías autorizadas"
+      },
+      {
+        "icon": "gear",
+        "label": "Configuración",
+        "detail": "Propiedad con alcance revisado"
+      }
+    ],
+    "caption": "Las flechas muestran responsabilidades relacionadas; no representan un orden obligatorio de ejecución.",
+    "illustration": "visuals/lesson-39-scene.svg",
+    "diagram": "visuals/lesson-39-map.svg"
+  },
+  "40": {
+    "title": "Contar personas, no cada ingreso",
+    "color": "#587ba0",
+    "kind": "flow",
+    "nodes": [
+      {
+        "icon": "person",
+        "label": "Ingresos del mes",
+        "detail": "Eventos de autenticación"
+      },
+      {
+        "icon": "filter",
+        "label": "Usuarios únicos",
+        "detail": "Deduplica según medidor"
+      },
+      {
+        "icon": "meter",
+        "label": "MAU cobrable",
+        "detail": "Aplica umbral confirmado"
+      },
+      {
+        "icon": "brief",
+        "label": "Estimación",
+        "detail": "Tarifa verificada y extras"
+      }
+    ],
+    "caption": "Las flechas resumen el recorrido conceptual. Los controles y dependencias se detallan debajo.",
+    "illustration": "visuals/lesson-40-scene.svg",
+    "diagram": "visuals/lesson-40-map.svg"
+  },
+  "52": {
+    "title": "Tres capas de gobierno distintas",
+    "color": "#667fa6",
+    "kind": "branch",
+    "nodes": [
+      {
+        "icon": "person",
+        "label": "Responsabilidad",
+        "detail": "Define tarea y duración"
+      },
+      {
+        "icon": "cloud",
+        "label": "Azure RBAC",
+        "detail": "Opera recurso cloud"
+      },
+      {
+        "icon": "db",
+        "label": "Roles SQL",
+        "detail": "Controlan conexión y objetos"
+      },
+      {
+        "icon": "rule",
+        "label": "Política Django",
+        "detail": "Autoriza negocio"
+      }
+    ],
+    "caption": "Las flechas muestran responsabilidades relacionadas; no representan un orden obligatorio de ejecución.",
+    "illustration": "visuals/lesson-52-scene.svg",
+    "diagram": "visuals/lesson-52-map.svg"
+  },
+  "53": {
+    "title": "Cada oficio tiene su llave",
+    "color": "#667fa6",
+    "kind": "branch",
+    "nodes": [
+      {
+        "icon": "db",
+        "label": "Base de datos",
+        "detail": "Objetos y propietarios"
+      },
+      {
+        "icon": "code",
+        "label": "Runtime",
+        "detail": "Opera datos concedidos"
+      },
+      {
+        "icon": "tool",
+        "label": "Migrador",
+        "detail": "Controla estructura autorizada"
+      },
+      {
+        "icon": "search",
+        "label": "Lector",
+        "detail": "Consulta sin DML ni DDL"
+      }
+    ],
+    "caption": "Las flechas muestran responsabilidades relacionadas; no representan un orden obligatorio de ejecución.",
+    "illustration": "visuals/lesson-53-scene.svg",
+    "diagram": "visuals/lesson-53-map.svg"
+  },
+  "54": {
+    "title": "Trabajar en compartimentos separados",
+    "color": "#667fa6",
+    "kind": "compare",
+    "nodes": [
+      {
+        "icon": "tool",
+        "label": "DEV",
+        "detail": "Cuenta y datos de prueba"
+      },
+      {
+        "icon": "db",
+        "label": "Base DEV",
+        "detail": "Objetos de su desarrollador"
+      },
+      {
+        "icon": "cloud",
+        "label": "PROD",
+        "detail": "Cuenta de runtime separada"
+      },
+      {
+        "icon": "db",
+        "label": "Base PROD",
+        "detail": "CONNECT y permisos acotados"
+      }
+    ],
+    "caption": "Cada carril muestra un ámbito distinto. Compara sus responsabilidades antes de unir sus configuraciones.",
+    "illustration": "visuals/lesson-54-scene.svg",
+    "diagram": "visuals/lesson-54-map.svg"
+  },
+  "55": {
+    "title": "Quien crea define permisos futuros",
+    "color": "#667fa6",
+    "kind": "flow",
+    "nodes": [
+      {
+        "icon": "tool",
+        "label": "Rol migrador",
+        "detail": "Creador efectivo de objetos"
+      },
+      {
+        "icon": "key",
+        "label": "Defaults",
+        "detail": "Reglas para objetos futuros"
+      },
+      {
+        "icon": "db",
+        "label": "Nueva tabla",
+        "detail": "Recibe ACL al crearse"
+      },
+      {
+        "icon": "check",
+        "label": "Runtime / lector",
+        "detail": "Prueban permisos concedidos"
+      }
+    ],
+    "caption": "Las flechas resumen el recorrido conceptual. Los controles y dependencias se detallan debajo.",
+    "illustration": "visuals/lesson-55-scene.svg",
+    "diagram": "visuals/lesson-55-map.svg"
+  },
+  "56": {
+    "title": "Una interfaz no es la barrera de acceso",
+    "color": "#667fa6",
+    "kind": "compare",
+    "nodes": [
+      {
+        "icon": "screen",
+        "label": "pgAdmin",
+        "detail": "Organiza conexiones y árbol"
+      },
+      {
+        "icon": "filter",
+        "label": "DB restriction",
+        "detail": "Filtra vista, no protege acceso"
+      },
+      {
+        "icon": "db",
+        "label": "PostgreSQL",
+        "detail": "Evalúa roles y privilegios"
+      },
+      {
+        "icon": "shield",
+        "label": "Revocación",
+        "detail": "Comprueba membresías y sesiones"
+      }
+    ],
+    "caption": "Cada carril muestra un ámbito distinto. Compara sus responsabilidades antes de unir sus configuraciones.",
+    "illustration": "visuals/lesson-56-scene.svg",
+    "diagram": "visuals/lesson-56-map.svg"
+  },
+  "57": {
+    "title": "Verificar destino antes de operar",
+    "color": "#667fa6",
+    "kind": "flow",
+    "nodes": [
+      {
+        "icon": "route",
+        "label": "psql + TLS",
+        "detail": "Conecta al servidor verificado"
+      },
+      {
+        "icon": "key",
+        "label": "Identidad efectiva",
+        "detail": "Usuario y rol actuales"
+      },
+      {
+        "icon": "search",
+        "label": "Inspección",
+        "detail": "ACL, defaults y propietarios"
+      },
+      {
+        "icon": "check",
+        "label": "Pruebas",
+        "detail": "Acciones permitidas y denegadas"
+      }
+    ],
+    "caption": "Las flechas resumen el recorrido conceptual. Los controles y dependencias se detallan debajo.",
+    "illustration": "visuals/lesson-57-scene.svg",
+    "diagram": "visuals/lesson-57-map.svg"
+  },
+  "73": {
+    "title": "La prueba de recuperación",
+    "color": "#667fa6",
+    "kind": "flow",
+    "nodes": [
+      {
+        "icon": "db",
+        "label": "Origen",
+        "detail": "Identifica alcance de copia"
+      },
+      {
+        "icon": "packet",
+        "label": "Backup",
+        "detail": "Protege el archivo generado"
+      },
+      {
+        "icon": "db",
+        "label": "Restauración",
+        "detail": "Usa una base aislada"
+      },
+      {
+        "icon": "check",
+        "label": "Ensayo",
+        "detail": "Valida datos y acceso"
+      }
+    ],
+    "caption": "Las flechas resumen el recorrido conceptual. Los controles y dependencias se detallan debajo.",
+    "illustration": "visuals/lesson-73-scene.svg",
+    "diagram": "visuals/lesson-73-map.svg"
+  },
+  "64": {
+    "title": "La casa y su terreno",
+    "color": "#ce8655",
+    "kind": "branch",
+    "nodes": [
+      {
+        "icon": "cloud",
+        "label": "App Service",
+        "detail": "Ejecuta la aplicación web"
+      },
+      {
+        "icon": "blocks",
+        "label": "Plan",
+        "detail": "Define capacidad compartida"
+      },
+      {
+        "icon": "folder",
+        "label": "Grupo",
+        "detail": "Organiza recursos"
+      },
+      {
+        "icon": "key",
+        "label": "Entra",
+        "detail": "Registra identidad aparte"
+      }
+    ],
+    "caption": "Las flechas muestran responsabilidades relacionadas; no representan un orden obligatorio de ejecución.",
+    "illustration": "visuals/lesson-64-scene.svg",
+    "diagram": "visuals/lesson-64-map.svg"
+  },
+  "77": {
+    "title": "Capacidad que se comprueba",
+    "color": "#ce8655",
+    "kind": "flow",
+    "nodes": [
+      {
+        "icon": "sensor",
+        "label": "Carga",
+        "detail": "Cuatro IoT y usuarios"
+      },
+      {
+        "icon": "db",
+        "label": "Flexible Server",
+        "detail": "Separa CPU memoria y disco"
+      },
+      {
+        "icon": "meter",
+        "label": "Métricas",
+        "detail": "Mide créditos y latencia"
+      },
+      {
+        "icon": "brief",
+        "label": "Decisión",
+        "detail": "Cotiza y ajusta con evidencia"
+      }
+    ],
+    "caption": "Las flechas resumen el recorrido conceptual. Los controles y dependencias se detallan debajo.",
+    "illustration": "visuals/lesson-77-scene.svg",
+    "diagram": "visuals/lesson-77-map.svg"
+  },
+  "42": {
+    "title": "Permisos cloud con un alcance concreto",
+    "color": "#ce8655",
+    "kind": "flow",
+    "nodes": [
+      {
+        "icon": "person",
+        "label": "Principal",
+        "detail": "Persona o identidad técnica"
+      },
+      {
+        "icon": "key",
+        "label": "Rol Azure",
+        "detail": "Conjunto de acciones permitidas"
+      },
+      {
+        "icon": "map",
+        "label": "Scope",
+        "detail": "Recurso que se administra"
+      },
+      {
+        "icon": "check",
+        "label": "Prueba",
+        "detail": "Confirma permitidos y denegados"
+      }
+    ],
+    "caption": "Las flechas resumen el recorrido conceptual. Los controles y dependencias se detallan debajo.",
+    "illustration": "visuals/lesson-42-scene.svg",
+    "diagram": "visuals/lesson-42-map.svg"
+  },
+  "65": {
+    "title": "La caja de variables",
+    "color": "#ce8655",
+    "kind": "flow",
+    "nodes": [
+      {
+        "icon": "brief",
+        "label": "Contrato",
+        "detail": "Define nombres y tipos"
+      },
+      {
+        "icon": "key",
+        "label": "Valores",
+        "detail": "Separa secretos por entorno"
+      },
+      {
+        "icon": "cloud",
+        "label": "Azure",
+        "detail": "Inyecta al proceso"
+      },
+      {
+        "icon": "check",
+        "label": "Verificación",
+        "detail": "Revisa sin exponer claves"
+      }
+    ],
+    "caption": "Las flechas resumen el recorrido conceptual. Los controles y dependencias se detallan debajo.",
+    "illustration": "visuals/lesson-65-scene.svg",
+    "diagram": "visuals/lesson-65-map.svg"
+  },
+  "66": {
+    "title": "Dos puertas de entrada",
+    "color": "#ce8655",
+    "kind": "compare",
+    "nodes": [
+      {
+        "icon": "screen",
+        "label": "HTTP",
+        "detail": "Petición web convencional"
+      },
+      {
+        "icon": "gear",
+        "label": "Gunicorn",
+        "detail": "Importa aplicación WSGI"
+      },
+      {
+        "icon": "route",
+        "label": "ASGI",
+        "detail": "HTTP y tiempo real"
+      },
+      {
+        "icon": "gear",
+        "label": "Daphne",
+        "detail": "Importa aplicación ASGI"
+      }
+    ],
+    "caption": "Cada carril muestra un ámbito distinto. Compara sus responsabilidades antes de unir sus configuraciones.",
+    "illustration": "visuals/lesson-66-scene.svg",
+    "diagram": "visuals/lesson-66-map.svg"
+  },
+  "67": {
+    "title": "La fábrica de estáticos",
+    "color": "#ce8655",
+    "kind": "flow",
+    "nodes": [
+      {
+        "icon": "folder",
+        "label": "Fuentes",
+        "detail": "CSS JS e imágenes"
+      },
+      {
+        "icon": "tool",
+        "label": "collectstatic",
+        "detail": "Reúne archivos del build"
+      },
+      {
+        "icon": "packet",
+        "label": "STATIC_ROOT",
+        "detail": "Conserva salida generada"
+      },
+      {
+        "icon": "cloud",
+        "label": "Servidor",
+        "detail": "Entrega recursos estáticos"
+      }
+    ],
+    "caption": "Las flechas resumen el recorrido conceptual. Los controles y dependencias se detallan debajo.",
+    "illustration": "visuals/lesson-67-scene.svg",
+    "diagram": "visuals/lesson-67-map.svg"
+  },
+  "68": {
+    "title": "La maleta del despliegue",
+    "color": "#ce8655",
+    "kind": "flow",
+    "nodes": [
+      {
+        "icon": "folder",
+        "label": "Commit",
+        "detail": "Identifica código revisado"
+      },
+      {
+        "icon": "rule",
+        "label": "Inventario",
+        "detail": "Excluye secretos y venv"
+      },
+      {
+        "icon": "packet",
+        "label": "ZIP",
+        "detail": "Conserva raíz correcta"
+      },
+      {
+        "icon": "check",
+        "label": "Hash",
+        "detail": "Identifica el artefacto"
+      }
+    ],
+    "caption": "Las flechas resumen el recorrido conceptual. Los controles y dependencias se detallan debajo.",
+    "illustration": "visuals/lesson-68-scene.svg",
+    "diagram": "visuals/lesson-68-map.svg"
+  },
+  "70": {
+    "title": "El muelle de Kudu",
+    "color": "#ce8655",
+    "kind": "flow",
+    "nodes": [
+      {
+        "icon": "packet",
+        "label": "deploy.zip",
+        "detail": "Paquete manual preparado"
+      },
+      {
+        "icon": "cloud",
+        "label": "Kudu",
+        "detail": "Usa una operación de despliegue"
+      },
+      {
+        "icon": "tool",
+        "label": "Build Linux",
+        "detail": "Instala dependencias"
+      },
+      {
+        "icon": "check",
+        "label": "Validación",
+        "detail": "Revisa logs y resultado"
+      }
+    ],
+    "caption": "Las flechas resumen el recorrido conceptual. Los controles y dependencias se detallan debajo.",
+    "illustration": "visuals/lesson-70-scene.svg",
+    "diagram": "visuals/lesson-70-map.svg"
+  },
+  "69": {
+    "title": "La consola de publicación",
+    "color": "#ce8655",
+    "kind": "flow",
+    "nodes": [
+      {
+        "icon": "key",
+        "label": "Operador",
+        "detail": "Inicia sesión en Azure"
+      },
+      {
+        "icon": "search",
+        "label": "Destino",
+        "detail": "Comprueba app y suscripción"
+      },
+      {
+        "icon": "packet",
+        "label": "Publicación",
+        "detail": "Envía paquete revisado"
+      },
+      {
+        "icon": "check",
+        "label": "Salud",
+        "detail": "Comprueba arranque real"
+      }
+    ],
+    "caption": "Las flechas resumen el recorrido conceptual. Los controles y dependencias se detallan debajo.",
+    "illustration": "visuals/lesson-69-scene.svg",
+    "diagram": "visuals/lesson-69-map.svg"
+  },
+  "43": {
+    "title": "Promover un artefacto comprobado",
+    "color": "#ce8655",
+    "kind": "flow",
+    "nodes": [
+      {
+        "icon": "folder",
+        "label": "Artefacto",
+        "detail": "Vinculado al commit"
+      },
+      {
+        "icon": "cloud",
+        "label": "Staging / destino",
+        "detail": "Publica según estrategia"
+      },
+      {
+        "icon": "check",
+        "label": "Validación",
+        "detail": "Salud, datos y funciones"
+      },
+      {
+        "icon": "route",
+        "label": "Promoción",
+        "detail": "Swap o deploy con reversión"
+      }
+    ],
+    "caption": "Las flechas resumen el recorrido conceptual. Los controles y dependencias se detallan debajo.",
+    "illustration": "visuals/lesson-43-scene.svg",
+    "diagram": "visuals/lesson-43-map.svg"
+  },
+  "44": {
+    "title": "Un nombre llega a un servicio seguro",
+    "color": "#ce8655",
+    "kind": "flow",
+    "nodes": [
+      {
+        "icon": "screen",
+        "label": "Dominio",
+        "detail": "Nombre público de la app"
+      },
+      {
+        "icon": "route",
+        "label": "DNS",
+        "detail": "Resuelve y verifica propiedad"
+      },
+      {
+        "icon": "shield",
+        "label": "TLS",
+        "detail": "Certificado y binding válidos"
+      },
+      {
+        "icon": "code",
+        "label": "Django",
+        "detail": "Hosts, CSRF y enlaces canónicos"
+      }
+    ],
+    "caption": "Las flechas resumen el recorrido conceptual. Los controles y dependencias se detallan debajo.",
+    "illustration": "visuals/lesson-44-scene.svg",
+    "diagram": "visuals/lesson-44-map.svg"
+  },
+  "45": {
+    "title": "Controles entre navegador y aplicación",
+    "color": "#ce8655",
+    "kind": "flow",
+    "nodes": [
+      {
+        "icon": "screen",
+        "label": "Cliente",
+        "detail": "Usa HTTPS"
+      },
+      {
+        "icon": "shield",
+        "label": "Proxy confiable",
+        "detail": "Controla cabeceras de transporte"
+      },
+      {
+        "icon": "gear",
+        "label": "Settings",
+        "detail": "Hosts, secretos y seguridad"
+      },
+      {
+        "icon": "check",
+        "label": "Verificación",
+        "detail": "Prueba configuración efectiva"
+      }
+    ],
+    "caption": "Las flechas resumen el recorrido conceptual. Los controles y dependencias se detallan debajo.",
+    "illustration": "visuals/lesson-45-scene.svg",
+    "diagram": "visuals/lesson-45-map.svg"
+  },
+  "75": {
+    "title": "El perímetro HTTPS",
+    "color": "#ce8655",
+    "kind": "flow",
+    "nodes": [
+      {
+        "icon": "cloud",
+        "label": "Proxy TLS",
+        "detail": "Protege transporte externo"
+      },
+      {
+        "icon": "shield",
+        "label": "Django",
+        "detail": "Reconoce protocolo confiable"
+      },
+      {
+        "icon": "key",
+        "label": "Cookies Secure",
+        "detail": "Restringe envío a HTTPS"
+      },
+      {
+        "icon": "check",
+        "label": "HSTS",
+        "detail": "Comprueba alcance y duración"
+      }
+    ],
+    "caption": "Las flechas resumen el recorrido conceptual. Los controles y dependencias se detallan debajo.",
+    "illustration": "visuals/lesson-75-scene.svg",
+    "diagram": "visuals/lesson-75-map.svg"
+  },
+  "32": {
+    "title": "Publicar y comprobar el servicio",
+    "color": "#4c9290",
+    "kind": "flow",
+    "nodes": [
+      {
+        "icon": "folder",
+        "label": "Artefacto",
+        "detail": "Versionado y reproducible"
+      },
+      {
+        "icon": "cloud",
+        "label": "Destino",
+        "detail": "Configuración y secretos"
+      },
+      {
+        "icon": "check",
+        "label": "Salud",
+        "detail": "Verifica servicio y dependencias"
+      },
+      {
+        "icon": "meter",
+        "label": "Observación",
+        "detail": "Detecta fallos y consumo"
+      }
+    ],
+    "caption": "Las flechas resumen el recorrido conceptual. Los controles y dependencias se detallan debajo.",
+    "illustration": "visuals/lesson-32-scene.svg",
+    "diagram": "visuals/lesson-32-map.svg"
+  },
+  "71": {
+    "title": "El ciclo de una entrega",
+    "color": "#ce8655",
+    "kind": "cycle",
+    "nodes": [
+      {
+        "icon": "code",
+        "label": "Desarrollar",
+        "detail": "Cambia y prueba localmente"
+      },
+      {
+        "icon": "packet",
+        "label": "Publicar",
+        "detail": "Entrega artefacto identificado"
+      },
+      {
+        "icon": "chart",
+        "label": "Observar",
+        "detail": "Comprueba salud y negocio"
+      },
+      {
+        "icon": "tool",
+        "label": "Aprender",
+        "detail": "Ajusta o recupera y repite"
+      }
+    ],
+    "caption": "Las flechas muestran transiciones del modelo. Los eventos y guardas determinan cuáles están permitidas.",
+    "illustration": "visuals/lesson-71-scene.svg",
+    "diagram": "visuals/lesson-71-map.svg"
+  },
+  "46": {
+    "title": "Observar sin enviar ruido ilimitado",
+    "color": "#719466",
+    "kind": "flow",
+    "nodes": [
+      {
+        "icon": "code",
+        "label": "Aplicación",
+        "detail": "Emite señales necesarias"
+      },
+      {
+        "icon": "filter",
+        "label": "Filtros / sampling",
+        "detail": "Reduce volumen según mecanismo"
+      },
+      {
+        "icon": "db",
+        "label": "Workspace",
+        "detail": "Almacena telemetría"
+      },
+      {
+        "icon": "meter",
+        "label": "Consumo",
+        "detail": "Analiza volumen, retención y alertas"
+      }
+    ],
+    "caption": "Las flechas resumen el recorrido conceptual. Los controles y dependencias se detallan debajo.",
+    "illustration": "visuals/lesson-46-scene.svg",
+    "diagram": "visuals/lesson-46-map.svg"
+  },
+  "47": {
+    "title": "Conectividad, cómputo y recuperación",
+    "color": "#719466",
+    "kind": "branch",
+    "nodes": [
+      {
+        "icon": "sensor",
+        "label": "Gateways",
+        "detail": "Emiten según protocolo del stack"
+      },
+      {
+        "icon": "shield",
+        "label": "Red y NSG",
+        "detail": "Limitan rutas y orígenes"
+      },
+      {
+        "icon": "cloud",
+        "label": "VM LoRa",
+        "detail": "Ejecuta los servicios"
+      },
+      {
+        "icon": "db",
+        "label": "Estado y backup",
+        "detail": "Persistencia y restauración"
+      }
+    ],
+    "caption": "Las flechas muestran responsabilidades relacionadas; no representan un orden obligatorio de ejecución.",
+    "illustration": "visuals/lesson-47-scene.svg",
+    "diagram": "visuals/lesson-47-map.svg"
+  },
+  "48": {
+    "title": "Ahorrar sin borrar lo recuperable",
+    "color": "#719466",
+    "kind": "branch",
+    "nodes": [
+      {
+        "icon": "meter",
+        "label": "Costo observado",
+        "detail": "Separa rubros reales"
+      },
+      {
+        "icon": "cloud",
+        "label": "Cómputo",
+        "detail": "Evalúa desasignación y disponibilidad"
+      },
+      {
+        "icon": "db",
+        "label": "Discos / backup",
+        "detail": "Persisten y siguen costando"
+      },
+      {
+        "icon": "check",
+        "label": "Verificación",
+        "detail": "Comprueba ahorro y recuperación"
+      }
+    ],
+    "caption": "Las flechas muestran responsabilidades relacionadas; no representan un orden obligatorio de ejecución.",
+    "illustration": "visuals/lesson-48-scene.svg",
+    "diagram": "visuals/lesson-48-map.svg"
+  },
+  "50": {
+    "title": "Revisar lo que realmente está instalado",
+    "color": "#719466",
+    "kind": "flow",
+    "nodes": [
+      {
+        "icon": "folder",
+        "label": "Inventario",
+        "detail": "Artefacto y versiones resueltas"
+      },
+      {
+        "icon": "search",
+        "label": "Advisories",
+        "detail": "Comprueba versiones afectadas"
+      },
+      {
+        "icon": "shield",
+        "label": "Aplicabilidad",
+        "detail": "Evalúa exposición y riesgo"
+      },
+      {
+        "icon": "tool",
+        "label": "Corrección",
+        "detail": "Prueba cambio y despliegue"
+      }
+    ],
+    "caption": "Las flechas resumen el recorrido conceptual. Los controles y dependencias se detallan debajo.",
+    "illustration": "visuals/lesson-50-scene.svg",
+    "diagram": "visuals/lesson-50-map.svg"
+  },
+  "51": {
+    "title": "Un hallazgo se cierra con evidencia",
+    "color": "#719466",
+    "kind": "flow",
+    "nodes": [
+      {
+        "icon": "alert",
+        "label": "Hallazgo",
+        "detail": "Aviso y versión confirmados"
+      },
+      {
+        "icon": "brief",
+        "label": "Decisión",
+        "detail": "Riesgo, responsable y plazo"
+      },
+      {
+        "icon": "tool",
+        "label": "Cambio",
+        "detail": "Actualiza y prueba artefacto"
+      },
+      {
+        "icon": "check",
+        "label": "Cierre",
+        "detail": "Verifica versión en destino"
+      }
+    ],
+    "caption": "Las flechas resumen el recorrido conceptual. Los controles y dependencias se detallan debajo.",
+    "illustration": "visuals/lesson-51-scene.svg",
+    "diagram": "visuals/lesson-51-map.svg"
+  },
+  "58": {
+    "title": "Medir antes de tocar archivos",
+    "color": "#b8875a",
+    "kind": "flow",
+    "nodes": [
+      {
+        "icon": "alert",
+        "label": "Error de cuota",
+        "detail": "Identifica operación y destino"
+      },
+      {
+        "icon": "search",
+        "label": "Kudu",
+        "detail": "Inspecciona entorno y montajes"
+      },
+      {
+        "icon": "meter",
+        "label": "Medición",
+        "detail": "Localiza directorio que creció"
+      },
+      {
+        "icon": "brief",
+        "label": "Diagnóstico",
+        "detail": "Clasifica datos y regenerables"
+      }
+    ],
+    "caption": "Las flechas resumen el recorrido conceptual. Los controles y dependencias se detallan debajo.",
+    "illustration": "visuals/lesson-58-scene.svg",
+    "diagram": "visuals/lesson-58-map.svg"
+  },
+  "59": {
+    "title": "Código y caché viven en sitios distintos",
+    "color": "#b8875a",
+    "kind": "compare",
+    "nodes": [
+      {
+        "icon": "folder",
+        "label": "Deploy",
+        "detail": "Reemplaza artefacto destino"
+      },
+      {
+        "icon": "code",
+        "label": "wwwroot",
+        "detail": "Contenido publicado según método"
+      },
+      {
+        "icon": "tool",
+        "label": "Build",
+        "detail": "Descarga herramientas y dependencias"
+      },
+      {
+        "icon": "db",
+        "label": "Caché",
+        "detail": "Puede persistir fuera del destino"
+      }
+    ],
+    "caption": "Cada carril muestra un ámbito distinto. Compara sus responsabilidades antes de unir sus configuraciones.",
+    "illustration": "visuals/lesson-59-scene.svg",
+    "diagram": "visuals/lesson-59-map.svg"
+  },
+  "60": {
+    "title": "Conservar, revisar y limpiar lo necesario",
+    "color": "#b8875a",
+    "kind": "flow",
+    "nodes": [
+      {
+        "icon": "meter",
+        "label": "Inventario",
+        "detail": "Mide rutas y causas"
+      },
+      {
+        "icon": "shield",
+        "label": "Preservación",
+        "detail": "Protege datos y evidencia"
+      },
+      {
+        "icon": "filter",
+        "label": "Candidatos",
+        "detail": "Lista regenerables autorizados"
+      },
+      {
+        "icon": "check",
+        "label": "Mantenimiento",
+        "detail": "Mide de nuevo y prueba build"
+      }
+    ],
+    "caption": "Las flechas resumen el recorrido conceptual. Los controles y dependencias se detallan debajo.",
+    "illustration": "visuals/lesson-60-scene.svg",
+    "diagram": "visuals/lesson-60-map.svg"
+  },
+  "61": {
+    "title": "El ahorro debe conservar requisitos",
+    "color": "#b8875a",
+    "kind": "flow",
+    "nodes": [
+      {
+        "icon": "cloud",
+        "label": "Plan actual",
+        "detail": "Apps y funciones compartidas"
+      },
+      {
+        "icon": "meter",
+        "label": "Destino F1",
+        "detail": "Cuota y soporte comprobados"
+      },
+      {
+        "icon": "filter",
+        "label": "Preparación",
+        "detail": "Reduce uso con margen"
+      },
+      {
+        "icon": "check",
+        "label": "Validación",
+        "detail": "Prueba cambio y reversión prevista"
+      }
+    ],
+    "caption": "Las flechas resumen el recorrido conceptual. Los controles y dependencias se detallan debajo.",
+    "illustration": "visuals/lesson-61-scene.svg",
+    "diagram": "visuals/lesson-61-map.svg"
+  },
+  "33": {
+    "title": "El taller completo de SensorHub",
+    "color": "#4c9290",
+    "kind": "branch",
+    "nodes": [
+      {
+        "icon": "screen",
+        "label": "Experiencia web",
+        "detail": "Consulta y acciones"
+      },
+      {
+        "icon": "tool",
+        "label": "Casos de uso",
+        "detail": "Aplican reglas y capacidades"
+      },
+      {
+        "icon": "db",
+        "label": "Datos",
+        "detail": "Catálogo e históricos"
+      },
+      {
+        "icon": "sensor",
+        "label": "Telemetría",
+        "detail": "Ingesta, eventos y alarmas"
+      }
+    ],
+    "caption": "Las flechas muestran responsabilidades relacionadas; no representan un orden obligatorio de ejecución.",
+    "illustration": "visuals/lesson-33-scene.svg",
+    "diagram": "visuals/lesson-33-map.svg"
+  },
+  "78": {
+    "title": "De la exigencia a una entrega verificable",
+    "color": "#537969",
+    "kind": "flow",
+    "nodes": [
+      {
+        "icon": "book",
+        "label": "Requisitos",
+        "detail": "Acordar alcance y bloqueantes"
+      },
+      {
+        "icon": "shield",
+        "label": "Controles",
+        "detail": "Asignar mecanismo y responsable"
+      },
+      {
+        "icon": "check",
+        "label": "Evidencias",
+        "detail": "Probar y registrar los resultados"
+      },
+      {
+        "icon": "team",
+        "label": "Aceptación",
+        "detail": "Resolver brechas y compromisos"
+      }
+    ],
+    "caption": "La revisión puede devolver una brecha: se corrige el control y se presenta una nueva evidencia.",
+    "diagram": "visuals/lesson-78-map.svg",
+    "illustration": "visuals/lesson-78-scene.svg"
+  }
+}

@@ -1,0 +1,534 @@
+{
+  "lessons": {
+    "1": {
+      "type": "check",
+      "prop": "blocks",
+      "variant": 1,
+      "file": "cards/lesson-01.webp"
+    },
+    "2": {
+      "type": "front",
+      "prop": "gear",
+      "variant": 2,
+      "file": "cards/lesson-02.webp"
+    },
+    "3": {
+      "type": "service",
+      "prop": "gear",
+      "variant": 3,
+      "file": "cards/lesson-03.webp"
+    },
+    "4": {
+      "type": "blocks",
+      "prop": "parcel",
+      "variant": 4,
+      "file": "cards/lesson-04.webp"
+    },
+    "5": {
+      "type": "db",
+      "prop": "key",
+      "variant": 5,
+      "file": "cards/lesson-05.webp"
+    },
+    "6": {
+      "type": "db",
+      "prop": "blocks",
+      "variant": 6,
+      "file": "cards/lesson-06.webp"
+    },
+    "7": {
+      "type": "cqs",
+      "prop": "check",
+      "variant": 7,
+      "file": "cards/lesson-07.webp"
+    },
+    "8": {
+      "type": "cqs",
+      "prop": "parcel",
+      "variant": 8,
+      "file": "cards/lesson-08.webp"
+    },
+    "9": {
+      "type": "front",
+      "prop": "blocks",
+      "variant": 9,
+      "file": "cards/lesson-09.webp"
+    },
+    "10": {
+      "type": "repo",
+      "prop": "chart",
+      "variant": 10,
+      "file": "cards/lesson-10.webp"
+    },
+    "11": {
+      "type": "db",
+      "prop": "chart",
+      "variant": 11,
+      "file": "cards/lesson-11.webp"
+    },
+    "12": {
+      "type": "service",
+      "prop": "gear",
+      "variant": 12,
+      "file": "cards/lesson-12.webp"
+    },
+    "13": {
+      "type": "blocks",
+      "prop": "gear",
+      "variant": 13,
+      "file": "cards/lesson-13.webp"
+    },
+    "14": {
+      "type": "front",
+      "prop": "blocks",
+      "variant": 14,
+      "file": "cards/lesson-14.webp"
+    },
+    "15": {
+      "type": "front",
+      "prop": "gear",
+      "variant": 15,
+      "file": "cards/lesson-15.webp"
+    },
+    "16": {
+      "type": "front",
+      "prop": "shield",
+      "variant": 16,
+      "file": "cards/lesson-16.webp"
+    },
+    "17": {
+      "type": "identity",
+      "prop": "key",
+      "variant": 17,
+      "file": "cards/lesson-17.webp"
+    },
+    "18": {
+      "type": "shield",
+      "prop": "server",
+      "variant": 18,
+      "file": "cards/lesson-18.webp"
+    },
+    "19": {
+      "type": "shield",
+      "prop": "parcel",
+      "variant": 19,
+      "file": "cards/lesson-19.webp"
+    },
+    "20": {
+      "type": "identity",
+      "prop": "cloud",
+      "variant": 20,
+      "file": "cards/lesson-20.webp"
+    },
+    "21": {
+      "type": "repo",
+      "prop": "clock",
+      "variant": 21,
+      "file": "cards/lesson-21.webp"
+    },
+    "22": {
+      "type": "db",
+      "prop": "shield",
+      "variant": 22,
+      "file": "cards/lesson-22.webp"
+    },
+    "23": {
+      "type": "service",
+      "prop": "blocks",
+      "variant": 23,
+      "file": "cards/lesson-23.webp"
+    },
+    "24": {
+      "type": "sensor",
+      "prop": "key",
+      "variant": 24,
+      "file": "cards/lesson-24.webp"
+    },
+    "25": {
+      "type": "sensor",
+      "prop": "clock",
+      "variant": 25,
+      "file": "cards/lesson-25.webp"
+    },
+    "26": {
+      "type": "sensor",
+      "prop": "server",
+      "variant": 26,
+      "file": "cards/lesson-26.webp"
+    },
+    "27": {
+      "type": "sensor",
+      "prop": "check",
+      "variant": 27,
+      "file": "cards/lesson-27.webp"
+    },
+    "28": {
+      "type": "repo",
+      "prop": "mail",
+      "variant": 28,
+      "file": "cards/lesson-28.webp"
+    },
+    "29": {
+      "type": "db",
+      "prop": "chart",
+      "variant": 29,
+      "file": "cards/lesson-29.webp"
+    },
+    "30": {
+      "type": "board",
+      "prop": "parcel",
+      "variant": 30,
+      "file": "cards/lesson-30.webp"
+    },
+    "31": {
+      "type": "check",
+      "prop": "gear",
+      "variant": 31,
+      "file": "cards/lesson-31.webp"
+    },
+    "32": {
+      "type": "cloud",
+      "prop": "chart",
+      "variant": 32,
+      "file": "cards/lesson-32.webp"
+    },
+    "33": {
+      "type": "service",
+      "prop": "sensor",
+      "variant": 33,
+      "file": "cards/lesson-33.webp"
+    },
+    "34": {
+      "type": "identity",
+      "prop": "blocks",
+      "variant": 34,
+      "file": "cards/lesson-34.webp"
+    },
+    "35": {
+      "type": "repo",
+      "prop": "check",
+      "variant": 35,
+      "file": "cards/lesson-35.webp"
+    },
+    "36": {
+      "type": "shield",
+      "prop": "key",
+      "variant": 36,
+      "file": "cards/lesson-36.webp"
+    },
+    "37": {
+      "type": "identity",
+      "prop": "server",
+      "variant": 37,
+      "file": "cards/lesson-37.webp"
+    },
+    "38": {
+      "type": "cloud",
+      "prop": "shield",
+      "variant": 38,
+      "file": "cards/lesson-38.webp"
+    },
+    "39": {
+      "type": "identity",
+      "prop": "parcel",
+      "variant": 39,
+      "file": "cards/lesson-39.webp"
+    },
+    "40": {
+      "type": "identity",
+      "prop": "chart",
+      "variant": 40,
+      "file": "cards/lesson-40.webp"
+    },
+    "41": {
+      "type": "identity",
+      "prop": "gear",
+      "variant": 41,
+      "file": "cards/lesson-41.webp"
+    },
+    "42": {
+      "type": "cloud",
+      "prop": "key",
+      "variant": 42,
+      "file": "cards/lesson-42.webp"
+    },
+    "43": {
+      "type": "cloud",
+      "prop": "parcel",
+      "variant": 43,
+      "file": "cards/lesson-43.webp"
+    },
+    "44": {
+      "type": "cloud",
+      "prop": "shield",
+      "variant": 44,
+      "file": "cards/lesson-44.webp"
+    },
+    "45": {
+      "type": "shield",
+      "prop": "gear",
+      "variant": 45,
+      "file": "cards/lesson-45.webp"
+    },
+    "46": {
+      "type": "board",
+      "prop": "cloud",
+      "variant": 46,
+      "file": "cards/lesson-46.webp"
+    },
+    "47": {
+      "type": "cloud",
+      "prop": "sensor",
+      "variant": 47,
+      "file": "cards/lesson-47.webp"
+    },
+    "48": {
+      "type": "cloud",
+      "prop": "chart",
+      "variant": 48,
+      "file": "cards/lesson-48.webp"
+    },
+    "49": {
+      "type": "mail",
+      "prop": "shield",
+      "variant": 49,
+      "file": "cards/lesson-49.webp"
+    },
+    "50": {
+      "type": "repo",
+      "prop": "shield",
+      "variant": 50,
+      "file": "cards/lesson-50.webp"
+    },
+    "51": {
+      "type": "check",
+      "prop": "shield",
+      "variant": 51,
+      "file": "cards/lesson-51.webp"
+    },
+    "52": {
+      "type": "db",
+      "prop": "shield",
+      "variant": 52,
+      "file": "cards/lesson-52.webp"
+    },
+    "53": {
+      "type": "db",
+      "prop": "key",
+      "variant": 53,
+      "file": "cards/lesson-53.webp"
+    },
+    "54": {
+      "type": "db",
+      "prop": "server",
+      "variant": 54,
+      "file": "cards/lesson-54.webp"
+    },
+    "55": {
+      "type": "db",
+      "prop": "gear",
+      "variant": 55,
+      "file": "cards/lesson-55.webp"
+    },
+    "56": {
+      "type": "front",
+      "prop": "key",
+      "variant": 56,
+      "file": "cards/lesson-56.webp"
+    },
+    "57": {
+      "type": "db",
+      "prop": "check",
+      "variant": 57,
+      "file": "cards/lesson-57.webp"
+    },
+    "58": {
+      "type": "tool",
+      "prop": "chart",
+      "variant": 58,
+      "file": "cards/lesson-58.webp"
+    },
+    "59": {
+      "type": "tool",
+      "prop": "parcel",
+      "variant": 59,
+      "file": "cards/lesson-59.webp"
+    },
+    "60": {
+      "type": "tool",
+      "prop": "clock",
+      "variant": 60,
+      "file": "cards/lesson-60.webp"
+    },
+    "61": {
+      "type": "cloud",
+      "prop": "gear",
+      "variant": 61,
+      "file": "cards/lesson-61.webp"
+    },
+    "62": {
+      "type": "repo",
+      "prop": "parcel",
+      "variant": 62,
+      "file": "cards/lesson-62.webp"
+    },
+    "63": {
+      "type": "board",
+      "prop": "gear",
+      "variant": 63,
+      "file": "cards/lesson-63.webp"
+    },
+    "64": {
+      "type": "cloud",
+      "prop": "blocks",
+      "variant": 64,
+      "file": "cards/lesson-64.webp"
+    },
+    "65": {
+      "type": "cloud",
+      "prop": "key",
+      "variant": 65,
+      "file": "cards/lesson-65.webp"
+    },
+    "66": {
+      "type": "cqs",
+      "prop": "server",
+      "variant": 66,
+      "file": "cards/lesson-66.webp"
+    },
+    "67": {
+      "type": "repo",
+      "prop": "gear",
+      "variant": 67,
+      "file": "cards/lesson-67.webp"
+    },
+    "68": {
+      "type": "repo",
+      "prop": "parcel",
+      "variant": 68,
+      "file": "cards/lesson-68.webp"
+    },
+    "69": {
+      "type": "front",
+      "prop": "cloud",
+      "variant": 69,
+      "file": "cards/lesson-69.webp"
+    },
+    "70": {
+      "type": "cloud",
+      "prop": "parcel",
+      "variant": 70,
+      "file": "cards/lesson-70.webp"
+    },
+    "71": {
+      "type": "check",
+      "prop": "clock",
+      "variant": 71,
+      "file": "cards/lesson-71.webp"
+    },
+    "72": {
+      "type": "db",
+      "prop": "blocks",
+      "variant": 72,
+      "file": "cards/lesson-72.webp"
+    },
+    "73": {
+      "type": "db",
+      "prop": "check",
+      "variant": 73,
+      "file": "cards/lesson-73.webp"
+    },
+    "74": {
+      "type": "shield",
+      "prop": "key",
+      "variant": 36,
+      "file": "cards/lesson-74.webp"
+    },
+    "75": {
+      "type": "shield",
+      "prop": "gear",
+      "variant": 45,
+      "file": "cards/lesson-75.webp"
+    },
+    "76": {
+      "type": "db",
+      "prop": "chart",
+      "variant": 11,
+      "file": "cards/lesson-76.webp"
+    },
+    "77": {
+      "type": "db",
+      "prop": "blocks",
+      "variant": 72,
+      "file": "cards/lesson-77.webp"
+    }
+  },
+  "units": {
+    "1": {
+      "type": "blocks",
+      "prop": "check",
+      "variant": 1,
+      "file": "cards/unit-01.webp"
+    },
+    "2": {
+      "type": "cqs",
+      "prop": "parcel",
+      "variant": 2,
+      "file": "cards/unit-02.webp"
+    },
+    "3": {
+      "type": "front",
+      "prop": "blocks",
+      "variant": 3,
+      "file": "cards/unit-03.webp"
+    },
+    "4": {
+      "type": "shield",
+      "prop": "key",
+      "variant": 4,
+      "file": "cards/unit-04.webp"
+    },
+    "5": {
+      "type": "sensor",
+      "prop": "clock",
+      "variant": 5,
+      "file": "cards/unit-05.webp"
+    },
+    "6": {
+      "type": "service",
+      "prop": "check",
+      "variant": 6,
+      "file": "cards/unit-06.webp"
+    },
+    "7": {
+      "type": "identity",
+      "prop": "cloud",
+      "variant": 7,
+      "file": "cards/unit-07.webp"
+    },
+    "8": {
+      "type": "cloud",
+      "prop": "shield",
+      "variant": 8,
+      "file": "cards/unit-08.webp"
+    },
+    "9": {
+      "type": "board",
+      "prop": "gear",
+      "variant": 9,
+      "file": "cards/unit-09.webp"
+    },
+    "10": {
+      "type": "db",
+      "prop": "key",
+      "variant": 10,
+      "file": "cards/unit-10.webp"
+    },
+    "11": {
+      "type": "tool",
+      "prop": "server",
+      "variant": 11,
+      "file": "cards/unit-11.webp"
+    }
+  }
+}

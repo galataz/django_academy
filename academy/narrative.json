@@ -1,0 +1,646 @@
+{
+  "title": "Cómo construimos una base que pudiera crecer con el equipo",
+  "subtitle": "De la primera elección de Python a una plataforma que sabemos publicar, proteger y mantener.",
+  "prologue": [
+    "Todo comenzó en un momento de mi vida profesional en el que, dentro del área donde trabajaba, tuvimos que decidir con qué tecnología construir nuestras soluciones. No éramos un equipo formado principalmente por desarrolladores de software. Había ingenieros electrónicos, mecánicos, químicos y profesionales de otras especialidades. En mi caso, como electrónico, había tenido la oportunidad de participar en algunos proyectos y acercarme a la programación. Esa experiencia me dio un punto desde el cual comenzar, pero la responsabilidad que teníamos delante era mayor: necesitábamos una base que pudiera servirle al equipo, no solamente a quien la escribiera.",
+    "Python resultó una elección cercana porque varios conocíamos sus fundamentos. Django nos ofrecía una estructura para llevar ese conocimiento a una aplicación web. Sin embargo, pronto entendimos que crear el proyecto y ver una página funcionando no respondía todavía a lo que nos pedían los clientes. Había que pensar en seguridad, infraestructura, arquitectura y mantenimiento. También queríamos que el trabajo quedara preparado para repetirse: que un nuevo proyecto no obligara a inventar otra vez cada decisión.",
+    "Esta historia organiza ese aprendizaje alrededor de SensorHub, una plataforma didáctica de sensores. Partimos de mi experiencia y reconstruimos un recorrido que permita comprender las decisiones del equipo. Los ejemplos conectan sus motivos; no pretenden fechar cada acontecimiento ni añadir conversaciones o incidentes personales que no se hayan relatado. Vamos a seguir la evolución de la misma aplicación, observando qué resuelve cada paso y qué pregunta permanece abierta.",
+    "Primero tendremos que conseguir que alguien más pueda ejecutar lo que construimos. De ahí nacen el entorno virtual, requirements.txt y el historial en GitHub. Después necesitaremos reconocer dónde trabajar: config y la convención de las apps darán un lugar a cada pieza. Cuando el PC y el servidor exijan condiciones diferentes, separaremos settings y aprenderemos a entregar variables a cada entorno. Entender cómo atraviesa Django una petición nos permitirá incorporar la política común de seguridad antes de multiplicar pantallas.",
+    "La aplicación necesitará entonces datos con significado. Prepararemos PostgreSQL, definiremos identidades, relaciones y contratos de entrada. Al crecer las vistas, separaremos consultas y comandos; cuando las reglas necesiten otra puerta de entrada, aparecerán los servicios. La repetición nos llevará a repoGenerico y a un acuerdo único de paginación. Las páginas acotadas todavía exigirán consultas eficientes, y el trabajo simultáneo necesitará un presupuesto de conexiones. Los cálculos puros encontrarán su propio lugar en UTIL_LIB.",
+    "Con el backend organizado, miraremos la experiencia de quien utiliza la plataforma. Compondremos vistas con mixins, páginas con templates y comportamientos con módulos de frontend. Un cliente API compartido permitirá entender las respuestas de la misma manera. Después tendremos que decidir quién puede ejecutar cada acción: los roles conducirán a una política central, y el botón oculto nos obligará a proteger también el endpoint. La identidad, la auditoría y las transacciones completarán ese recorrido hasta poder explicar quién hizo qué y cómo se confirmó.",
+    "Cuando lleguen los dispositivos, la historia cambiará de ritmo. La ingesta requerirá credenciales técnicas y validación; los retrasos y unidades nos harán cuidar el tiempo y la calibración. El seguimiento en vivo abrirá la conversación sobre ASGI y WebSockets. Para interpretar condiciones relevantes construiremos alarmas con estados, y para comunicar sus efectos separaremos tareas y entregas externas. El histórico crecerá, pedirá filtros y representaciones adecuadas, y terminará saliendo en reportes o correos. Las pruebas conservarán las promesas de ese conjunto para el próximo cambio.",
+    "Antes de publicarlo tendremos que relacionar el proyecto con la organización. Separaremos identidades de desarrollo y producción, nombraremos recursos y revisaremos la confianza que concede cada acceso. La elección principal del equipo, MSAL en Django, se comprenderá junto a la alternativa Easy Auth, sin mezclar sus recorridos. Invitados, delegación y consumo ampliarán la mirada. Volveremos también a PostgreSQL para separar cuentas, entornos y permisos sobre tablas nuevas; pgAdmin y psql nos ayudarán a administrarlos y comprobarlos, y una restauración ensayada dará sentido al respaldo.",
+    "La llegada a Azure reunirá lo anterior. Elegiremos App Service y capacidad para PostgreSQL, asignaremos permisos al operador y entregaremos variables al proceso. El comando de arranque dependerá del tipo de aplicación y de la estructura del paquete. En el camino manual del equipo prepararemos estáticos, construiremos deploy.zip y lo publicaremos mediante una operación admitida de las herramientas avanzadas o desde PowerShell. GitHub con staging y el dominio propio aparecerán como ampliaciones futuras. Comprender el proxy y HTTPS permitirá leer production.py con criterio, y las comprobaciones de salud convertirán la publicación en una entrega verificable.",
+    "La historia continuará mientras el servicio funcione. Observaremos sin recolectar indefinidamente, seguiremos el camino de las mediciones por la infraestructura LoRa y revisaremos costos sin perder recuperación. Las dependencias necesitarán vigilancia y cada hallazgo un cierre con evidencia. El almacenamiento nos llevará a distinguir archivos, cachés y datos persistentes; el mantenimiento y los cambios de plan exigirán medir antes de actuar. Al final volveremos a la intención original: disponer de una base que podamos llevar a otro proyecto porque comprendemos sus decisiones y sabemos cuándo deben cambiar.",
+    "El recorrido también llega a la mesa de revisión del cliente industrial. Allí reunimos las decisiones técnicas en un expediente: qué exige cada área, qué podemos demostrar y qué compromiso permanece pendiente. La aceptación del servicio da una razón adicional a la arquitectura, a los permisos y a los ensayos de recuperación que iremos construyendo."
+  ],
+  "scenes": {
+    "1": {
+      "title": "Antes de tener un proyecto, teníamos una responsabilidad",
+      "paragraphs": [
+        "Todo comenzó en un área donde sabíamos resolver problemas de ingeniería, pero no contábamos con un equipo dedicado al desarrollo de software. Había conocimientos de electrónica, mecánica, química y otras especialidades. Yo venía de la electrónica y había participado en proyectos que me habían acercado a la programación. Esa experiencia me permitía empezar, aunque el desafío ya no consistía en hacer funcionar una solución para mí: necesitábamos construir algo que otras personas del equipo pudieran comprender y continuar.",
+        "Elegimos Python porque sus bases resultaban familiares para el grupo. Django nos ofrecía una estructura sobre la cual organizar una aplicación web, pero escoger el framework no resolvía las exigencias de los clientes. La seguridad, los datos, la infraestructura y el mantenimiento iban a acompañarnos durante toda la vida del proyecto. La meta era preparar una base que pudiéramos repetir, sin empezar de cero cada vez.",
+        "Para recorrer esa experiencia construiremos SensorHub, una plataforma didáctica de estaciones, sensores y mediciones. Antes de abrir la terminal, necesitamos reconocer quién consultará los datos, quién podrá cambiar una configuración y qué información no puede perderse. Esas preguntas nos dan un primer alcance. Ahora podemos convertir la idea en un proyecto que arranque en el computador."
+      ]
+    },
+    "2": {
+      "title": "La primera página todavía vive en un solo computador",
+      "paragraphs": [
+        "Pasar de la idea a la terminal parece un paso pequeño, pero es donde empezamos a decidir cómo trabajará el equipo. Si instalamos paquetes sin distinguir a qué proyecto pertenecen, cada computador puede terminar con una combinación diferente. Quizás SensorHub arranque en el mío y falle en el de quien intenta ayudarme. Antes de agregar funciones necesitamos que el comienzo sea repetible.",
+        "Creamos un entorno virtual e instalamos allí las dependencias. Con startproject aparece la estructura inicial de Django; con manage.py ejecutamos los comandos del proyecto. Ver la primera página mediante runserver confirma que el entorno y la configuración básica pueden trabajar juntos. Es una comprobación local, todavía lejos de demostrar que el servicio está preparado para un cliente.",
+        "Dejamos las dependencias en requirements.txt para reconstruir ese entorno sin copiar el venv. Ya tenemos una primera versión que funciona, pero permanece ligada a una carpeta de nuestro computador. El siguiente problema es compartirla, reconocer sus cambios y conservar un punto al que podamos regresar."
+      ]
+    },
+    "62": {
+      "title": "El proyecto empieza a pertenecer al equipo",
+      "paragraphs": [
+        "Una carpeta que funciona no basta para colaborar. Si otra persona agrega un modelo mientras cambiamos una vista, necesitamos saber qué hizo cada una y decidir cómo reunir ambos trabajos. Compartir archivos sueltos hace difícil distinguir la versión correcta; también vuelve incierto recuperar una configuración que antes funcionaba.",
+        "Git nos permite registrar cambios con una intención reconocible y trabajar en ramas. GitHub se convierte en el lugar donde compartimos ese historial. VS Code sigue siendo nuestro espacio de trabajo: allí editamos y revisamos diferencias, cuidando que el intérprete seleccionado pertenezca al entorno virtual. El repositorio conserva código e instrucciones, mientras cada integrante reconstruye sus paquetes localmente.",
+        "Dejamos fuera secretos, archivos temporales y el entorno instalado. Esta decisión también será útil al publicar: podremos relacionar un paquete con una versión concreta. Sin embargo, al abrir el proyecto aparece otra dificultad cotidiana. Para compartir trabajo no solo necesitamos conservarlo; necesitamos reconocer rápidamente dónde está cada responsabilidad."
+      ]
+    },
+    "4": {
+      "title": "Aprender a reconocer una casa antes de entrar",
+      "paragraphs": [
+        "Ahora que el código se comparte, sus nombres dejan de ser una preferencia individual. Quien llega a SensorHub necesita encontrar la configuración sin preguntar cómo decidimos llamarla esta vez. Si cada proyecto utiliza una estructura diferente para lo mismo, el equipo vuelve a aprender el recorrido antes de poder resolver un problema.",
+        "Por eso adoptamos config como nombre del paquete creado con startproject. Allí reconocemos la composición general de Django. Las aplicaciones del negocio llevan la convención _App seguida de su nombre, que ayuda a distinguirlas visualmente. El prefijo busca agruparlas en el explorador, aunque su orden depende de la herramienta; el verdadero acuerdo consiste en que todos sepamos qué representa cada carpeta.",
+        "Crear una app tampoco la conecta automáticamente con todo el sistema. La registramos en INSTALLED_APPS y enlazamos sus URLs desde la configuración principal. Ya podemos ubicar módulos y seguir sus entradas. Al revisar ese centro llamado config, encontramos un archivo que empieza a reunir decisiones de dos realidades distintas: el computador donde desarrollamos y el servidor donde publicaremos."
+      ]
+    },
+    "3": {
+      "title": "Dejar de preparar una versión distinta para cada destino",
+      "paragraphs": [
+        "Mientras SensorHub solo corre en el PC, resulta cómodo tener la configuración junta. Pero basta pensar en publicarlo para que aparezca una lista de diferencias: depuración, hosts, secretos y conexiones. Si resolverlas significa editar settings.py antes de cada entrega, dependemos de recordar todos los cambios y de deshacerlos correctamente al volver a desarrollar.",
+        "Convertimos ese archivo en un paquete con base.py, development.py y production.py. La base reúne lo compartido; cada entorno importa esa base y establece sus diferencias. No estamos construyendo dos aplicaciones. Estamos permitiendo que el mismo proyecto se ejecute bajo condiciones distintas, seleccionadas mediante DJANGO_SETTINGS_MODULE.",
+        "Django no adivina dónde está instalado. Dejamos explícita la selección al arrancar y aprendemos a comprobarla. Con esa separación ya no necesitamos cambiar el código de una vista para pasar del PC al servidor. Sin embargo, todavía queda una pregunta: si cada entorno tiene valores diferentes, ¿dónde guardaremos esos valores sin dejarlos escritos en el repositorio?"
+      ]
+    },
+    "63": {
+      "title": "Lo que cambia entre máquinas no tiene que cambiar el código",
+      "paragraphs": [
+        "Separar los archivos de configuración hizo visible qué pertenece a cada entorno, pero no resolvió por sí solo cómo entregar una contraseña o un hostname. Podríamos escribirlos en production.py, aunque entonces compartir el código implicaría compartir información que no todos necesitan conocer. También obligaría a modificar archivos cada vez que cambie el destino.",
+        "Establecemos un contrato de variables: qué nombre lee el proyecto, qué significa y cuándo es obligatorio. En el PC podemos usar un .env con carga explícita; en el servidor los valores llegarán al proceso desde su configuración. Los textos deben convertirse al tipo esperado. Una cadena que dice False no puede tratarse descuidadamente como si ya fuera un booleano.",
+        "La ausencia de un valor requerido debe descubrirse de forma clara, sin imprimir el secreto para diagnosticarla. Ya tenemos una aplicación que puede cambiar de entorno conservando su código. Antes de darle datos y funciones, necesitamos entender qué sucede cuando una petición entra: ahí se apoyarán tanto el comportamiento normal como las protecciones que vamos a compartir."
+      ]
+    },
+    "19": {
+      "title": "Mirar lo que ocurre antes de llegar a una vista",
+      "paragraphs": [
+        "Hasta aquí hemos visto archivos y comandos. Para avanzar conviene seguir una petición completa: el navegador solicita una dirección, Django prepara el contexto, resuelve la ruta, ejecuta una vista y construye una respuesta. Entre la entrada y la vista hay componentes que pueden examinar la solicitud o detenerla. Si desconocemos ese recorrido, un rechazo parece un obstáculo sin explicación.",
+        "El middleware nos permite reconocer esas responsabilidades. En una aplicación que utiliza sesiones, la cookie del navegador participa en recuperar un contexto; cuando hay autenticación, otra pieza establece quién actúa. CSRF atiende un problema diferente: validar determinadas peticiones del navegador que pueden llegar con credenciales adjuntas. No estamos agregando todavía un login a la academia pública, sino entendiendo dónde encajaría en una aplicación privada.",
+        "Este recorrido evita resolver errores desactivando controles sin comprenderlos. También nos muestra que algunas decisiones deben aplicarse a todas las respuestas. En lugar de recordarlas dentro de cada módulo, vamos a establecer una política común en la configuración base."
+      ]
+    },
+    "74": {
+      "title": "La protección empieza a formar parte de la base",
+      "paragraphs": [
+        "Con el recorrido de la petición a la vista, la seguridad deja de parecer una lista de opciones para pegar al final. Una cookie puede circular bajo ciertas condiciones; una respuesta puede autorizar o impedir que otra página la incruste. Son decisiones que afectan a la aplicación completa, incluso si la persona que crea la siguiente pantalla no piensa en ellas.",
+        "Las reunimos en base.py para que el equipo parta de una política reconocible. Conservamos los valores acordados y estudiamos uno por uno qué hacen las opciones de cookies, CSRF y cabeceras. Importa tanto conocer su propósito como su alcance: marcar una cookie HttpOnly no corrige una consulta mal autorizada, y una cabecera no reemplaza la validación de datos.",
+        "Las exigencias específicas de HTTPS tendrán su momento cuando lleguemos al servidor. Por ahora contamos con una base común que podemos explicar y verificar. SensorHub aún necesita convertirse en algo más que una página: debe representar estaciones y conservar mediciones. Esa necesidad nos lleva a preparar un lugar donde los datos puedan existir con reglas propias."
+      ]
+    },
+    "72": {
+      "title": "Preparar una base donde aprender sin comprometer datos reales",
+      "paragraphs": [
+        "La configuración y las primeras defensas están listas, pero todavía no hemos comprobado cómo se comportará el proyecto al guardar información. Empezar directamente contra una base usada por otras personas mezclaría aprendizaje con operación. Necesitamos poder equivocarnos al definir una tabla, corregir una conexión y repetir una prueba sin afectar el trabajo de nadie.",
+        "Preparamos PostgreSQL en un entorno local controlado. Aprendemos a distinguir el servidor de la base, el puerto del nombre de usuario y una contraseña incorrecta de un servicio que no está disponible. Esa separación ayuda a diagnosticar: si Django no conecta, no necesariamente hay un error en el modelo o en la vista que acabamos de escribir.",
+        "Una vez confirmada la conexión, podemos trabajar con datos de prueba. Más adelante revisaremos alojamiento, cuentas y recuperación con mayor profundidad. Ahora la pregunta es más elemental: qué hace que una estación o un sensor siga siendo el mismo objeto aunque cambien su nombre o sus atributos."
+      ]
+    },
+    "5": {
+      "title": "Dar identidad a lo que vamos a administrar",
+      "paragraphs": [
+        "Con una base disponible, es tentador comenzar agregando columnas. Sin embargo, SensorHub necesita reconocer sus objetos a lo largo del tiempo. Un sensor puede cambiar de ubicación o de descripción sin convertirse por eso en otro sensor. Si su identidad depende de un texto que alguien puede editar, las relaciones y los históricos se vuelven difíciles de mantener.",
+        "Definimos identificadores y examinamos el uso de UUID. También aparecen atributos compartidos, como fechas de creación o modificación. En vez de copiarlos a cada modelo, una base abstracta puede concentrar su definición. La abstracción empieza aquí con una necesidad pequeña y visible: conservar de forma uniforme lo que varias entidades tienen en común.",
+        "Ya podemos hablar de una estación y de un sensor con identidad propia. Pero guardarlos por separado no nos dice si una lectura pertenece a un sensor válido o si una combinación de datos debe ser única. Para que el catálogo represente el negocio, las entidades necesitan relaciones y límites que sobrevivan a cualquier pantalla."
+      ]
+    },
+    "6": {
+      "title": "Los datos tienen que seguir siendo coherentes sin la pantalla",
+      "paragraphs": [
+        "Una interfaz puede impedir que seleccionemos una estación inexistente, pero no es la única puerta de entrada. Más adelante habrá APIs, tareas e importaciones. Si las reglas viven únicamente en el formulario, cada nueva entrada deberá recordarlas y bastará una omisión para guardar un estado contradictorio.",
+        "Por eso expresamos relaciones y restricciones en los modelos y en la base. Decidimos qué objetos pueden existir por sí solos, qué referencias deben conservar y qué combinaciones no pueden repetirse. También pensamos qué significa eliminar un objeto que otros todavía utilizan. Estas decisiones describen el negocio, no solo la apariencia de una pantalla.",
+        "El almacenamiento empieza a proteger su propia consistencia. Aun así, no queremos que cualquier dato enviado desde fuera llegue hasta una restricción para descubrir que estaba mal formado. Entre la petición y el modelo hace falta un contrato que pueda reconocer campos, explicar errores y controlar lo que devolvemos al cliente."
+      ]
+    },
+    "7": {
+      "title": "Acordar cómo entra y cómo sale la información",
+      "paragraphs": [
+        "Ya conocemos las entidades y sus relaciones, pero una petición HTTP trae valores sin interpretar: textos, números, campos ausentes o nombres inesperados. El navegador puede validar algunos, aunque no podemos suponer que todas las solicitudes pasarán por nuestro formulario. También debemos evitar devolver información solo porque existe como columna en el modelo.",
+        "Los serializers nos ayudan a establecer ese intercambio. Definimos qué datos acepta una operación, cómo se validan y qué representación recibirá quien la consulte. Así, el modelo no tiene que convertirse automáticamente en el contrato público completo. Cuando hay un error de entrada, podemos responder de una manera que el cliente comprenda.",
+        "Con ese acuerdo ya es posible construir vistas que consulten y guarden. Precisamente ahí empieza otra forma de crecimiento: un mismo archivo puede reunir lecturas, cambios y decisiones de negocio. Para que el equipo siga entendiendo lo que hace cada parte, necesitamos distinguir primero la intención de cada operación."
+      ]
+    },
+    "8": {
+      "title": "Separar las preguntas de los cambios",
+      "paragraphs": [
+        "Al incorporar más operaciones, views.py puede convertirse en el lugar donde todo sucede. Buscar un sensor queda junto a crearlo, editarlo y resolver reglas que no pertenecen al transporte HTTP. Localizar una función resulta cada vez más costoso porque el archivo reúne intenciones diferentes, aunque todas reciban una petición.",
+        "En una experiencia previa con Clean Architecture, un desarrollador senior me ayudó a valorar la responsabilidad de cada pieza. Esa enseñanza conecta aquí con CQS: una consulta responde una pregunta y un comando expresa una intención de cambio. Organizamos queries y commands para que el nombre y la ubicación nos permitan anticipar qué debería hacer el código.",
+        "La petición sigue entrando por las URLs principales. include delega una parte de la ruta a las URLs de la app y estas seleccionan la clase correspondiente; es resolución interna, no una redirección del navegador. La separación facilita leer y probar, pero no elimina por sí sola los errores compartidos. Además deja visible otra pregunta: si la misma regla debe ejecutarse desde una tarea, ¿tendrá que pasar también por una vista?"
+      ]
+    },
+    "12": {
+      "title": "Las reglas necesitan vivir más allá de HTTP",
+      "paragraphs": [
+        "Separar consultas y comandos aclara la entrada al sistema. Ahora podemos reconocer que registrar una lectura no consiste únicamente en recibir JSON: hay reglas que deberían cumplirse tanto si la solicitud llega desde una API como si la inicia un proceso interno. Repetir esas reglas en cada puerta de entrada volvería a fragmentar el comportamiento.",
+        "Extraemos el caso de uso a un servicio con entradas y resultados comprensibles. La vista interpreta la petición, valida el contrato que le corresponde y delega. El servicio coordina la operación de negocio sin necesitar que fabriquemos un request para utilizarlo. Cuando una regla cambia, sabemos dónde buscarla.",
+        "Esta decisión reduce el peso de las vistas, pero no toda la repetición desaparece. Todavía hay muchas que buscan por ID, validan un serializer o construyen la misma respuesta. Esas operaciones comparten una mecánica HTTP, aunque pertenezcan a negocios diferentes. Ahí aparece la oportunidad de construir una biblioteca que acompañe al equipo en cada aplicación."
+      ]
+    },
+    "9": {
+      "title": "De reconocer la repetición a construir repoGenerico",
+      "paragraphs": [
+        "Al mirar varias queries y commands juntas, el patrón se vuelve evidente. Cambian el modelo, el serializer o los campos de búsqueda, pero una parte importante del trabajo permanece igual. Consultar por ID requiere encontrar un objeto y representarlo; crear requiere validar y guardar. Si copiamos ese flujo, también tendremos que copiar cada corrección futura.",
+        "De esa necesidad nace repoGenerico, una capa propia del equipo sobre Django REST Framework. El algoritmo común vive en clases base y la aplicación declara sus diferencias. Por eso una consulta de ubicaciones puede quedar reducida a modelo, serializer y permisos. La lógica no se perdió: quedó reunida donde puede mantenerse y probarse una vez para varios consumidores.",
+        "DRF ya dispone de herramientas genéricas; nuestra biblioteca concentra además las convenciones del equipo. Trasladarla a otro proyecto permite conservar una forma de trabajar, siempre revisando sus contratos y dependencias. Uno de esos contratos exige especial cuidado: si cada nueva tabla inventa cómo paginar, pronto volveremos a tener versiones diferentes del mismo comportamiento."
+      ]
+    },
+    "10": {
+      "title": "Una tabla nueva no debería inventar otra paginación",
+      "paragraphs": [
+        "La biblioteca empieza a dar resultados: las vistas pequeñas permiten reconocer lo propio de cada módulo. Pero la consistencia se pierde si una tabla devuelve results, otra inventa items y una tercera descarga todo para recortarlo en el navegador. El frontend termina adaptándose a diferencias que no responden a ninguna necesidad del negocio.",
+        "Acordamos que la paginación se resuelva en repoGenerico. El consumidor elige la base apropiada y aporta el queryset, la búsqueda y los campos de orden. El núcleo conserva límites, validación y formato de respuesta. Cuando usamos DataTables, su protocolo se adapta en ese lugar compartido. El conteo debe partir siempre de los registros que el usuario puede consultar.",
+        "Este acuerdo también orienta el trabajo con asistentes de código: antes de generar otra solución, deben leer la existente y reutilizarla. Ya tenemos respuestas acotadas y predecibles. Sin embargo, limitar el número de filas no garantiza que obtenerlas sea eficiente. Una página pequeña todavía puede ejecutar demasiadas consultas para representar sus relaciones."
+      ]
+    },
+    "11": {
+      "title": "Una página pequeña también puede trabajar de más",
+      "paragraphs": [
+        "La tabla devuelve solo los registros de una página y, aun así, necesitamos entender cuánto trabajo realiza el servidor. Imaginemos que cada sensor muestra también el nombre de su estación. Si al representar cada fila el ORM hace una consulta adicional, el costo crece con el número de elementos aunque la vista parezca breve y ordenada.",
+        "Reconocemos el problema N+1 y revisamos las relaciones que realmente utiliza el serializer. select_related o prefetch_related permiten preparar los datos según su estructura. La optimización pertenece al queryset del consumidor, mientras el paginador común conserva su función. Medimos las consultas para comprobar el resultado en lugar de juzgarlo por la cantidad de líneas.",
+        "Con menos viajes innecesarios, cada petición trabaja mejor. Pero las peticiones no llegan de una en una: usuarios, dispositivos y tareas pueden coincidir. Ahora necesitamos mirar otro recurso compartido. Además de cuántas consultas hacemos, importa cuántas conexiones abrimos para ejecutarlas y cuánto tiempo permanecen ocupadas."
+      ]
+    },
+    "76": {
+      "title": "Compartir conexiones sin confundirlas con las consultas",
+      "paragraphs": [
+        "La revisión del ORM resolvió una parte del costo, pero SensorHub también necesita atender trabajo simultáneo. Abrir conexiones repetidamente añade esfuerzo, y permitir que cada proceso abra tantas como quiera puede presionar una base pequeña. El equipo necesita decidir cuánto acceso concurrente puede sostener, no solo cuánto tarda una consulta aislada.",
+        "La experiencia con psycopg 3 y su pool entra aquí como respuesta a esa necesidad. Las conexiones se prestan y se reutilizan dentro de límites definidos. Al dimensionarlos contamos procesos e instancias: el máximo de un pool no representa automáticamente el máximo de toda la aplicación. También reservamos espacio para tareas y administración.",
+        "El pool no reduce las consultas N+1 que acabamos de estudiar; complementa aquella mejora. Mantener ambas preguntas separadas nos ayuda a medir bien. Con el acceso a datos mejor organizado, podemos volver a observar la lógica del proyecto. Hay operaciones que ni siquiera deberían necesitar una conexión, como convertir una unidad o aplicar un cálculo puro."
+      ]
+    },
+    "23": {
+      "title": "Las herramientas pequeñas también merecen un lugar",
+      "paragraphs": [
+        "No todo el trabajo de SensorHub consiste en leer o guardar objetos. Una temperatura puede necesitar conversión y una medición puede pasar por un cálculo que también utiliza un reporte. Si esas operaciones quedan dentro de una vista, reutilizarlas obliga a importar piezas HTTP que no aportan nada al cálculo.",
+        "Reunimos esas funciones en UTIL_LIB y cuidamos que sus entradas y salidas expresen unidades y límites. Una función pura permite probar un resultado sin levantar el servidor ni preparar una base. Su utilidad no depende de que la invoque una query, un command o una tarea. La biblioteca de utilidades y repoGenerico resuelven así repeticiones de naturaleza diferente.",
+        "Ya podemos distinguir configuración, datos, transporte, servicios y herramientas. Esa estructura ayuda a quien desarrolla el backend, pero todavía falta llevarla al lugar donde una persona usa la plataforma. Las vistas que presentan pantallas también van a compartir comportamiento, y necesitamos componerlo sin volver a copiar bloques enteros."
+      ]
+    },
+    "13": {
+      "title": "Componer una vista sin cargarle todas las responsabilidades",
+      "paragraphs": [
+        "Al preparar las pantallas descubrimos que varias necesitan señalar una sección activa o añadir un mismo dato al contexto. La solución más inmediata sería copiar el método en cada vista. Pero acabamos de aprender por qué esa repetición se vuelve costosa, y tampoco queremos una clase enorme que intente resolver todas las diferencias de todas las páginas.",
+        "Los mixins permiten añadir comportamientos pequeños a una clase que ya cumple su función principal. Para usarlos con criterio estudiamos el orden de resolución de métodos y lo que significa continuar la cadena mediante super(). La composición solo funciona si las piezas cooperan; el nombre del mixin debe ayudar a reconocer qué responsabilidad está agregando.",
+        "Más adelante aplicaremos esta idea a controles de acceso, con el ciclo de autenticación adecuado. Ahora podemos producir contexto sin duplicar vistas completas. El siguiente lugar donde la repetición se hace visible ya no es Python: aparece en el HTML de las pantallas, que necesitan compartir una estructura sin convertirse en copias independientes."
+      ]
+    },
+    "14": {
+      "title": "La siguiente pantalla debe sentirse parte de la misma aplicación",
+      "paragraphs": [
+        "Una vez que podemos preparar el contexto, aparece la tarea de mostrarlo. El catálogo, el histórico y la configuración necesitan contenidos distintos, pero comparten navegación, estilos y una manera de orientar al usuario. Si cada pantalla incluye su propia copia del encabezado, cualquier ajuste obliga a recorrerlas todas y alguna puede quedar diferente.",
+        "Construimos un template base y extraemos fragmentos cuando tienen una responsabilidad reconocible. Los includes nos permiten compartir componentes; los context processors aportan información común cuando realmente corresponde a varias páginas. No todo debe ser global: conservar las diferencias cerca de la vista que las necesita mantiene comprensible la composición.",
+        "La interfaz empieza a tener continuidad visual. Aun así, el HTML no explica por sí solo cómo responderá a una búsqueda, una carga de datos o un error. Para que esa experiencia siga siendo mantenible, los scripts que animan las pantallas necesitan la misma atención que dimos a las vistas del servidor."
+      ]
+    },
+    "15": {
+      "title": "Una pantalla tiene estados, aunque no los hayamos nombrado",
+      "paragraphs": [
+        "El template muestra la estructura inicial, pero el usuario no permanece quieto frente a ella. Busca, cambia un filtro y espera resultados. Durante ese tiempo la pantalla puede estar cargando, mostrar datos o tener un error. Si esos estados aparecen como cambios dispersos en varios eventos, termina siendo difícil saber por qué un botón quedó deshabilitado o qué respuesta está viendo la persona.",
+        "Organizamos el frontend por responsabilidades y hacemos explícito su estado. Cada módulo conoce qué interacción atiende y cómo presenta su resultado. La idea de segregación vuelve a aparecer con otro lenguaje: no se trata de dividir archivos por tamaño, sino de poder seguir el comportamiento sin recorrer todo el proyecto.",
+        "Con esa organización una pantalla se entiende mejor por dentro. Pero todavía puede resolver cada llamada HTTP a su manera. Antes de agregar más tablas y formularios conviene acordar cómo se enviarán las solicitudes y qué hará la interfaz cuando el servidor no responda como esperaba."
+      ]
+    },
+    "16": {
+      "title": "Todas las pantallas necesitan entender al mismo servidor",
+      "paragraphs": [
+        "Las vistas del backend ya comparten contratos mediante repoGenerico. Sería extraño perder ese acuerdo en el navegador y hacer que cada pantalla interprete las respuestas con reglas diferentes. Una podría confundir una validación con un fallo de red; otra podría ocultar un rechazo de permisos detrás de un mensaje genérico que no ayuda a continuar.",
+        "Concentramos el transporte HTTP en un cliente compartido. Allí distinguimos las respuestas del servidor de los problemas al obtenerlas y devolvemos información que cada módulo pueda presentar. La pantalla conserva la decisión de cómo mostrar su estado, mientras el cliente evita repetir la mecánica de enviar, leer y clasificar respuestas.",
+        "Este diálogo común entre frontend y backend facilita agregar funciones. También vuelve más importante una pregunta que estaba presente desde el comienzo: ¿todas las personas deberían poder usar todas esas funciones? Mostrar una interfaz coherente es solo el primer paso; ahora debemos relacionar cada acción con la responsabilidad de quien la ejecuta."
+      ]
+    },
+    "17": {
+      "title": "La misma plataforma, responsabilidades diferentes",
+      "paragraphs": [
+        "SensorHub ya puede ofrecer un catálogo y recibir interacciones, pero sus usuarios no tienen necesariamente el mismo trabajo. Quien consulta una medición puede no estar autorizado para cambiar el umbral de una alarma. Si escribimos esas diferencias como condiciones sueltas en cada pantalla, la política dependerá de que todos recuerden exactamente la misma regla.",
+        "Definimos capacidades en un lugar central y relacionamos los roles con ellas. El código puede preguntar si una persona puede configurar, en lugar de repetir nombres de roles por todas partes. También establecemos qué sucede cuando la identidad o el rol no permiten tomar una decisión afirmativa: la capacidad no se concede por suposición.",
+        "Con esa política podemos adaptar la interfaz y evitar mostrar acciones que no corresponden. Sin embargo, el navegador no es una frontera confiable. Alguien puede modificarlo o llamar directamente a una URL. La misma decisión que ayuda a presentar un botón debe convertirse en una condición real para ejecutar la operación."
+      ]
+    },
+    "18": {
+      "title": "El botón desapareció, pero la dirección sigue existiendo",
+      "paragraphs": [
+        "Ocultar un botón mejora la experiencia porque evita ofrecer una acción que el usuario no puede realizar. Pero el endpoint al que llamaba ese botón continúa en el servidor. Basta imaginar una solicitud enviada fuera de la página para reconocer que la protección todavía está incompleta si solo cambiamos el HTML.",
+        "Llevamos la política al backend. En las páginas Django podemos componer controles mediante mixins cuando la identidad ya está disponible; en DRF utilizamos su ciclo de permisos. También limitamos los objetos que cada actor puede alcanzar. Estar autenticado no significa poder modificar cualquier registro cuyo identificador se conozca.",
+        "Probamos la petición directa, además de observar la pantalla. La interfaz y la API quedan conectadas por una política común, cada una con su responsabilidad. Ahora aparece la pregunta anterior a todo permiso: de dónde proviene esa identidad y cómo podemos confiar en ella cuando las personas pertenecen a una organización que ya administra sus cuentas."
+      ]
+    },
+    "20": {
+      "title": "Reconocer a la persona antes de decidir qué puede hacer",
+      "paragraphs": [
+        "La política responde qué acciones se permiten, pero necesita saber sobre quién está decidiendo. Crear otro sistema de cuentas puede no ser la mejor respuesta cuando la organización ya tiene un directorio y procesos para administrar identidades. Nuestro proyecto debe integrarse con esa realidad sin confundirla con las reglas particulares de SensorHub.",
+        "Introducimos el flujo de identidad externa y el papel de MSAL. Django participa en un intercambio que debe validar antes de establecer el contexto del usuario. Después de reconocerlo, la aplicación vuelve a su propia política para decidir capacidades. Un inicio de sesión exitoso no equivale a recibir automáticamente permiso de administración.",
+        "Más adelante configuraremos el registro, los entornos y los callbacks con detalle. Aquí queda clara la conexión entre identidad y autorización. Con ambas piezas podemos atribuir una operación a una persona, y eso abre otra necesidad: cuando una configuración cambie, el equipo deberá poder reconstruir qué ocurrió y con qué resultado."
+      ]
+    },
+    "21": {
+      "title": "Una acción necesita dejar una explicación después de ocurrir",
+      "paragraphs": [
+        "Mientras desarrollamos, sabemos qué botón acabamos de pulsar. En una plataforma compartida esa certeza desaparece: varias personas pueden actuar en momentos distintos y una pregunta sobre un cambio puede llegar mucho después. Tener el estado actual de una tabla no explica por sí solo cómo se llegó a él.",
+        "Incorporamos trazabilidad para las acciones relevantes. El registro debe permitir relacionar actor, operación, momento y resultado, con información suficiente para investigar y sin convertir los logs en otro depósito de secretos. También distinguimos un intento rechazado de un cambio confirmado; ambos pueden importar, pero cuentan historias diferentes.",
+        "La auditoría nos ayuda a mirar hacia atrás. Sin embargo, antes de dar por terminada una acción debemos asegurar que realmente ocurrió como una unidad. Si una operación guarda varias cosas y falla a mitad de camino, o si el cliente la repite por falta de respuesta, un buen registro no basta para corregir su inconsistencia."
+      ]
+    },
+    "22": {
+      "title": "Confirmar una vez lo que debe ocurrir junto",
+      "paragraphs": [
+        "Imaginemos que una operación necesita guardar una lectura y actualizar información relacionada. Si una parte se confirma y la otra falla, el sistema conserva un resultado difícil de interpretar. También puede suceder que el cambio se complete, pero el cliente no reciba la respuesta y vuelva a intentarlo. La segunda petición no necesariamente representa una intención nueva.",
+        "Las transacciones nos ayudan a delimitar qué cambios deben confirmarse juntos. La idempotencia permite reconocer reintentos cuando el caso de uso lo requiere. No aplicamos ambas palabras como una receta universal: definimos qué significa una operación completa y qué identidad permite distinguir una repetición de un nuevo evento.",
+        "Con estas decisiones, el catálogo y sus comandos están mejor preparados para condiciones reales. Ya podemos pasar de la administración humana al origen principal de los datos de SensorHub. Los dispositivos traerán mediciones bajo ritmos y formas de conexión distintos a los de una persona que navega por la plataforma."
+      ]
+    },
+    "24": {
+      "title": "Los dispositivos llegan por una puerta diferente",
+      "paragraphs": [
+        "Hasta ahora hemos pensado principalmente en personas que consultan o configuran. Un dispositivo no se sienta frente a un formulario de login ni puede resolver una validación leyendo un mensaje. Necesita un contrato estable para enviar información y una forma de identificarse con el alcance mínimo necesario para su trabajo.",
+        "Diseñamos la ingesta con sus propios datos de entrada y credenciales técnicas. Antes de guardar una medición comprobamos lo que el sistema necesita saber sobre su origen y contenido. Las reglas de modelos, serializers y servicios que construimos antes encuentran aquí una aplicación concreta. Los reintentos también dejan de ser una posibilidad abstracta cuando interviene una red.",
+        "La plataforma puede recibir eventos, pero recibirlos no significa comprenderlos. Una lectura tiene unidades y un momento de medición que puede no coincidir con la hora en que llegó. Si no resolvemos esa diferencia, el histórico podría contar una secuencia equivocada aunque todos los registros se hubieran guardado correctamente."
+      ]
+    },
+    "25": {
+      "title": "El dato tiene una historia anterior a su llegada",
+      "paragraphs": [
+        "Una medición comienza en el dispositivo, no cuando Django la inserta en una tabla. Puede viajar con retraso o necesitar una transformación para expresarse en la unidad que utiliza el equipo. Si solo conservamos la hora de recepción, perdemos parte del contexto que permite interpretar qué estaba sucediendo en el proceso medido.",
+        "Diferenciamos el tiempo de medición del tiempo de llegada y establecemos cómo manejar zonas horarias, unidades y calibración. Las funciones compartidas de UTIL_LIB ayudan a mantener cálculos coherentes, mientras el modelo conserva el significado de la información. No queremos que dos pantallas interpreten de forma distinta el mismo valor.",
+        "El histórico empieza a representar una secuencia que podemos explicar. Ahora surge una expectativa natural de quien observa la plataforma: ver los cambios cuando ocurren, sin recargar continuamente la página. Para responder necesitamos revisar cómo se comunica el servidor con un navegador que permanece conectado."
+      ]
+    },
+    "26": {
+      "title": "Una pantalla que sigue lo que está ocurriendo",
+      "paragraphs": [
+        "Consultar un histórico es suficiente para analizar el pasado, pero algunas vistas necesitan acompañar el proceso mientras sucede. Repetir una solicitud cada cierto intervalo puede servir en algunos casos; en otros, la experiencia requiere recibir novedades sobre una conexión que permanece abierta. Esa necesidad cambia la forma de pensar el transporte.",
+        "Estudiamos ASGI y WebSockets, reconociendo lo que agregan frente al recorrido HTTP habitual. El canal necesita controles de identidad, permisos y tratamiento de desconexiones. Mantener una conexión no debe convertirse en una excepción a la política que ya aplicamos a los endpoints. Tampoco vuelve confiable un dato que no pasó por la validación correspondiente.",
+        "La interfaz puede recibir novedades con mayor continuidad. Pero mostrar cada valor no le dice al usuario cuáles requieren atención. Para que la información ayude a actuar, SensorHub debe reconocer condiciones relevantes y seguirlas en el tiempo. Esa es la diferencia entre mostrar un número y administrar una alarma."
+      ]
+    },
+    "27": {
+      "title": "Una alarma no termina en superar un umbral",
+      "paragraphs": [
+        "Cuando un valor cruza un límite, podemos reconocer una condición que merece atención. Pero el trabajo no termina en ese instante. La condición puede continuar, alguien puede reconocerla y finalmente puede desaparecer. Si representamos todo con un único booleano, perderemos diferencias que importan para interpretar y atender el evento.",
+        "Modelamos la alarma mediante estados y transiciones permitidas. Así podemos discutir qué significa activarla, reconocerla o resolverla y qué eventos producen cada cambio. El modelo ayuda a evitar mensajes repetidos que no representan novedades y a conservar una secuencia comprensible para quien debe responder.",
+        "La alarma ya expresa una situación del negocio. El siguiente paso parece obvio: comunicarla o ejecutar una acción asociada. Sin embargo, enviar un correo o llamar a otro servicio dentro de la misma petición introduce tiempos y fallos que nuestro servidor no controla. Necesitamos separar la decisión de negocio del efecto que ocurre fuera de él."
+      ]
+    },
+    "28": {
+      "title": "Decidir una acción y conseguir que ocurra son trabajos distintos",
+      "paragraphs": [
+        "La plataforma puede decidir que debe avisar sobre una alarma y guardar esa decisión correctamente. Aun así, el sistema externo encargado de recibir el aviso puede no estar disponible. Si atamos toda la operación a esa llamada, la respuesta al dispositivo o al usuario dependerá de un componente que puede tardar o fallar.",
+        "Introducimos tareas y, cuando se requiere conservar la intención de entrega, una outbox. El cambio de negocio y el registro de lo que debe enviarse se coordinan; otro proceso atiende el efecto externo y sus reintentos. La idempotencia vuelve a ser importante porque repetir un intento no debería generar consecuencias descontroladas.",
+        "Con esta separación el sistema puede seguir atendiendo trabajo mientras gestiona las entregas pendientes. Entretanto, los datos continúan acumulándose. Lo que al principio cabía en una pantalla pronto exige otra decisión: cómo consultar un período amplio y representarlo sin descargar ni dibujar cada registro existente."
+      ]
+    },
+    "29": {
+      "title": "El histórico crece más rápido que la pantalla",
+      "paragraphs": [
+        "La ingesta puede continuar durante horas y días, pero una gráfica tiene un espacio limitado. Enviar todas las mediciones no garantiza que el usuario comprenda mejor el proceso; puede aumentar el tiempo de respuesta y ocultar lo relevante entre demasiados puntos. La pregunta útil es qué necesita observar en ese momento.",
+        "Aplicamos rangos de tiempo, filtros y técnicas de reducción apropiadas para la representación. Conservamos la diferencia entre los datos almacenados y los puntos que se muestran. El acceso sigue partiendo del conjunto autorizado, y las consultas deben poder sostenerse cuando el volumen crece. Las decisiones de paginación y optimización reaparecen bajo otra forma de presentación.",
+        "El usuario puede explorar el histórico con mayor claridad. Aun así, su trabajo no siempre termina dentro de SensorHub. Puede necesitar analizar información con otra herramienta o entregar un resultado. Para acompañarlo debemos permitir que los datos salgan con un formato y un alcance tan claros como los que exigimos cuando entraron."
+      ]
+    },
+    "30": {
+      "title": "Lo que sale de la plataforma también lleva nuestras decisiones",
+      "paragraphs": [
+        "Una exportación parece una función sencilla hasta que preguntamos qué debe incluir. El usuario espera que el archivo corresponda al período, los filtros y los permisos con los que estaba trabajando. Si generamos el reporte desde otra consulta sin esos límites, la descarga puede contar una historia distinta de la pantalla o revelar información adicional.",
+        "Definimos columnas, formatos, unidades y alcance para la exportación. El contrato del archivo se vuelve parte del producto, porque alguien lo interpretará fuera de nuestra interfaz. También consideramos el volumen: un conjunto grande puede necesitar un proceso diferente al de devolver una página de una tabla.",
+        "Ahora SensorHub puede convertir sus datos en un resultado transportable. En algunos casos ese resultado o un evento debe llegar a una persona sin que esta vuelva a abrir la plataforma. Ya estudiamos cómo separar efectos externos; el correo ofrece una oportunidad concreta para aplicar esa decisión y comprobar sus consecuencias."
+      ]
+    },
+    "49": {
+      "title": "No anunciar un resultado antes de que exista",
+      "paragraphs": [
+        "El correo puede comunicar una alarma, un resultado o una acción terminada. Sin embargo, enviarlo demasiado pronto introduce una contradicción: el destinatario podría recibir una confirmación aunque la transacción que la originó termine revirtiéndose. El mensaje debe corresponder al estado confirmado del sistema, no a una intención que todavía puede fallar.",
+        "Integramos SMTP cuidando cuándo se solicita el envío. Después del commit sabemos que el cambio se confirmó; si necesitamos recuperar entregas fallidas, conectamos este punto con las tareas y la outbox ya estudiadas. Las credenciales del proveedor pertenecen a la configuración del entorno, y el resultado del envío necesita observación.",
+        "La plataforma ya reúne datos, interfaces, controles y comunicaciones. Cada nueva pieza ha resuelto una necesidad, pero también ha aumentado el número de relaciones que pueden romperse al modificar algo. Antes de preparar la entrega necesitamos una forma de comprobar que esa red de decisiones sigue comportándose como acordamos."
+      ]
+    },
+    "31": {
+      "title": "La confianza tiene que sobrevivir al próximo cambio",
+      "paragraphs": [
+        "Probar una pantalla manualmente nos permite conocer una parte del comportamiento, pero no alcanza para recordar todas las reglas del proyecto. Un cambio en la base genérica afecta varios consumidores; un ajuste de permisos puede alterar una API que no abrimos durante la revisión. La base replicable necesita una memoria verificable de lo que promete.",
+        "Escribimos pruebas sobre resultados relevantes: solicitudes válidas e inválidas, operaciones permitidas y denegadas, cambios completos y reintentos. La intención no es reproducir cada línea de implementación en otro archivo. Queremos descubrir cuándo una modificación rompe un contrato que otras piezas o personas utilizan.",
+        "Con esas comprobaciones podemos avanzar con una confianza mejor fundada. El recorrido local ya explica cómo se construye el comportamiento. Ahora debemos relacionarlo con la organización que alojará usuarios y recursos. La identidad externa que introdujimos antes necesita configurarse para que las pruebas del equipo y el uso real tengan límites claros."
+      ]
+    },
+    "34": {
+      "title": "Probar el acceso sin cambiar el acceso de todos",
+      "paragraphs": [
+        "Las pruebas del código nos ayudan a detectar regresiones, pero la identidad también tiene configuración fuera del repositorio. Un callback, un secreto o una asignación de usuarios puede afectar el ingreso al servicio. Si usamos indiscriminadamente la misma integración para experimentar y para atender a las personas, una prueba deja de estar realmente aislada.",
+        "Separamos las configuraciones de identidad de desarrollo y producción. Cada una debe tener un propósito reconocible y valores que correspondan a su destino. El archivo development.py y el archivo production.py que creamos al principio encuentran aquí otra aplicación: permiten que el proyecto conserve su lógica mientras cambia la integración concreta con el directorio.",
+        "La separación reduce confusiones, pero agrega recursos que debemos administrar. Antes de seguir creando registros y servicios conviene poder reconocerlos por su nombre. De lo contrario, el equipo podría configurar correctamente una opción en el recurso equivocado."
+      ]
+    },
+    "35": {
+      "title": "Nombrar los recursos para que cuenten a qué pertenecen",
+      "paragraphs": [
+        "Dentro del código, config y el prefijo de las apps nos ayudaron a ubicarnos. Al salir hacia la infraestructura aparece el mismo problema con otros objetos: registros de aplicación, grupos de recursos, servidores y entornos. Un nombre que solo entiende quien lo creó dificulta tanto una publicación como una investigación posterior.",
+        "Extendemos el acuerdo de nombres para reconocer aplicación, entorno y función. No buscamos nombres largos por sí mismos, sino pistas suficientes para distinguir lo que estamos tocando. También asociamos cada recurso con su responsable y su ciclo de vida: una prueba que terminó no debería permanecer indefinidamente solo porque nadie sabe si todavía se utiliza.",
+        "Ya podemos organizar las piezas externas con mayor claridad. Pero identificarlas no define qué confianza debemos depositar en ellas. Al integrar cuentas, aplicaciones y recursos necesitamos un criterio que nos impida considerar seguro todo lo que simplemente esté dentro de una misma organización."
+      ]
+    },
+    "36": {
+      "title": "Pertenecer a la organización no concede acceso a todo",
+      "paragraphs": [
+        "El directorio y los nombres nos ayudan a reconocer usuarios y recursos, pero no sustituyen una decisión de acceso. Una persona puede necesitar una aplicación sin necesitar otra; una cuenta válida puede intentar una acción fuera de su responsabilidad. Si equiparamos pertenencia con permiso general, la política local que construimos pierde su sentido.",
+        "Aplicamos una verificación explícita del acceso y limitamos privilegios al trabajo necesario. La identidad establece quién participa; el recurso y la acción determinan qué debe evaluarse después. Este criterio conecta la política de SensorHub con las decisiones de infraestructura, sin suponer que una frontera de red resuelve por sí sola todo el problema.",
+        "Con esa orientación podemos entrar en la configuración concreta del login. Elegimos primero quién conducirá el flujo, porque esa decisión afecta los callbacks y la forma en que el proyecto podrá trasladarse a otro alojamiento. En la experiencia del equipo, la ruta principal es MSAL dentro de Django."
+      ]
+    },
+    "41": {
+      "title": "El login acompaña al proyecto",
+      "paragraphs": [
+        "El motivo para conducir el login desde Django no se limita a hacerlo funcionar en Azure. El equipo también piensa en el futuro: si cambia el alojamiento, conviene que el flujo de autenticación permanezca junto al código en vez de depender exclusivamente de una función particular de App Service. Microsoft Entra sigue siendo el proveedor de identidad, pero su integración se controla desde la aplicación.",
+        "Registramos la aplicación, configuramos su retorno y entregamos al servidor los identificadores y la credencial que necesita. La URI debe coincidir con la ruta que Django atiende, como /aad/callback. En este recorrido dejamos desactivada la autenticación de plataforma de App Service y evitamos agregar un proveedor que intente conducir otro flujo al mismo tiempo.",
+        "La decisión mejora la continuidad al cambiar de alojamiento, aunque una migración seguirá requiriendo revisar secretos, dominios y configuración. Para comprender por qué no activamos determinadas opciones del portal, ahora conviene examinar la alternativa: permitir que el propio App Service autentique antes de entregar la petición a Django."
+      ]
+    },
+    "37": {
+      "title": "Entender la alternativa antes de mezclarla con nuestra elección",
+      "paragraphs": [
+        "Al abrir App Service encontramos opciones de autenticación que parecen resolver el mismo problema que acabamos de configurar. Es fácil pensar que activarlas agrega una protección equivalente sin alterar el recorrido. Sin embargo, cambian quién conduce el ingreso y qué información recibe la aplicación después.",
+        "Easy Auth permite situar la autenticación en la plataforma. Lo estudiamos como una alternativa a la ruta principal del equipo, no como un paso obligatorio que sigue a MSAL propio. Su callback pertenece al mecanismo de la plataforma y no se intercambia con la vista de retorno de Django. Conocer esa diferencia evita configurar dos recorridos como si fueran uno solo.",
+        "La comparación nos permite justificar la elección actual sin descartar otros escenarios. Para que la alternativa se comprenda de verdad, veremos qué habría que configurar si se escogiera. Después volveremos al problema común a ambas rutas: cómo administrar quién puede entrar y con qué alcance."
+      ]
+    },
+    "38": {
+      "title": "Cuando la plataforma conduce el ingreso, la configuración cambia",
+      "paragraphs": [
+        "Supongamos que otro proyecto decide utilizar Easy Auth. En ese caso no basta con conservar el código de MSAL y cambiar una variable interna. La autenticación ocurre antes de la aplicación y necesita un proveedor, un registro y URLs de retorno coherentes con ese mecanismo. El portal pasa a formar parte del recorrido efectivo del usuario.",
+        "Revisamos cómo se relacionan esas piezas y qué debe pasar con una solicitud no autenticada. También comprobamos qué señales puede aceptar el backend y bajo qué condiciones de confianza. La lección permite reconocer el flujo completo de esta alternativa, mientras SensorHub conserva como referencia principal el login gestionado en Django.",
+        "Elegir una de las rutas resuelve quién procesa la autenticación, pero no quién administra a las personas que usarán el servicio. Cuando la plataforma debe colaborar con usuarios externos, aparece una necesidad organizativa: delegar tareas de acceso sin repartir control sobre todo el directorio."
+      ]
+    },
+    "39": {
+      "title": "Invitar a alguien no exige entregarle la administración del directorio",
+      "paragraphs": [
+        "La aplicación ya puede integrarse con una identidad externa, pero la colaboración real puede incluir personas de otras organizaciones. Darles acceso a un servicio es distinto de permitirles administrar usuarios o recursos. También puede haber alguien encargado de incorporar invitados que no necesita modificar toda la infraestructura de identidad.",
+        "Separamos esas responsabilidades y buscamos el alcance necesario para cada una. La asignación a una aplicación empresarial, la invitación de una persona y la administración del directorio no son la misma operación. Mantenerlas distinguibles ayuda a aplicar el mínimo privilegio fuera del código con el mismo criterio que usamos dentro de él.",
+        "Así, la plataforma puede crecer en participantes sin convertir cada necesidad de colaboración en un permiso general. Pero incorporar usuarios externos también puede influir en el consumo del servicio de identidad. Antes de ampliar el acceso conviene entender cómo se mide y qué información necesitamos para estimarlo."
+      ]
+    },
+    "40": {
+      "title": "El acceso también forma parte del presupuesto",
+      "paragraphs": [
+        "Una vez resuelto el procedimiento para incorporar personas, aparece una pregunta que no se responde leyendo una vista: cuánto puede costar mantener ese acceso. El número de cuentas registradas y la forma de medir actividad no siempre representan lo mismo. Una estimación basada en una cifra recordada puede perder validez cuando cambian condiciones o uso.",
+        "Revisamos el modelo de consumo y dejamos claro qué datos hacen falta para cotizarlo. La experiencia ayuda a orientar preguntas, pero el presupuesto necesita condiciones verificadas para el servicio y escenario concretos. El equipo debe poder explicar qué está estimando y qué elementos siguen pendientes de confirmar.",
+        "La identidad queda conectada tanto con la autorización como con la operación. Ahora volvemos hacia los datos que esa aplicación consulta. Hemos limitado lo que una persona puede hacer por HTTP, pero todavía debemos revisar con qué poder se conecta el propio proceso a PostgreSQL. Allí existe otra frontera que no puede depender solo de la interfaz."
+      ]
+    },
+    "52": {
+      "title": "La aplicación protegida todavía puede usar una cuenta demasiado poderosa",
+      "paragraphs": [
+        "Las vistas pueden verificar roles y rechazar solicitudes indebidas, pero la conexión a PostgreSQL actúa con sus propios permisos. Si esa cuenta puede crear, borrar o administrar todo, un fallo de la aplicación dispone de un alcance mucho mayor del necesario. La seguridad del backend necesita continuar más allá del último método de Python.",
+        "Introducimos una política de gobierno para la base de datos. Preguntamos qué necesita hacer el proceso web, qué tareas corresponden al despliegue y cuáles requieren intervención administrativa. El objetivo es que los permisos acompañen responsabilidades concretas, en lugar de utilizar una sola credencial cómoda para todas las operaciones.",
+        "El criterio es el mismo que aplicamos a usuarios y recursos, ahora expresado en PostgreSQL. Para volverlo operativo debemos convertir esas responsabilidades en cuentas y roles distinguibles. Solo entonces podremos comprobar que una acción permitida a una tarea permanece prohibida para las demás."
+      ]
+    },
+    "53": {
+      "title": "Cada tarea recibe una cuenta acorde con su trabajo",
+      "paragraphs": [
+        "El proceso web necesita consultar y modificar ciertos datos, pero normalmente no necesita ser dueño del esquema. Aplicar una migración es otra responsabilidad, y revisar información para soporte tampoco debería exigir todos los permisos del runtime. Una cuenta compartida oculta esas diferencias y dificulta retirarle acceso a alguien sin afectar al resto.",
+        "Diseñamos roles para ejecución, migración y consulta, distinguiendo las identidades que conectan de los grupos de privilegios. La cuenta usada por Django recibe el alcance que necesita para sus operaciones. La migración dispone de otro contexto, controlado durante la entrega. La administración queda reservada para tareas que realmente la requieren.",
+        "Con esa separación podemos probar permisos por función. Pero una cuenta correctamente limitada todavía puede apuntar a la base equivocada. La distinción entre desarrollo y producción que establecimos en settings debe reflejarse también en los destinos y datos que utiliza cada entorno."
+      ]
+    },
+    "54": {
+      "title": "Probar no debe significar tocar los datos de los usuarios",
+      "paragraphs": [
+        "Las cuentas empiezan a expresar responsabilidades, pero el equipo necesita un lugar donde ensayar modelos, migraciones y consultas. Si una prueba se conecta a producción, incluso una operación válida para ese usuario puede ser incorrecta para el propósito del trabajo. El problema no es solo cuánto permiso tiene la cuenta, sino sobre qué datos lo ejerce.",
+        "Separamos desarrollo, preparación de entregas y producción según las necesidades del proyecto. Cada destino tiene credenciales y configuración identificables. Los datos de prueba deben permitir aprender y verificar sin convertir información real en material de experimentación. Esta decisión completa la separación de entornos que comenzó dentro de config.",
+        "Ya podemos ensayar cambios en un contexto propio. Sin embargo, cada migración crea o modifica objetos cuyo propietario y permisos también importan. Una cuenta runtime que hoy funciona puede perder acceso a una tabla nueva si no definimos cómo se heredan los privilegios durante la evolución del esquema."
+      ]
+    },
+    "55": {
+      "title": "Las tablas nuevas también deben obedecer el acuerdo",
+      "paragraphs": [
+        "El primer conjunto de tablas puede quedar bien configurado y aun así el siguiente despliegue introducir una diferencia. Las migraciones crean objetos bajo una identidad concreta. Si sus permisos no están coordinados con la cuenta web, el servicio puede arrancar y fallar al utilizar una funcionalidad recién incorporada.",
+        "Revisamos propiedad, privilegios sobre objetos existentes y reglas para objetos futuros. La cuenta migradora debe poder evolucionar el esquema sin que eso obligue a conceder ese mismo poder al runtime. Esta revisión convierte los permisos en parte del proceso de entrega y evita tratarlos como un ajuste manual que alguien recuerda después del error.",
+        "Con el esquema preparado para cambiar, falta resolver cómo lo administrarán las personas del equipo en su trabajo cotidiano. Una herramienta gráfica puede facilitar esa tarea, pero no debe convertirse en una excepción a las mismas restricciones que acabamos de diseñar."
+      ]
+    },
+    "56": {
+      "title": "La herramienta de administración no decide los permisos",
+      "paragraphs": [
+        "pgAdmin hace más cómoda la exploración de servidores, tablas y roles. Esa comodidad puede generar una confusión: que lo visible en el árbol representa exactamente lo autorizado o que esconder una base en la interfaz impide acceder a ella. La herramienta presenta operaciones, pero es PostgreSQL quien decide cuáles permite.",
+        "Organizamos conexiones con identidades individuales y alcance adecuado. Para una intervención puntual podemos necesitar acceso temporal, con una forma de retirarlo y verificar el resultado. El equipo debe poder usar la interfaz sin compartir indiscriminadamente la credencial más poderosa del servidor.",
+        "Esta práctica ayuda a administrar, pero todavía queremos una comprobación independiente de la apariencia de la herramienta. Por eso pasamos a una conexión directa: ejecutar operaciones permitidas y prohibidas nos dará evidencia de que la política existe en la base y no solamente en nuestra manera de navegarla."
+      ]
+    },
+    "57": {
+      "title": "Comprobar el permiso donde realmente se aplica",
+      "paragraphs": [
+        "Con las cuentas creadas y las conexiones organizadas, es momento de dejar de suponer. Un nombre como readonly no demuestra que una cuenta sea de solo lectura. Necesitamos entrar con esa identidad y observar qué sucede al intentar las operaciones que su responsabilidad permite y las que debería rechazar.",
+        "Usamos psql para comprobar destino, conexión segura e identidad efectiva. Consultamos lo necesario para entender permisos y ensayamos acciones bajo cada rol. Las pruebas se realizan en un contexto controlado: la intención es verificar el acuerdo, no provocar daños para demostrar que una cuenta tiene demasiado poder.",
+        "Ya contamos con evidencia de acceso y de rechazo. Sin embargo, proteger quién modifica los datos no elimina fallos de aplicación, errores humanos o incidentes de infraestructura. Para completar la preparación necesitamos responder una pregunta más difícil: si perdemos el estado esperado, ¿sabemos reconstruirlo?"
+      ]
+    },
+    "73": {
+      "title": "Un respaldo solo adquiere valor cuando sabemos restaurarlo",
+      "paragraphs": [
+        "Podemos guardar un archivo de backup y sentir que la información está protegida. Pero ese archivo todavía no demuestra que sepamos recuperar la base, que contenga lo necesario o que las cuentas puedan trabajar después de restaurarla. La recuperación es una capacidad que necesita práctica, no únicamente un archivo conservado.",
+        "Ensayamos la restauración en un destino aislado y comprobamos datos, estructura y acceso. Observamos qué depende del respaldo y qué debe configurarse aparte. También registramos el procedimiento para que no exista solo en la memoria de quien lo ejecutó por primera vez.",
+        "Con esta prueba cerramos la preparación de la base: conocemos sus identidades, límites y una ruta de recuperación. SensorHub ya tiene condiciones para salir del computador del equipo. El siguiente tramo lleva todas esas decisiones a un alojamiento concreto, empezando por reconocer qué recursos de Azure necesitamos y qué papel cumple cada uno."
+      ]
+    },
+    "64": {
+      "title": "El proyecto necesita una casa fuera del computador",
+      "paragraphs": [
+        "Hasta aquí conocemos el código y las condiciones que necesita para trabajar. Publicarlo no consiste únicamente en trasladar una carpeta: tenemos que proporcionar un lugar donde se ejecute, una configuración y recursos acordes con lo que ofreceremos. App Service entra en la historia como el alojamiento elegido para la aplicación web.",
+        "Distinguimos el grupo de recursos, la aplicación y el plan que aporta capacidad. Seleccionamos la pila de Python compatible con nuestras dependencias y reconocemos el hostname inicial. GitHub continúa siendo el lugar donde controlamos versiones, pero el procedimiento del equipo no conecta automáticamente ese repositorio con el despliegue. La entrega se preparará como un ZIP decidido y revisado por nosotros.",
+        "Antes de enviarlo necesitamos completar su entorno. Si SensorHub usa PostgreSQL, la base no aparece por el hecho de crear la aplicación web. Debemos elegir su propio servicio, dimensionarlo y comprobar que puede sostener la carga que esperamos recibir."
+      ]
+    },
+    "77": {
+      "title": "Empezar con una capacidad que podamos explicar",
+      "paragraphs": [
+        "La experiencia del equipo con PostgreSQL Flexible Server aporta un punto de partida concreto: una configuración económica pudo atender cuatro dispositivos que enviaban información periódicamente. Ese resultado es valioso porque demuestra lo que funcionó en su contexto. Pero trasladarlo a otro proyecto exige entender qué tamaño tenían los mensajes, qué consultas se hacían y cuánto histórico se conservaba.",
+        "Separamos cómputo, memoria y almacenamiento para no confundir el SKU con los gigabytes de disco. Relacionamos el ritmo de ingesta con crecimiento, conexiones y latencia. El costo aproximado recordado por el autor sirve como referencia de experiencia; una nueva entrega necesita su propia cotización y una revisión de las condiciones del servicio.",
+        "La elección de capacidad queda ligada a mediciones, incluido el comportamiento del pool que estudiamos antes. Ahora tenemos recursos que alguien debe crear, configurar y mantener. Ese acceso de operación necesita permisos propios: no es el mismo rol que utiliza una persona dentro de SensorHub."
+      ]
+    },
+    "42": {
+      "title": "Administrar Azure es otra responsabilidad",
+      "paragraphs": [
+        "Un supervisor de la plataforma puede configurar umbrales sin tener motivo para cambiar el plan de alojamiento. Del mismo modo, quien publica una versión en Azure no debería recibir automáticamente todas las capacidades de negocio dentro de Django. Los recursos y la aplicación tienen ámbitos de autorización diferentes.",
+        "Revisamos IAM para asignar al operador el alcance que necesita sobre los recursos. Esta decisión permite separar publicación, mantenimiento y administración de datos, de acuerdo con las tareas del equipo. El nombre de un rol no debe ocultar su alcance real; necesitamos conocer qué operaciones permite y dónde se aplica.",
+        "Con el operador autorizado podemos continuar la preparación del servicio. El código espera determinadas variables desde que se inicia. El siguiente paso consiste en entregar esos valores al proceso alojado sin volver a editar el proyecto ni copiar los secretos del computador al paquete de publicación."
+      ]
+    },
+    "65": {
+      "title": "El servidor recibe su configuración, no la del PC",
+      "paragraphs": [
+        "Crear los recursos no hace que Django conozca automáticamente sus conexiones o su dominio. El proyecto solo puede utilizar las variables que su código lee. Aquí reaparece el contrato que definimos al separar entornos: mismos nombres y responsabilidades, valores distintos según el destino.",
+        "Configuramos la selección de production, la clave del servicio, los hosts y las conexiones requeridas. Si la aplicación usa MSAL, incorporamos también los valores de su registro y la URI de retorno de producción. Cada variable tiene un propósito verificable. Evitamos comprobarla mostrando secretos y distinguimos una opción propia del proyecto de una función que se activa en el portal.",
+        "El servidor ya puede recibir los datos que necesita al arrancar. Pero aún debe saber qué proceso ejecutar. El comando que utilizábamos para ver la primera página local nos sirvió durante el aprendizaje; ahora tenemos que elegir la entrada apropiada para el comportamiento HTTP o de tiempo real que construimos."
+      ]
+    },
+    "66": {
+      "title": "El comando de arranque tiene que corresponder al proyecto",
+      "paragraphs": [
+        "En el PC, manage.py runserver nos permitió trabajar y observar cambios. En el alojamiento necesitamos un servidor de aplicación y un comando que encuentre el módulo correcto. La elección no depende de cómo se ve la página, sino de la interfaz de ejecución que utiliza el proyecto y de si requiere capacidades como las conexiones ASGI estudiadas antes.",
+        "Relacionamos Gunicorn con la ruta WSGI y Daphne con la ruta ASGI del ejemplo. También examinamos desde qué directorio se ejecutará el comando. Un archivo config/wsgi.py dentro de SensorHub no se encuentra de la misma manera que uno situado en la raíz del paquete. La estructura de entrega y el startup tienen que acordarse juntos.",
+        "Ya podemos describir cómo se iniciará el proceso. Pero eso todavía no garantiza que aparezcan estilos, scripts e imágenes. Durante el desarrollo recibíamos una ayuda que no debemos suponer en producción. Antes de construir el paquete tenemos que preparar explícitamente esos recursos."
+      ]
+    },
+    "67": {
+      "title": "La página necesita sus archivos cuando deja el desarrollo",
+      "paragraphs": [
+        "Una página sin estilos puede dar la impresión de que la publicación falló por completo, aunque Django haya respondido correctamente. En desarrollo, runserver facilita servir los archivos fuente. Al pasar a producción necesitamos distinguir la preparación de esos recursos de la ejecución de las vistas que producen HTML.",
+        "En el flujo del equipo ejecutamos collectstatic antes de empaquetar. El comando reúne la salida en STATIC_ROOT usando la configuración correspondiente, y el mecanismo de producción se encarga de servirla. WhiteNoise forma parte de esa ruta en el ejemplo. La salida recolectada debe acompañar al código y conservar el manifiesto que relaciona los nombres de los recursos.",
+        "Revisamos que la preparación termine sin errores y que los archivos existan. No basta con confiar en que se ven bien en el PC. Con los estáticos listos ya podemos construir una entrega: una estructura concreta que contendrá lo necesario para arrancar, sin arrastrar todo lo que utilizamos durante el desarrollo."
+      ]
+    },
+    "68": {
+      "title": "Preparar una entrega que tenga una forma conocida",
+      "paragraphs": [
+        "El proyecto de trabajo contiene elementos que no pertenecen al servidor: el entorno virtual local, archivos temporales y valores privados, entre otros. Copiarlo sin criterio mezcla la aplicación con el contexto del computador. La entrega necesita un inventario deliberado para que podamos reconocer qué estamos publicando.",
+        "En el procedimiento del autor preparamos SensorHub con su código y staticfiles, y colocamos requirements.txt tanto dentro como en la raíz de la carpeta de entrega. Ambas copias proceden de la misma fuente. Generamos deploy.zip conservando esa estructura y relacionamos el arranque con la carpeta anidada. Las dependencias de Linux se instalarán en el destino; no enviamos el venv de Windows.",
+        "El ZIP es ahora un artefacto que podemos inspeccionar, identificar y conservar. También sabemos qué debe configurarse para usar estáticos ya preparados. Falta transferirlo mediante una operación que realmente publique la aplicación. La primera ruta que revisamos es la que el equipo prefiere en su trabajo: las herramientas avanzadas disponibles en App Service."
+      ]
+    },
+    "70": {
+      "title": "Subir el archivo y desplegarlo no siempre significan lo mismo",
+      "paragraphs": [
+        "El autor describe una forma de trabajo cómoda: entrar a las herramientas avanzadas y cargar el ZIP desde la interfaz disponible en su entorno. Esa experiencia reduce pasos de conexión desde el computador. Para convertirla en una explicación útil, necesitamos distinguir qué hace exactamente la pantalla al recibir el archivo.",
+        "Una operación de despliegue puede preparar dependencias y dejar registros de su resultado; un explorador puede limitarse a copiar o extraer contenido. Por eso seguimos el estado de publicación, el build y el arranque. También reconocemos que las interfaces disponibles varían y que la UI clásica de ZIP no se puede prometer para cualquier App Service Linux.",
+        "Si el paquete está alojado, el servicio necesita acceso a sus bytes, no a una página de vista previa. Si la interfaz elegida no ofrece un despliegue compatible, el recorrido no debe detenerse. Conservamos una segunda vía manual que publica el mismo artefacto desde la terminal con un destino explícito."
+      ]
+    },
+    "69": {
+      "title": "La misma entrega puede viajar desde PowerShell",
+      "paragraphs": [
+        "Ya tenemos un paquete conocido y entendemos qué debe pasar después de subirlo. La terminal ofrece otra forma de solicitar esa publicación, especialmente útil cuando la interfaz de herramientas avanzadas no admite la operación esperada. No cambia la aplicación ni convierte el proceso en despliegue automático desde GitHub.",
+        "En PowerShell utilizamos Azure CLI para identificar al operador, seleccionar suscripción y comprobar el recurso de destino antes de enviar deploy.zip. Distinguimos esa herramienta de AzCopy, cuyo propósito es transferir datos a almacenamiento. La publicación termina con una comprobación del resultado, no con la desaparición de la barra de progreso.",
+        "Ambas vías manuales conducen al mismo objetivo: ejecutar una versión identificada y verificarla. Con el procedimiento comprendido podemos mirar hacia una ampliación futura. Si el número de entregas o colaboradores crece, quizá convenga automatizar algunos pasos y preparar un entorno de staging; esa posibilidad merece entenderse sin confundirla con el método actual."
+      ]
+    },
+    "43": {
+      "title": "Una puerta futura hacia entregas automatizadas",
+      "paragraphs": [
+        "El equipo publica actualmente cuando decide preparar y enviar un ZIP. Ese control manual forma parte del recorrido que estamos reproduciendo. GitHub conserva el historial, pero no está conectado como disparador obligatorio de cada despliegue. Esta distinción permite aprender el proceso real antes de introducir otra capa de automatización.",
+        "Miramos CI y staging como una evolución posible. Un proceso automatizado tendría que conservar las mismas garantías que acabamos de construir: artefacto identificable, configuración por entorno, pruebas y una forma de recuperar una entrega. Los slots, cuando el plan los admite, también requieren pensar qué configuración permanece con cada destino.",
+        "No necesitamos activar esa ampliación para terminar nuestra primera publicación. Regresamos al servicio actual, que ya dispone de un nombre proporcionado por Azure. Antes de revisar su seguridad de transporte, examinaremos otra decisión que puede llegar después: darle un dominio propio sin perder la coherencia de DNS, certificados y callbacks."
+      ]
+    },
+    "44": {
+      "title": "El nombre público puede cambiar sin que cambie el proyecto",
+      "paragraphs": [
+        "La primera publicación puede utilizar el hostname predeterminado de App Service. Eso permite completar el aprendizaje sin comprar ni configurar todavía un dominio. Si más adelante se necesita una dirección propia, no será solamente un cambio de texto en el navegador: habrá que relacionar ese nombre con el destino correcto y proteger la conexión.",
+        "Estudiamos DNS, validación del dominio y TLS como una ampliación posterior. También reconocemos que el plan debe admitir las funciones necesarias. Una nueva dirección afecta los hosts permitidos y, cuando hay autenticación, las URLs de retorno. El nombre público participa en varias decisiones que ya existen dentro del proyecto.",
+        "Volvemos por ahora al dominio con el que estamos publicando. Sea predeterminado o propio, la conexión externa pasa por infraestructura que puede terminar TLS antes de entregar la petición a Django. Entender ese tramo resulta imprescindible para que la aplicación interprete correctamente si el usuario llegó por HTTPS."
+      ]
+    },
+    "45": {
+      "title": "Django tiene que entender lo que ocurrió delante de él",
+      "paragraphs": [
+        "El navegador puede establecer una conexión HTTPS con la plataforma mientras el proceso Django recibe una comunicación interna bajo otras condiciones. Si la aplicación interpreta únicamente ese último tramo, puede tomar decisiones equivocadas sobre redirecciones o cookies. La seguridad necesita una relación clara entre el proxy y el código.",
+        "Examinamos qué información transmite el proxy y cuándo podemos confiar en ella. Los hosts y orígenes permitidos siguen siendo explícitos, y la cabecera que indica el protocolo no debe convertirse en una afirmación controlada libremente por el cliente. El contrato de infraestructura completa lo que una opción en settings puede expresar.",
+        "Con el recorrido comprendido ya podemos leer production.py con más criterio. Cada ajuste deja de ser una línea aislada: responde a cómo llegan las solicitudes y cómo deben salir las respuestas. La siguiente lección reúne esos valores y explica las condiciones necesarias para que las protecciones actúen como esperamos."
+      ]
+    },
+    "75": {
+      "title": "Las opciones de producción adquieren sentido juntas",
+      "paragraphs": [
+        "Al inicio colocamos en base.py la política común. Ahora tenemos un servicio expuesto por HTTPS y una explicación de su proxy, por lo que podemos completar el significado de las opciones específicas de producción. La separación de archivos evita que esas exigencias se confundan con las facilidades del desarrollo local.",
+        "Conservamos y estudiamos los valores del proyecto para redirección HTTPS, cookies seguras y HSTS, además de hosts y secretos. Revisamos uno por uno qué hacen y bajo qué condiciones. Por ejemplo, ampliar una política a subdominios obliga a conocer ese alcance; escribir una directiva no reemplaza preparar correctamente la infraestructura que la sostiene.",
+        "La configuración queda conectada con el recorrido real de la petición. Pero incluso una aplicación bien configurada puede fallar al acceder a una dependencia. Antes de declarar terminada la publicación necesitamos señales que permitan distinguir un proceso que existe de un servicio que está preparado para atender trabajo útil."
+      ]
+    },
+    "32": {
+      "title": "Estar encendido no demuestra estar disponible",
+      "paragraphs": [
+        "El proceso puede arrancar y responder una página, pero todavía no sabemos si sus dependencias están listas o si una operación de negocio funciona. Una confirmación superficial podría hacer que demos por buena una entrega que falla al consultar los datos. El equipo necesita señales con un significado concreto.",
+        "Definimos comprobaciones de salud y disponibilidad, y observamos el arranque junto con el comportamiento esperado. Cada señal responde una pregunta distinta. No queremos una comprobación tan débil que siempre indique éxito ni una que exponga información privada para explicar un fallo.",
+        "Con esas señales podemos evaluar la versión recién publicada y reconocer cuándo requiere intervención. La entrega empieza a tener un final verificable, pero el proyecto seguirá cambiando. Debemos convertir este primer recorrido en un ciclo que podamos repetir, incluyendo la posibilidad de recuperar una versión conocida cuando algo no resulte bien."
+      ]
+    },
+    "71": {
+      "title": "La primera publicación se convierte en un procedimiento",
+      "paragraphs": [
+        "Ahora podemos recorrer la entrega completa: seleccionar una versión, preparar estáticos, construir el ZIP, configurar el destino, publicar y comprobar. El valor no está solo en haber llegado una vez a una página funcionando. Está en poder explicar el mismo recorrido a otro integrante y reconocer qué evidencia demuestra cada paso.",
+        "Registramos lo publicado y revisamos los resultados antes de dar la entrega por aceptada. Si algo falla, necesitamos distinguir un problema de código, configuración o infraestructura y utilizar la recuperación preparada. Volver atrás tampoco debe depender de recordar qué carpeta local contenía la versión anterior.",
+        "La base replicable empieza a cumplir su propósito: facilita la siguiente entrega. Sin embargo, publicar no suspende la responsabilidad del equipo hasta el próximo cambio. El servicio queda atendiendo usuarios y dispositivos. A partir de aquí tendremos que observar su comportamiento y asumir que mantenerlo también forma parte del desarrollo."
+      ]
+    },
+    "46": {
+      "title": "Observar el servicio sin recolectar todo indefinidamente",
+      "paragraphs": [
+        "Las comprobaciones de salud ofrecen señales útiles, pero no explican por sí solas una latencia creciente o un error que solo ocurre bajo ciertas condiciones. Para investigar necesitamos información de operación. Al mismo tiempo, recolectar y conservar datos sin criterio puede generar ruido, exponer detalles innecesarios y aumentar el consumo.",
+        "Definimos qué telemetría aporta valor y cómo se administrará su volumen. Application Insights entra en esa decisión como herramienta de observación, con condiciones de uso y costos que debemos comprender. La pregunta no es cuántos registros podemos reunir, sino cuáles nos ayudan a tomar una acción y durante cuánto tiempo los necesitamos.",
+        "La aplicación web se vuelve más observable. Pero SensorHub forma parte de un recorrido mayor: las mediciones dependen de componentes previos a Django. Para interpretar un problema de extremo a extremo necesitamos ampliar la mirada hacia la infraestructura que recibe y transporta la información de los dispositivos."
+      ]
+    },
+    "47": {
+      "title": "La web es una parte del camino de la medición",
+      "paragraphs": [
+        "Si una lectura no aparece en la pantalla, el fallo no necesariamente está en la vista o en PostgreSQL. El dato recorre componentes de comunicación y servicios antes de llegar a la aplicación. Mirar únicamente los logs de Django puede dejarnos investigando el último tramo de un problema que ocurrió mucho antes.",
+        "Ubicamos el servidor LoRa y sus dependencias dentro del conjunto. Reconocemos la red, la máquina, el almacenamiento y las relaciones necesarias para que la información avance. Esa visión permite formular mejores preguntas: si el dispositivo transmitió, si el servidor recibió y si la siguiente integración pudo entregar el evento.",
+        "La arquitectura deja de terminar en el límite del repositorio. También aparece un costo de infraestructura que debemos sostener. Una máquina sobredimensionada consume presupuesto, pero reducirla sin comprender su trabajo puede afectar la continuidad. El siguiente paso consiste en relacionar capacidad, medición y recuperación antes de decidir un ahorro."
+      ]
+    },
+    "48": {
+      "title": "Ahorrar exige saber qué no podemos perder",
+      "paragraphs": [
+        "Con la infraestructura identificada, podemos revisar si la capacidad contratada corresponde a la carga real. Un recurso más grande puede parecer una solución cómoda ante cualquier duda, aunque no siempre aporte un beneficio proporcional. Al contrario, bajar de tamaño solo por su precio puede trasladar el costo a interrupciones o pérdida de capacidad de recuperación.",
+        "Evaluamos utilización y necesidades del servicio junto con respaldos y tiempos de restauración. La propuesta de reducción debe explicar qué comportamiento se espera conservar y cómo se comprobará después. La experiencia del equipo aporta contexto, pero la decisión necesita evidencia de ese recurso y de su carga actual.",
+        "El presupuesto empieza a administrarse como parte de la operación. Todavía hay otra forma de cambio que no depende de cuántos usuarios tengamos: las bibliotecas que instalamos evolucionan y pueden descubrirse vulnerabilidades. Mantener la plataforma obliga a revisar también aquello que incorporamos de terceros."
+      ]
+    },
+    "50": {
+      "title": "Las dependencias siguen cambiando aunque nuestro código no cambie",
+      "paragraphs": [
+        "requirements.txt nos ayudó a reconstruir el entorno desde el comienzo. Con el servicio en operación, ese inventario también permite preguntarnos qué componentes estamos utilizando y qué riesgos conocidos pueden afectarlos. Que no hayamos modificado una vista no significa que la situación de sus dependencias permanezca igual.",
+        "El equipo plantea una revisión diaria orientada al riesgo. Se identifican versiones, se consultan fuentes y se contrasta la aplicabilidad con el uso real del proyecto. La decisión no consiste en actualizar todo porque existe una versión nueva. Importan exposición, impacto, condiciones de explotación y evidencia de una corrección o mitigación.",
+        "La revisión puede producir acciones urgentes, cambios planificados o incertidumbres que necesitan investigación. Un fallo al consultar una fuente tampoco equivale a ausencia de hallazgos. Para que el proceso no termine en una lista de avisos, cada decisión debe poder seguirse hasta una corrección comprobada."
+      ]
+    },
+    "51": {
+      "title": "El hallazgo necesita una historia de cierre",
+      "paragraphs": [
+        "Detectar un aviso no nos dice todavía si el proyecto está afectado, y cambiar una línea en requirements.txt no demuestra que la versión corregida esté ejecutándose. Entre ambos momentos hay decisiones, pruebas y una entrega. Si no las relacionamos, podemos declarar resuelto un riesgo que continúa en el servicio.",
+        "Registramos el componente, el alcance, la prioridad y la acción elegida, junto con el responsable y la evidencia. Después comprobamos la actualización o mitigación y la conectamos con el artefacto desplegado. La comunicación al cliente se concentra en lo que requiere su atención, mientras el seguimiento técnico conserva también los asuntos menos urgentes.",
+        "Este cierre devuelve la seguridad al ciclo de entrega que ya conocemos. Paralelamente, la operación deja archivos, registros y residuos de construcción. Aunque ninguno sea una vulnerabilidad por sí mismo, su crecimiento puede impedir una nueva publicación. Necesitamos observar también el espacio que utiliza la plataforma."
+      ]
+    },
+    "58": {
+      "title": "Cuando falta espacio, primero hay que saber dónde",
+      "paragraphs": [
+        "Un error de cuota puede aparecer justo cuando necesitamos desplegar una corrección. La reacción inmediata podría ser borrar archivos grandes, pero no todos cumplen el mismo propósito ni están en el mismo almacenamiento. Confundir un artefacto regenerable con un dato persistente convierte un problema de capacidad en otro de recuperación.",
+        "Usamos las herramientas de diagnóstico para identificar rutas, tamaños y el contexto donde ocurre el fallo. Kudu permite observar partes del entorno de despliegue, pero debemos reconocer la diferencia entre ese contexto y el proceso que atiende la aplicación. El diagnóstico tiene que preceder a cualquier decisión de limpieza.",
+        "Con el origen del consumo identificado podemos clasificar lo que encontramos. Parte del espacio puede corresponder a archivos de una publicación o a cachés que tienen un ciclo diferente. Comprender esa diferencia nos permitirá preparar entregas limpias sin suponer que redeploy elimina automáticamente todo lo acumulado."
+      ]
+    },
+    "59": {
+      "title": "Una versión nueva puede convivir con restos de otra",
+      "paragraphs": [
+        "Después de diagnosticar el espacio, observamos que no todos los archivos siguen el mismo ciclo que nuestro ZIP. Algunos pertenecen al código publicado, otros a una construcción y otros a cachés que pueden persistir aparte. Si ignoramos esa diferencia, podemos interpretar una publicación exitosa como prueba de que el entorno quedó completamente renovado.",
+        "Definimos qué debe reemplazarse con cada entrega y qué puede regenerarse bajo condiciones controladas. La limpieza acompaña al inventario: no sustituye la comprensión de las rutas ni autoriza a eliminar datos persistentes. Una nueva versión debe poder ejecutarse con sus propios componentes, sin depender accidentalmente de un archivo olvidado.",
+        "Esta revisión ayuda a resolver un incidente concreto, pero el almacenamiento volverá a crecer. Para no repetir el diagnóstico solo cuando aparece un fallo, necesitamos convertir las decisiones de retención y mantenimiento en una práctica con responsables, condiciones y posibilidades de recuperación."
+      ]
+    },
+    "60": {
+      "title": "Mantener el servicio requiere acuerdos que se repiten",
+      "paragraphs": [
+        "Los logs y artefactos son útiles mientras responden a una necesidad. Conservarlos indefinidamente puede ser costoso, mientras eliminarlos demasiado pronto puede impedir investigar o recuperar una entrega. El equipo necesita un criterio que no dependa de la urgencia del día en que se agota la cuota.",
+        "Establecemos qué conservar, por cuánto tiempo y bajo qué condiciones se puede retirar. Antes de limpiar verificamos si existe información que deba protegerse y cómo confirmar el resultado después. El procedimiento forma parte de la operación del proyecto, con una responsabilidad reconocible y evidencia suficiente para explicar lo hecho.",
+        "El servicio puede mantenerse con mayor previsión. También estamos en mejores condiciones de revisar un cambio de plan: conocemos el uso real, las funciones necesarias y el espacio que podemos liberar. La reducción de costo deja de ser una selección aislada en el portal y se convierte en una decisión con requisitos concretos."
+      ]
+    },
+    "61": {
+      "title": "Volver a un plan menor también necesita una verificación",
+      "paragraphs": [
+        "El equipo puede decidir que una capacidad mayor ya no se justifica para una prueba o una etapa concreta. Sin embargo, bajar de plan no conserva automáticamente todas las funciones ni elimina el almacenamiento acumulado. El destino tiene sus propios límites, y la aplicación debe caber en ellos tanto durante la entrega como mientras se ejecuta.",
+        "Revisamos cuota, funciones utilizadas y comportamiento esperado antes de realizar el cambio. Si se prepara una reducción hacia F1, la decisión debe reconocer sus restricciones y el propósito de ese entorno. Haber construido una vez en un plan mayor no demuestra que la operación posterior funcionará en uno menor.",
+        "Esta última revisión reúne muchas decisiones anteriores: medir, distinguir entornos, conservar lo necesario y comprobar el resultado. Hemos recorrido el camino desde el primer arranque hasta el mantenimiento. Ahora podemos volver al objetivo inicial y evaluar qué significa realmente disponer de una base que sirva para el siguiente proyecto. Antes de cerrar el proyecto final, reunimos además los controles y sus pruebas: el cliente industrial necesita revisar qué estamos en condiciones de ofrecer y operar."
+      ]
+    },
+    "33": {
+      "title": "La base que nos llevamos al siguiente proyecto",
+      "paragraphs": [
+        "Con el expediente de aceptación preparado, volvemos a reunir las piezas en una funcionalidad completa. Ahora podemos explicar tanto el recorrido de una medición como la evidencia de acceso, integridad, entrega y recuperación que acompañaría una propuesta industrial. La base replicable incluye ese criterio de revisión, con sus compromisos y sus límites.",
+        "Las mismas decisiones se conectan hacia afuera. La interfaz comparte capacidades con el backend, la identidad tiene un flujo definido y la base de datos limita sus cuentas. La entrega manual produce un artefacto identificable, y la operación aporta información para mantenerlo, corregirlo y recuperarlo. Ninguna pieza resuelve todo por sí sola: su valor aparece en las relaciones que aprendimos a seguir.",
+        "Replicar el proyecto significa llevar ese conocimiento al nuevo contexto. Algunas convenciones podrán mantenerse; otras necesitarán cambiar porque habrá usuarios, datos o condiciones distintas. Lo importante es poder explicar por qué se conserva cada parte y qué evidencia hará necesaria otra decisión. Copiar sin comprender volvería a dejarnos en el punto de partida.",
+        "La historia termina con una capacidad del equipo: comenzar de nuevo con menos incertidumbre y con preguntas mejores. Cuando llegue la próxima necesidad, ya no tendremos únicamente código disponible. Tendremos una manera compartida de construir, revisar y aprender de lo que ponemos en funcionamiento."
+      ]
+    },
+    "78": {
+      "title": "El cliente necesita pruebas para aceptar lo que construimos",
+      "paragraphs": [
+        "La base que hemos recorrido permite explicar cómo funciona SensorHub y cómo se mantiene. Pero al llevar una solución a un cliente industrial el equipo debe responder preguntas que atraviesan todas sus piezas. TI necesita entender las integraciones; infraestructura debe saber quién administra cada recurso; seguridad quiere comprobar los permisos, los registros y la recuperación. Esas áreas convierten las decisiones técnicas en requisitos de aceptación.",
+        "La experiencia que da origen a este paso incluye cuestionarios, revisiones y documentos de soporte presentados para evaluar proyectos. Para compartir el aprendizaje separamos el contenido técnico de los nombres y referencias confidenciales. Reconstruimos el caso de SensorHub y conservamos una pregunta central: ¿qué evidencia permite a otra persona verificar lo que afirmamos?",
+        "Así volvemos a mirar lo construido desde el punto de vista del revisor. La división de settings debe acompañarse de separación efectiva de entornos. MSAL necesita una explicación de responsabilidades del directorio. Una consulta con permisos requiere una prueba de denegación. Los respaldos necesitan un ensayo de restauración. Cada tema anterior encuentra un lugar dentro del expediente.",
+        "En esa revisión también aprendemos a conservar las diferencias. Si falta logout, lo declaramos; si la restricción de hosts no cumple la exigencia de WAF, la registramos; si un compromiso depende del cliente, asignamos al interlocutor que puede resolverlo. Un documento con respuestas favorables pierde utilidad cuando oculta esas condiciones. La propuesta comercial debe contemplar el trabajo y el costo necesarios para cumplir.",
+        "El acta enlaza la versión ofrecida con pruebas, pendientes y decisiones de aceptación. El resultado no es una promesa de que cualquier cliente aprobará la aplicación: es una forma de presentar un servicio que se pueda revisar y sostener. Con ese criterio, el proyecto final puede reunir tanto la funcionalidad vertical como las evidencias que otra área necesita para recibirla."
+      ]
+    }
+  }
+}

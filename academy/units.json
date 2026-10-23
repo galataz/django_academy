@@ -1,0 +1,57 @@
+[
+  {
+    "id": 1,
+    "title": "Fundamentos y arquitectura",
+    "description": "Del requisito a un modelo con reglas claras."
+  },
+  {
+    "id": 2,
+    "title": "APIs y casos de uso",
+    "description": "Contratos, CQS, reutilización y consultas eficientes."
+  },
+  {
+    "id": 3,
+    "title": "Composición y frontend",
+    "description": "Mixins, templates, JavaScript y capacidades."
+  },
+  {
+    "id": 4,
+    "title": "Seguridad y consistencia",
+    "description": "Permisos, identidad, transacciones y cálculos."
+  },
+  {
+    "id": 5,
+    "title": "Datos y tiempo real",
+    "description": "Ingesta, WebSockets, alarmas e históricos."
+  },
+  {
+    "id": 6,
+    "title": "Entrega profesional",
+    "description": "Reportes, pruebas, operación y proyecto final."
+  },
+  {
+    "id": 7,
+    "title": "Identidad empresarial en Azure",
+    "description": "Entra ID, MSAL, Easy Auth, delegación y licenciamiento."
+  },
+  {
+    "id": 8,
+    "title": "Azure y Django: configuración y despliegue",
+    "description": "Entornos, variables, arranque, estáticos, PowerShell, Kudu y ciclo de entrega."
+  },
+  {
+    "id": 9,
+    "title": "Operación y DevSecOps",
+    "description": "Telemetría, infraestructura IoT, costos, correo y vulnerabilidades."
+  },
+  {
+    "id": 10,
+    "title": "Gobernanza de PostgreSQL",
+    "description": "Roles, mínimo privilegio, migraciones, pgAdmin y acceso verificable."
+  },
+  {
+    "id": 11,
+    "title": "Mantenimiento de App Service",
+    "description": "Kudu, cuotas, cachés, despliegues limpios y cambios de plan."
+  }
+]

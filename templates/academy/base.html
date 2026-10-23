@@ -1,0 +1,10 @@
+{% load static %}<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Aprende a construir proyectos Django profesionales: arquitectura, CQS, mixins, APIs, frontend y plataformas IoT.">
+<title>{% block title %}Django con criterio · Academia de desarrollo{% endblock %}</title>
+<link rel="stylesheet" href="{% static 'academy.css' %}"></head>
+<body data-total="{{ total }}"><header><a href="/" class="brand"><span class="brand-mark">D/</span> DJANGO CON CRITERIO</a><nav><a href="/">Ruta de aprendizaje</a><a href="{% url 'story' %}">La historia</a><a href="/#proyecto">Proyecto guía</a><span class="badge">ABIERTO A TODOS</span></nav></header>
+<main>{% block content %}{% endblock %}</main>
+<footer><span>Django con criterio · Aprende construyendo.</span><span>Sin registro. Tu cuaderno permanece en este navegador.</span></footer>
+{{ course_order|json_script:"course-order" }}
+<script src="{% static 'academy.js' %}" defer></script></body></html>

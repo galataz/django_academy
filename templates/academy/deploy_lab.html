@@ -1,0 +1,12 @@
+{% load static %}
+<section class="deploy-lab" id="laboratorio-entornos">
+<div class="deploy-lab-heading"><div><p class="eyebrow">LABORATORIO DE CONFIGURACIÓN</p><h2>Prepara tu estación de despliegue</h2><p>Cambia el entorno, el servidor y la identidad para comparar sus responsabilidades.</p></div><img src="{% static 'cards/lesson-65.webp' %}" width="640" height="420" alt="Isla con servidores y una llave"></div>
+<div class="deploy-selectors">
+<label>Entorno<select id="deploy-env"><option value="dev">DEV · tu PC</option><option value="prod">PROD · Azure Linux</option></select></label>
+<label>Servidor<select id="deploy-server"><option value="wsgi">HTTP · WSGI</option><option value="asgi">Tiempo real · ASGI</option></select></label>
+<label>Paquete<select id="deploy-layout"><option value="nested">SensorHub/ + requirements.txt</option><option value="flat">Proyecto en la raíz</option></select></label>
+<label>Identidad<select id="deploy-auth"><option value="msal">MSAL propio</option><option value="easy">Easy Auth</option><option value="public">Sitio público</option></select></label>
+</div>
+<div id="deploy-result" aria-live="polite"></div>
+<p class="map-caption">Simulación didáctica. Los valores son ejemplos: no crea recursos, no inicia sesión ni publica archivos. Sin JavaScript, consulta la tabla y los pasos de la lección.</p>
+</section>

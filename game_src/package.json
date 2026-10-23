@@ -1,0 +1,16 @@
+{
+  "name": "isla-django",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "build": "esbuild main.js --bundle --minify --format=iife --target=es2020 --outfile=../static/game.bundle.js",
+    "render:cards": "node render-cards.cjs"
+  },
+  "dependencies": {
+    "three": "0.180.0"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.10",
+    "playwright": "1.64.0"
+  }
+}

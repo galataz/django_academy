@@ -1,0 +1,157 @@
+[
+  {
+    "id": 1,
+    "title": "Un equipo, una base común",
+    "description": "Necesitábamos una tecnología que el equipo pudiera aprender y una forma de empezar que pudiera repetir.",
+    "lessons": [
+      1,
+      2,
+      62,
+      4,
+      3,
+      63
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Del arranque a una base protegida",
+    "description": "La primera página funcionaba; ahora había que entender y proteger las peticiones que la hacían posible.",
+    "lessons": [
+      19,
+      74
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Cada pieza encuentra su responsabilidad",
+    "description": "El crecimiento nos llevó a separar datos, contratos, consultas y cambios sin perder el recorrido de una petición.",
+    "lessons": [
+      72,
+      5,
+      6,
+      7,
+      8,
+      12,
+      9,
+      10,
+      11,
+      76,
+      23
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Una interfaz que el equipo pueda mantener",
+    "description": "La arquitectura también debía llegar a las pantallas y a sus componentes compartidos.",
+    "lessons": [
+      13,
+      14,
+      15,
+      16
+    ]
+  },
+  {
+    "id": 5,
+    "title": "Ver un botón no concede permiso",
+    "description": "Al aparecer responsabilidades distintas, necesitábamos una misma política para la pantalla y el servidor.",
+    "lessons": [
+      17,
+      18,
+      20,
+      21,
+      22
+    ]
+  },
+  {
+    "id": 6,
+    "title": "Los datos empiezan a llegar",
+    "description": "La plataforma debía recibir mediciones, entender su tiempo y convertirlas en información útil.",
+    "lessons": [
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      49,
+      31
+    ]
+  },
+  {
+    "id": 7,
+    "title": "La identidad sale del equipo",
+    "description": "Al integrar la organización, hubo que decidir cómo iniciar sesión, separar entornos y delegar acceso.",
+    "lessons": [
+      34,
+      35,
+      36,
+      41,
+      37,
+      38,
+      39,
+      40
+    ]
+  },
+  {
+    "id": 8,
+    "title": "La base de datos también tiene fronteras",
+    "description": "Publicar requería decidir quién podía leer, modificar, migrar y recuperar los datos.",
+    "lessons": [
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      73
+    ]
+  },
+  {
+    "id": 9,
+    "title": "El mismo proyecto llega a Azure",
+    "description": "Una entrega repetible conecta infraestructura, configuración, servidor, paquete y verificación.",
+    "lessons": [
+      64,
+      77,
+      42,
+      65,
+      66,
+      67,
+      68,
+      70,
+      69,
+      43,
+      44,
+      45,
+      75,
+      32,
+      71
+    ]
+  },
+  {
+    "id": 10,
+    "title": "Operar también es desarrollar",
+    "description": "Con el servicio funcionando, el equipo asume consumo, vulnerabilidades, almacenamiento y continuidad.",
+    "lessons": [
+      46,
+      47,
+      48,
+      50,
+      51,
+      58,
+      59,
+      60,
+      61
+    ]
+  },
+  {
+    "id": 11,
+    "title": "Volver a empezar con una base mejor",
+    "description": "La base debe ser replicable y demostrar controles, evidencias y responsabilidades antes de una entrega industrial.",
+    "lessons": [
+      78,
+      33
+    ]
+  }
+]
