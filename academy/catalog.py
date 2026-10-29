@@ -21,3 +21,21 @@ def get_lesson(pk):
 STORY = json.loads((ROOT / "story.json").read_text(encoding="utf-8"))
 for chapter in STORY:
     chapter["topics"] = [get_lesson(pk) for pk in chapter["lessons"]]
+
+# El relato conserva su cronología; la ruta práctica tiene su propio orden.
+# Los identificadores existentes siguen siendo la clave del cuaderno local.
+JOURNEY = json.loads((ROOT / 'journey.json').read_text(encoding='utf-8'))
+JOURNEY_ORDER = [pk for stage in JOURNEY for pk in stage['lessons']]
+for stage in JOURNEY:
+    stage['topics'] = [get_lesson(pk) for pk in stage['lessons']]
+    stage['first_lesson'] = stage['lessons'][0]
+
+def get_stage(slug):
+    return next((stage for stage in JOURNEY if stage['slug'] == slug), None)
+
+def stage_for_lesson(pk):
+    return next((stage for stage in JOURNEY if pk in stage['lessons']), None)
+
+ACCEPTANCE = json.loads((ROOT / 'acceptance.json').read_text(encoding='utf-8'))
+for control in ACCEPTANCE:
+    control['topics'] = [{'id': pk, 'title': get_lesson(pk)['title']} for pk in control['lessons']]

@@ -54,7 +54,7 @@ class PublicAcademyTests(TestCase):
 
     def test_azure_extension_navigation_and_references(self):
         from academy.catalog import UNITS
-        self.assertContains(self.client.get('/'), f'{len(UNITS)} unidades')
+        self.assertContains(self.client.get('/biblioteca/'), f'{len(UNITS)} unidades')
         response = self.client.get('/?unit=9')
         self.assertContains(response, 'Correo SMTP nativo después del commit')
         self.assertNotContains(response, 'Diseñar antes de programar')
@@ -64,7 +64,7 @@ class PublicAcademyTests(TestCase):
             self.assertContains(page, lesson['references'][0]['url'])
             for field in ('why', 'theory', 'steps', 'code', 'explain', 'pitfall', 'exercise', 'solution', 'checks'):
                 self.assertTrue(lesson[field], (lesson['id'], field))
-        self.assertContains(self.client.get('/tema/31/'), '/tema/34/')
+        self.assertContains(self.client.get('/tema/31/'), '/tema/50/')
         self.assertNotContains(self.client.get(f"/tema/{LESSONS[-1]['id']}/"), 'Siguiente tema')
 
     def test_database_and_maintenance_units(self):
@@ -74,7 +74,7 @@ class PublicAcademyTests(TestCase):
         maintenance_page = self.client.get('/?unit=11')
         self.assertContains(maintenance_page, 'Reducir el plan: diagnóstico Bx a F1')
         self.assertNotContains(maintenance_page, 'Roles de runtime, migración y consulta')
-        self.assertContains(self.client.get('/tema/40/'), '/tema/52/')
+        self.assertContains(self.client.get('/tema/40/'), '/tema/42/')
         self.assertContains(self.client.get('/tema/57/'), 'verify-full')
         self.assertContains(self.client.get('/tema/60/'), 'Tu turno')
         self.assertContains(self.client.get('/tema/61/'), 'Comparación orientativa de niveles')
@@ -100,7 +100,7 @@ class PublicAcademyTests(TestCase):
             self.assertContains(page, 'class="map-step"', count=4)
             self.assertContains(page, 'Leer la explicación del mapa')
             self.assertContains(page, visual['diagram'])
-        home = self.client.get('/')
+        home = self.client.get('/biblioteca/')
         self.assertContains(home, 'visuals/course-map.svg')
         for unit in UNITS:
             self.assertContains(home, unit['illustration'])
@@ -111,8 +111,8 @@ class PublicAcademyTests(TestCase):
         self.assertContains(response, 'ISLA DJANGO')
         self.assertContains(response, '/static/game.bundle.js')
         self.assertContains(response, 'id="fallback"')
-        self.assertContains(self.client.get('/'), 'src="/laboratorio/"')
-        self.assertContains(self.client.get('/tema/8/'), 'src="/laboratorio/"')
+        self.assertNotContains(self.client.get('/'), 'src="/laboratorio/"')
+        self.assertNotContains(self.client.get('/tema/8/'), 'src="/laboratorio/"')
         self.assertNotContains(self.client.get('/tema/9/'), 'src="/laboratorio/"')
 
     def test_game_allows_same_origin_embedding_only(self):
@@ -123,12 +123,15 @@ class PublicAcademyTests(TestCase):
     def test_learning_order_preserves_stable_identifiers(self):
         self.assertEqual(len(LESSONS), 78)
         self.assertEqual(len({x['id'] for x in LESSONS}), 78)
-        for index, lesson in enumerate(LESSONS):
-            response = self.client.get(f"/tema/{lesson['id']}/")
-            expected_next = LESSONS[index + 1]['id'] if index + 1 < len(LESSONS) else None
-            expected_previous = LESSONS[index - 1]['id'] if index else None
-            self.assertEqual(response.context['next'], expected_next)
-            self.assertEqual(response.context['previous'], expected_previous)
+        from academy.catalog import JOURNEY
+        for stage in JOURNEY:
+            for index, pk in enumerate(stage['lessons']):
+                response = self.client.get(f'/tema/{pk}/')
+                expected_next = stage['lessons'][index + 1] if index + 1 < len(stage['lessons']) else None
+                expected_previous = stage['lessons'][index - 1] if index else None
+                self.assertEqual(response.context['next'], expected_next)
+                self.assertEqual(response.context['previous'], expected_previous)
+                self.assertEqual(response.context['stage']['slug'], stage['slug'])
         self.assertEqual(self.client.get('/tema/2/').context['next'], 62)
         self.assertEqual(self.client.get('/tema/3/').context['next'], 63)
 
@@ -239,7 +242,7 @@ class PublicAcademyTests(TestCase):
             if position + 1 < len(LESSONS):
                 following = LESSONS[position + 1]
                 self.assertEqual(lesson['story']['next']['id'], following['id'])
-                self.assertEqual(page.context['next'], following['id'])
+                # El relato conserva la cronología; la navegación técnica sigue la ruta práctica.
             else:
                 self.assertIsNone(page.context['next'])
 
@@ -286,8 +289,8 @@ class PublicAcademyTests(TestCase):
         import json
         lesson = get_lesson(78)
         response = self.client.get('/tema/78/')
-        self.assertEqual(response.context['previous'], 61)
-        self.assertEqual(response.context['next'], 33)
+        self.assertIsNone(response.context['previous'])
+        self.assertEqual(response.context['next'], 1)
         for expected in ('WAF', 'logout', 'RTO', 'RPO', 'SAST', 'No aplica', 'acta de compromiso'):
             self.assertContains(response, expected)
         self.assertContains(self.client.get('/?q=aceptación'), lesson['title'])
@@ -299,3 +302,60 @@ class PublicAcademyTests(TestCase):
             self.assertNotIn(forbidden, content)
         self.assertEqual(len(lesson['table']['rows']), 29)
         self.assertEqual(len(lesson['sections']), 22)
+
+    def test_journey_covers_all_lessons_and_starts_with_acceptance(self):
+        from academy.catalog import JOURNEY, JOURNEY_ORDER
+        all_ids = [pk for stage in JOURNEY for pk in stage['lessons']]
+        self.assertEqual(len(JOURNEY), 7)
+        self.assertEqual(len(all_ids), len(set(all_ids)))
+        self.assertEqual(set(all_ids), {lesson['id'] for lesson in LESSONS})
+        self.assertEqual(JOURNEY_ORDER[0], 78)
+        self.assertEqual(JOURNEY_ORDER[-1], 33)
+        home = self.client.get('/')
+        self.assertContains(home, 'class="journey-card"', count=7)
+        self.assertNotContains(home, 'class="card"')
+        for stage in JOURNEY:
+            page = self.client.get(f'/ruta/{stage["slug"]}/')
+            self.assertEqual(page.status_code, 200)
+            self.assertContains(page, stage['outcome'])
+            for pk in stage['lessons']:
+                self.assertContains(page, f'/tema/{pk}/')
+        self.assertEqual(self.client.get('/ruta/no-existe/').status_code, 404)
+        self.assertContains(self.client.get('/biblioteca/'), 'class="card"', count=78)
+        self.assertEqual(home.context['course_order'], JOURNEY_ORDER)
+
+    def test_acceptance_workshop_links_controls_to_implementation(self):
+        from academy.catalog import ACCEPTANCE
+        import json
+        page = self.client.get('/ruta/vender/')
+        self.assertContains(page, 'class="evidence-form"', count=12)
+        for control in ACCEPTANCE:
+            self.assertContains(page, f'id="control-{control["id"]}"')
+            for pk in control['lessons']:
+                self.assertIn(pk, {lesson['id'] for lesson in LESSONS})
+        for expected in ('SAST', 'SCA', 'DAST', 'RTO', 'RPO', '90 días', '10 caracteres', 'No aplica propuesto', 'acta de compromiso'):
+            self.assertContains(page, expected)
+        content = json.dumps(ACCEPTANCE, ensure_ascii=False).casefold()
+        for forbidden in ('colgas', 'cinsa', 'cotranscol', 'vanti', 'cdtdegas', 'gmp250', 'csirt@'):
+            self.assertNotIn(forbidden, content)
+        self.assertContains(page, 'guides/expediente-aceptacion-industrial.md')
+        self.assertContains(self.client.get('/ruta/entregar/'), '/ruta/vender/#matriz')
+        self.assertContains(self.client.get('/'), 'mailto:ingeniero.oscargomez@gmail.com')
+
+    def test_full_journey_keeps_all_topics_visible_and_navigable(self):
+        from academy.catalog import JOURNEY, JOURNEY_ORDER
+        self.assertEqual(len(JOURNEY_ORDER), 78)
+        self.assertEqual(set(JOURNEY_ORDER), {lesson['id'] for lesson in LESSONS})
+        for stage in JOURNEY:
+            page = self.client.get(f'/ruta/{stage["slug"]}/')
+            self.assertContains(page, 'data-topic=', count=len(stage['lessons']))
+            self.assertNotContains(page, 'stage-extensions')
+            for index, pk in enumerate(stage['lessons']):
+                lesson = self.client.get(f'/tema/{pk}/')
+                self.assertEqual(lesson.context['stage']['slug'], stage['slug'])
+                expected = stage['lessons'][index + 1] if index + 1 < len(stage['lessons']) else None
+                self.assertEqual(lesson.context['next'], expected)
+        for pk in (26, 27, 28, 37, 38, 40, 43, 44, 47, 48, 49, 56):
+            context = self.client.get(f'/tema/{pk}/').context
+            self.assertTrue(context['previous'] is not None or context['next'] is not None)
+        self.assertEqual(self.client.get('/tema/33/').context['next'], None)

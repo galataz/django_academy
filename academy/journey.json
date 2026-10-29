@@ -1,0 +1,289 @@
+[
+  {
+    "id": 1,
+    "slug": "vender",
+    "title": "Prepara una propuesta que puedas cumplir",
+    "question": "¿Qué me van a exigir antes de aceptar mi proyecto?",
+    "intro": "La primera reunión llega antes del primer comando. El área usuaria quiere resolver un problema; TI, infraestructura y seguridad necesitan saber si podrán aceptar y operar lo que ofreces. Empieza por sus preguntas y convierte las respuestas en alcance, costo y evidencia.",
+    "outcome": "Una ficha de alcance, una matriz de requisitos y una lista de brechas para discutir antes de cotizar.",
+    "lessons": [
+      78,
+      1
+    ],
+    "checklist": [
+      "Describe el problema, los usuarios, los datos y el resultado que vas a vender.",
+      "Solicita las matrices, el anexo de seguridad y los criterios de aceptación vigentes.",
+      "Asigna responsable y evidencia a cada requisito; identifica los bloqueantes.",
+      "Incluye infraestructura, pruebas, soporte y documentación en la propuesta.",
+      "Acuerda las brechas antes de asumir fechas, costos o compromisos de disponibilidad."
+    ],
+    "bridge": "Ya sabes qué debes demostrar. Ahora decide con qué recursos y responsabilidades vas a cumplirlo.",
+    "work": [
+      {
+        "title": "Pide las condiciones antes de fijar un precio.",
+        "action": "Prepara una ficha de una página con problema, alcance, usuarios, datos y criterio de éxito. Agenda la revisión de requisitos con quienes puedan decidir sobre TI, infraestructura y seguridad.",
+        "artifact": "01-alcance.md"
+      },
+      {
+        "title": "Convierte el formulario en trabajo presupuestable.",
+        "action": "Usa la matriz de esta página: distingue implementación, evidencia y brecha. Agrupa costos únicos y recurrentes; deja fuera de la promesa lo que siga pendiente de acuerdo.",
+        "artifact": "mi-matriz-aceptacion.md"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "slug": "planear",
+    "title": "Diseña la solución y su costo en Azure",
+    "question": "¿Qué necesito contratar, separar y administrar?",
+    "intro": "Dibuja SensorHub antes de contratar recursos: usuarios e identidad, App Service para Django, PostgreSQL si necesitas persistencia y una frontera para los datos industriales. Distingue lo que administra Azure de lo que debe configurar, probar y pagar tu equipo.",
+    "outcome": "Un diagrama de arquitectura, inventario de recursos y presupuesto con responsables por ambiente.",
+    "lessons": [
+      64,
+      77,
+      35,
+      34,
+      36,
+      40,
+      42,
+      52,
+      54
+    ],
+    "checklist": [
+      "Dibuja el recorrido del usuario y del dato desde su origen hasta PostgreSQL.",
+      "Define DEV y PROD con datos, credenciales, accesos y despliegues separados.",
+      "Estima App Service, base de datos, respaldos, monitoreo y controles perimetrales.",
+      "Decide quién administra cada recurso y qué cambia si eliges otro alojamiento."
+    ],
+    "bridge": "Con el destino y las condiciones claros, prepara una base que otro compañero pueda ejecutar.",
+    "work": [
+      {
+        "title": "Dibuja la arquitectura mínima.",
+        "action": "Representa usuario, identidad, entrada web, App Service, PostgreSQL e ingesta. Rotula cada conexión con protocolo, autenticación y datos; declara lo que no necesitas contratar.",
+        "artifact": "02-arquitectura.svg o PDF"
+      },
+      {
+        "title": "Haz visible el costo de cumplir.",
+        "action": "Registra región, plan, ambiente, responsable, costo estimado y evidencia de cada recurso. Añade respaldos, monitoreo, controles perimetrales y soporte; valida precios antes de ofrecerlos.",
+        "artifact": "02-recursos-y-costos.md"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "slug": "arrancar",
+    "title": "Levanta una base Django reproducible",
+    "question": "¿Cómo pasa mi compañero del repositorio a una página funcionando?",
+    "intro": "Delimita el entorno Python, fija dependencias y comparte el proyecto en GitHub. Usa config como convención del equipo y separa base.py, development.py y production.py para seleccionar explícitamente el entorno sin editar archivos en cada publicación.",
+    "outcome": "Un clon que arranca en local, con dependencias registradas, settings separados y secretos fuera de Git.",
+    "lessons": [
+      2,
+      62,
+      4,
+      3,
+      63,
+      72,
+      5,
+      6,
+      7,
+      19,
+      74
+    ],
+    "checklist": [
+      "Crea el entorno virtual, instala requirements.txt y arranca con manage.py.",
+      "Haz un commit de la base y practica trabajar en dev con revisión de cambios.",
+      "Selecciona development o production mediante DJANGO_SETTINGS_MODULE.",
+      "Define .env local, modelos y serializers; aplica migraciones y prueba la conexión.",
+      "Comprueba middleware, CSRF y cabeceras sin introducir secretos en el repositorio."
+    ],
+    "bridge": "La base arranca. Ahora hazla crecer sin copiar el mismo controlador en cada aplicación.",
+    "work": [
+      {
+        "title": "Reproduce el arranque desde cero.",
+        "action": "Trabaja en una carpeta limpia: entorno virtual, requirements, migraciones y runserver. Pide a otro compañero repetirlo desde el repositorio y registra el primer punto donde no pueda avanzar.",
+        "artifact": "03-arranque-local.md"
+      },
+      {
+        "title": "Prueba el contrato de configuración.",
+        "action": "Documenta config.settings.development y config.settings.production, las variables que exige cada uno y sus valores de ejemplo sin secretos. Comprueba que .env y venv queden fuera de Git.",
+        "artifact": "03-configuracion.md y commit de la base"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "slug": "construir",
+    "title": "Construye sin repetir y conecta el dato",
+    "question": "¿Cómo crece el proyecto sin convertirse en una sola vista enorme?",
+    "intro": "Recorre una petición desde la URL hasta el caso de uso. Separa consultas y comandos con CQS, concentra CRUD y paginación en repoGenerico y reutiliza contratos de frontend. Sobre esa base construye el caso industrial de SensorHub.",
+    "outcome": "Un flujo de consulta y escritura con contratos comunes, validación, interfaz y reglas de negocio.",
+    "lessons": [
+      8,
+      12,
+      9,
+      10,
+      11,
+      76,
+      23,
+      13,
+      14,
+      15,
+      16,
+      22,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      49
+    ],
+    "checklist": [
+      "Implementa una consulta y un comando separados por intención.",
+      "Reutiliza repoGenerico para consulta por ID y paginación; evita variantes locales.",
+      "Mide consultas N+1 y presupuesto de conexiones; el pool no corrige el N+1.",
+      "Conecta la pantalla al contrato API y prueba errores de entrada.",
+      "Valida identidad técnica, timestamps y duplicados antes de persistir una medición."
+    ],
+    "bridge": "Una función que responde todavía necesita permisos y evidencia de seguridad. Es hora de probar quién puede usarla.",
+    "work": [
+      {
+        "title": "Implementa un corte completo.",
+        "action": "Elige una operación pequeña, como consultar ubicaciones: URL, Query, repoGenerico, serializer y pantalla. Agrega un Command separado y muestra el antes/después de la abstracción.",
+        "artifact": "04-flujo-ubicaciones.md y commit funcional"
+      },
+      {
+        "title": "Demuestra que la base se reutiliza.",
+        "action": "Crea una segunda consulta heredando el mismo paginador y sus validaciones. Mide el número de consultas y el consumo de conexiones en lugar de asumir una mejora.",
+        "artifact": "04-pruebas-de-reutilizacion.md"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "slug": "proteger",
+    "title": "Protege y prueba lo que vas a ofrecer",
+    "question": "¿Puedo demostrar quién entra, qué hace y qué queda registrado?",
+    "intro": "Ocultar un botón ayuda a la interfaz; los permisos del backend protegen la operación. Integra identidad con MSAL propio, aplica una política de capacidades y prueba las denegaciones. Relaciona esas pruebas con los requisitos que identificaste en la primera reunión.",
+    "outcome": "Una matriz de permisos comprobada y un expediente de pruebas por versión, con hallazgos y decisiones.",
+    "lessons": [
+      17,
+      18,
+      20,
+      41,
+      37,
+      38,
+      39,
+      21,
+      53,
+      55,
+      56,
+      57,
+      31,
+      50,
+      51
+    ],
+    "checklist": [
+      "Prueba una URL directa con usuario sin permiso y una sesión después de revocar acceso.",
+      "Verifica MSAL, callback y políticas efectivas del proveedor de identidad.",
+      "Comprueba login, logout, cambios y exportaciones en los eventos de auditoría.",
+      "Distingue SAST, SCA y DAST; registra el alcance, la versión y el resultado.",
+      "Revisa dependencias cada día, prioriza el riesgo, corrige y prueba antes de publicar."
+    ],
+    "bridge": "Los controles están definidos y probados. Prepara ahora exactamente la versión que vas a ejecutar en Azure.",
+    "work": [
+      {
+        "title": "Ensaya permisos sobre la API.",
+        "action": "Construye una matriz de roles y prueba al menos acceso anónimo, rol insuficiente y acceso autorizado. Repite una petición con la sesión abierta después de retirar un permiso.",
+        "artifact": "05-matriz-permisos.md e informe de pruebas"
+      },
+      {
+        "title": "Vincula seguridad con una versión.",
+        "action": "Registra herramientas, alcance, fecha y commit de SAST, SCA y DAST. Clasifica hallazgos según aplicabilidad y riesgo, asigna responsables y repite las pruebas tras corregir. La revisión diaria propone cambios que deben comprobarse.",
+        "artifact": "05-hallazgos-y-evidencias.md"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "slug": "publicar",
+    "title": "Publica tu versión en App Service",
+    "question": "¿Cómo llega el proyecto de VS Code a una URL que funciona?",
+    "intro": "Sigue el flujo manual del equipo: configuración de producción, collectstatic, carpeta SensorHub, requirements.txt dentro y fuera, deploy.zip y carga por herramientas avanzadas. PowerShell es una alternativa. El servidor de arranque depende del contrato WSGI o ASGI y de la estructura del ZIP.",
+    "outcome": "Un paquete identificable y una URL comprobada con estáticos, configuración, logs y procedimiento de reversión.",
+    "lessons": [
+      65,
+      66,
+      67,
+      68,
+      70,
+      69,
+      43,
+      44,
+      45,
+      75,
+      32,
+      71
+    ],
+    "checklist": [
+      "Define SECRET_KEY, hosts, conexiones y módulo de settings en el entorno correcto.",
+      "Prepara collectstatic y verifica manifiesto, paquete y exclusión de .env y venv.",
+      "Carga el ZIP y usa el arranque que corresponde a la carpeta y al servidor elegidos.",
+      "Comprueba HTTPS, cabeceras, estáticos, /health/, /ready/ y una operación real.",
+      "Registra el commit publicado y ensaya cómo volver a la versión anterior."
+    ],
+    "bridge": "La publicación es un hito. La aceptación requiere demostrar recuperación, soporte y continuidad.",
+    "work": [
+      {
+        "title": "Prepara y publica el mismo artefacto.",
+        "action": "Sigue las lecciones de variables, estáticos y paquete: selecciona producción explícitamente, prepara staticfiles y conserva la estructura SensorHub/ con sus requirements. Usa el arranque correspondiente y carga deploy.zip en herramientas avanzadas.",
+        "artifact": "06-registro-de-publicacion.md y deploy.zip"
+      },
+      {
+        "title": "Comprueba la entrega desde fuera.",
+        "action": "Verifica HTTPS, CSS e imágenes, salud, disponibilidad y una operación del negocio. Relaciona el commit con el paquete y registra la versión anterior y el procedimiento para recuperarla.",
+        "artifact": "06-verificacion-y-reversion.md"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "slug": "entregar",
+    "title": "Demuestra, entrega y mantén",
+    "question": "¿Qué entrego para que el cliente acepte y pueda operar?",
+    "intro": "Vuelve a la matriz de la primera reunión. Adjunta resultados del servicio desplegado, restaura un respaldo y contrasta lo medido con lo prometido. Entrega responsables, runbooks, brechas y compromisos con fecha. Después observa consumo, almacenamiento y vulnerabilidades para sostener el servicio.",
+    "outcome": "Un expediente de entrega, una restauración ensayada y un acta para revisión de los responsables autorizados.",
+    "lessons": [
+      73,
+      46,
+      47,
+      48,
+      58,
+      59,
+      60,
+      61,
+      33
+    ],
+    "checklist": [
+      "Restaura en un entorno de prueba y mide RTO y RPO con controles activos.",
+      "Define responsables de alertas, incidentes, soporte y retiro de accesos.",
+      "Vincula cada evidencia con la versión realmente desplegada.",
+      "Mantén visibles los incumplimientos bloqueantes y las excepciones autorizadas.",
+      "Entrega documentación, salida de datos y compromisos antes del cierre formal."
+    ],
+    "bridge": "La ruta termina con una entrega revisable. La operación mantiene vivo el compromiso adquirido.",
+    "work": [
+      {
+        "title": "Restaura y mide.",
+        "action": "Usa un respaldo en un entorno de prueba y valida datos, permisos y servicio. Registra inicio, fin, pérdida de datos y problemas encontrados; compara los resultados con RTO y RPO acordados.",
+        "artifact": "07-acta-restauracion.md"
+      },
+      {
+        "title": "Cierra el expediente con el cliente.",
+        "action": "Actualiza la matriz inicial con referencias de pruebas y evidencias. Entrega manual operativo, alertas, contactos, soporte, salida de datos y acta de compromisos. Una brecha bloqueante continúa abierta hasta su resolución o decisión autorizada.",
+        "artifact": "07-expediente-entrega y acta para revisión"
+      }
+    ]
+  }
+]
